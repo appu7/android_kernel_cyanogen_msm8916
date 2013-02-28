@@ -468,7 +468,11 @@ void unmap_bin_file(struct sysfs_dirent *attr_sd)
 	mutex_lock(&sysfs_bin_lock);
 
 	hlist_for_each_entry(bb, &attr_sd->s_bin_attr.buffers, list) {
+<<<<<<< HEAD
 		struct inode *inode = file_inode(bb->file);
+=======
+		struct inode *inode = bb->file->f_path.dentry->d_inode;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 		unmap_mapping_range(inode->i_mapping, 0, 0, 1);
 	}

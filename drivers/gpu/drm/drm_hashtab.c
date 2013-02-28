@@ -66,7 +66,16 @@ void drm_ht_verbose_list(struct drm_open_hash *ht, unsigned long key)
 	hashed_key = hash_long(key, ht->order);
 	DRM_DEBUG("Key is 0x%08lx, Hashed key is 0x%08x\n", key, hashed_key);
 	h_list = &ht->table[hashed_key];
+<<<<<<< HEAD
 	hlist_for_each_entry(entry, h_list, head)
+=======
+<<<<<<< HEAD
+	hlist_for_each(list, h_list) {
+		entry = hlist_entry(list, struct drm_hash_item, head);
+=======
+	hlist_for_each_entry(entry, h_list, head)
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		DRM_DEBUG("count %d, key: 0x%08lx\n", count++, entry->key);
 }
 
@@ -79,7 +88,16 @@ static struct hlist_node *drm_ht_find_key(struct drm_open_hash *ht,
 
 	hashed_key = hash_long(key, ht->order);
 	h_list = &ht->table[hashed_key];
+<<<<<<< HEAD
 	hlist_for_each_entry(entry, h_list, head) {
+=======
+<<<<<<< HEAD
+	hlist_for_each(list, h_list) {
+		entry = hlist_entry(list, struct drm_hash_item, head);
+=======
+	hlist_for_each_entry(entry, h_list, head) {
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (entry->key == key)
 			return &entry->head;
 		if (entry->key > key)
@@ -88,6 +106,11 @@ static struct hlist_node *drm_ht_find_key(struct drm_open_hash *ht,
 	return NULL;
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 static struct hlist_node *drm_ht_find_key_rcu(struct drm_open_hash *ht,
 					      unsigned long key)
 {
@@ -105,6 +128,10 @@ static struct hlist_node *drm_ht_find_key_rcu(struct drm_open_hash *ht,
 	}
 	return NULL;
 }
+<<<<<<< HEAD
+=======
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 int drm_ht_insert_item(struct drm_open_hash *ht, struct drm_hash_item *item)
 {
@@ -117,7 +144,16 @@ int drm_ht_insert_item(struct drm_open_hash *ht, struct drm_hash_item *item)
 	hashed_key = hash_long(key, ht->order);
 	h_list = &ht->table[hashed_key];
 	parent = NULL;
+<<<<<<< HEAD
 	hlist_for_each_entry(entry, h_list, head) {
+=======
+<<<<<<< HEAD
+	hlist_for_each(list, h_list) {
+		entry = hlist_entry(list, struct drm_hash_item, head);
+=======
+	hlist_for_each_entry(entry, h_list, head) {
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (entry->key == key)
 			return -EINVAL;
 		if (entry->key > key)

@@ -61,8 +61,12 @@ static void inet_frag_secret_rebuild(unsigned long dummy)
 		struct inet_frag_queue *q;
 		struct hlist_node *n;
 
+<<<<<<< HEAD
 		hb = &f->hash[i];
 		hlist_for_each_entry_safe(q, n, &hb->chain, list) {
+=======
+		hlist_for_each_entry_safe(q, n, &f->hash[i], list) {
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			unsigned int hval = f->hashfn(q);
 
 			if (hval != i) {
@@ -266,7 +270,11 @@ static struct inet_frag_queue *inet_frag_intern(struct netns_frags *nf,
 	 * such entry could be created on other cpu, while we
 	 * released the hash bucket lock.
 	 */
+<<<<<<< HEAD
 	hlist_for_each_entry(qp, &hb->chain, list) {
+=======
+	hlist_for_each_entry(qp, &f->hash[hash], list) {
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (qp->net == nf && f->match(qp, arg)) {
 			atomic_inc(&qp->refcnt);
 			spin_unlock(&hb->chain_lock);
@@ -331,10 +339,14 @@ struct inet_frag_queue *inet_frag_find(struct netns_frags *nf,
 	struct inet_frag_queue *q;
 	int depth = 0;
 
+<<<<<<< HEAD
 	hb = &f->hash[hash];
 
 	spin_lock(&hb->chain_lock);
 	hlist_for_each_entry(q, &hb->chain, list) {
+=======
+	hlist_for_each_entry(q, &f->hash[hash], list) {
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (q->net == nf && f->match(q, key)) {
 			atomic_inc(&q->refcnt);
 			spin_unlock(&hb->chain_lock);

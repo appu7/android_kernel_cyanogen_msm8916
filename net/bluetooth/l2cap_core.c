@@ -1303,19 +1303,62 @@ static struct l2cap_chan *l2cap_global_chan_by_scid(int state, u16 cid,
 						    bdaddr_t *src,
 						    bdaddr_t *dst)
 {
+<<<<<<< HEAD
 	struct l2cap_chan *c, *c1 = NULL;
+=======
+	struct sock *sk = NULL, *sk1 = NULL;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	read_lock(&chan_list_lock);
 
 	list_for_each_entry(c, &chan_list, global_l) {
 		struct sock *sk = c->sk;
 
+<<<<<<< HEAD
 		if (state && c->state != state)
 			continue;
 
 		if (c->scid == cid) {
 			int src_match, dst_match;
 			int src_any, dst_any;
+=======
+	sk_for_each(sk, &l2cap_sk_list.head) {
+
+		if (incoming && !l2cap_pi(sk)->incoming)
+			continue;
+
+		if (!incoming && l2cap_pi(sk)->incoming)
+			continue;
+
+		if (l2cap_pi(sk)->scid == cid && !bacmp(&bt_sk(sk)->dst, dst)) {
+			/* Exact match. */
+			if (!bacmp(&bt_sk(sk)->src, src))
+				break;
+
+			/* Closest match */
+			if (!bacmp(&bt_sk(sk)->src, BDADDR_ANY))
+				sk1 = sk;
+		}
+	}
+
+	read_unlock(&l2cap_sk_list.lock);
+
+	return sk ? sk : sk1;
+}
+
+/* Find socket with cid and source bdaddr.
+ * Returns closest match, locked.
+ */
+static struct sock *l2cap_get_sock_by_scid(int state, __le16 cid, bdaddr_t *src)
+{
+	struct sock *sk = NULL, *sk1 = NULL;
+
+	read_lock(&l2cap_sk_list.lock);
+
+	sk_for_each(sk, &l2cap_sk_list.head) {
+		if (state && sk->sk_state != state)
+			continue;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 			/* Exact match. */
 			src_match = !bacmp(&bt_sk(sk)->src, src);
@@ -1336,7 +1379,11 @@ static struct l2cap_chan *l2cap_global_chan_by_scid(int state, u16 cid,
 
 	read_unlock(&chan_list_lock);
 
+<<<<<<< HEAD
 	return c1;
+=======
+	return sk ? sk : sk1;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 }
 
 static void l2cap_le_conn_ready(struct l2cap_conn *conn)
@@ -1679,14 +1726,23 @@ static struct l2cap_chan *l2cap_global_chan_by_psm(int state, __le16 psm,
 						   bdaddr_t *src,
 						   bdaddr_t *dst)
 {
+<<<<<<< HEAD
 	struct l2cap_chan *c, *c1 = NULL;
 
 	read_lock(&chan_list_lock);
+=======
+	struct sock *sk = NULL, *sk1 = NULL;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	list_for_each_entry(c, &chan_list, global_l) {
 		struct sock *sk = c->sk;
 
+<<<<<<< HEAD
 		if (state && c->state != state)
+=======
+	sk_for_each(sk, &l2cap_sk_list.head) {
+		if (state && sk->sk_state != state)
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			continue;
 
 		if (c->psm == psm) {
@@ -1712,7 +1768,11 @@ static struct l2cap_chan *l2cap_global_chan_by_psm(int state, __le16 psm,
 
 	read_unlock(&chan_list_lock);
 
+<<<<<<< HEAD
 	return c1;
+=======
+	return sk ? sk : sk1;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 }
 
 int l2cap_chan_connect(struct l2cap_chan *chan, __le16 psm, u16 cid,
@@ -6428,16 +6488,29 @@ static void l2cap_recv_frame(struct l2cap_conn *conn, struct sk_buff *skb)
 int l2cap_connect_ind(struct hci_dev *hdev, bdaddr_t *bdaddr)
 {
 	int exact = 0, lm1 = 0, lm2 = 0;
+<<<<<<< HEAD
 	struct l2cap_chan *c;
+=======
+	register struct sock *sk;
+
+	if (type != ACL_LINK)
+		return 0;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	BT_DBG("hdev %s, bdaddr %pMR", hdev->name, bdaddr);
 
 	/* Find listening sockets and check their link_mode */
+<<<<<<< HEAD
 	read_lock(&chan_list_lock);
 	list_for_each_entry(c, &chan_list, global_l) {
 		struct sock *sk = c->sk;
 
 		if (c->state != BT_LISTEN)
+=======
+	read_lock(&l2cap_sk_list.lock);
+	sk_for_each(sk, &l2cap_sk_list.head) {
+		if (sk->sk_state != BT_LISTEN)
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			continue;
 
 		if (!bacmp(&bt_sk(sk)->src, &hdev->bdaddr)) {
@@ -6724,12 +6797,21 @@ drop:
 
 static int l2cap_debugfs_show(struct seq_file *f, void *p)
 {
+<<<<<<< HEAD
 	struct l2cap_chan *c;
+=======
+	struct sock *sk;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	read_lock(&chan_list_lock);
 
+<<<<<<< HEAD
 	list_for_each_entry(c, &chan_list, global_l) {
 		struct sock *sk = c->sk;
+=======
+	sk_for_each(sk, &l2cap_sk_list.head) {
+		struct l2cap_pinfo *pi = l2cap_pi(sk);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 		seq_printf(f, "%pMR %pMR %d %d 0x%4.4x 0x%4.4x %d %d %d %d\n",
 			   &bt_sk(sk)->src, &bt_sk(sk)->dst,

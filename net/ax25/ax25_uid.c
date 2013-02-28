@@ -57,7 +57,11 @@ ax25_uid_assoc *ax25_findbyuid(kuid_t uid)
 
 	read_lock(&ax25_uid_lock);
 	ax25_uid_for_each(ax25_uid, &ax25_uid_list) {
+<<<<<<< HEAD
 		if (uid_eq(ax25_uid->uid, uid)) {
+=======
+		if (ax25_uid->uid == uid) {
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			ax25_uid_hold(ax25_uid);
 			res = ax25_uid;
 			break;

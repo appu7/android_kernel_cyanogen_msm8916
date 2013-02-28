@@ -603,7 +603,11 @@ nlm_shutdown_hosts_net(struct net *net)
 	mutex_lock(&nlm_host_mutex);
 
 	/* First, make all hosts eligible for gc */
+<<<<<<< HEAD
 	dprintk("lockd: nuking all hosts in net %p...\n", net);
+=======
+	dprintk("lockd: nuking all hosts...\n");
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	for_each_host(host, chain, nlm_server_hosts) {
 		if (net && host->net != net)
 			continue;
@@ -644,10 +648,15 @@ nlm_gc_hosts(struct net *net)
 	struct hlist_node *next;
 	struct nlm_host	*host;
 
+<<<<<<< HEAD
 	dprintk("lockd: host garbage collection for net %p\n", net);
 	for_each_host(host, chain, nlm_server_hosts) {
 		if (net && host->net != net)
 			continue;
+=======
+	dprintk("lockd: host garbage collection\n");
+	for_each_host(host, chain, nlm_server_hosts)
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		host->h_inuse = 0;
 	}
 
@@ -655,8 +664,11 @@ nlm_gc_hosts(struct net *net)
 	nlmsvc_mark_resources(net);
 
 	for_each_host_safe(host, next, chain, nlm_server_hosts) {
+<<<<<<< HEAD
 		if (net && host->net != net)
 			continue;
+=======
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (atomic_read(&host->h_count) || host->h_inuse
 		 || time_before(jiffies, host->h_expires)) {
 			dprintk("nlm_gc_hosts skipping %s "

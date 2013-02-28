@@ -856,9 +856,15 @@ static struct sock *netlink_lookup(struct net *net, int protocol, u32 portid)
 	struct sock *sk;
 
 	read_lock(&nl_table_lock);
+<<<<<<< HEAD
 	head = nl_portid_hashfn(hash, portid);
 	sk_for_each(sk, head) {
 		if (net_eq(sock_net(sk), net) && (nlk_sk(sk)->portid == portid)) {
+=======
+	head = nl_pid_hashfn(hash, pid);
+	sk_for_each(sk, head) {
+		if (net_eq(sock_net(sk), net) && (nlk_sk(sk)->pid == pid)) {
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			sock_hold(sk);
 			goto found;
 		}
@@ -920,7 +926,11 @@ static int nl_portid_hash_rehash(struct nl_portid_hash *hash, int grow)
 		struct hlist_node *tmp;
 
 		sk_for_each_safe(sk, tmp, &otable[i])
+<<<<<<< HEAD
 			__sk_add_node(sk, nl_portid_hashfn(hash, nlk_sk(sk)->portid));
+=======
+			__sk_add_node(sk, nl_pid_hashfn(hash, nlk_sk(sk)->pid));
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	}
 
 	nl_portid_hash_free(otable, osize);
@@ -981,7 +991,11 @@ static int netlink_insert(struct sock *sk, struct net *net, u32 portid)
 	head = nl_portid_hashfn(hash, portid);
 	len = 0;
 	sk_for_each(osk, head) {
+<<<<<<< HEAD
 		if (net_eq(sock_net(osk), net) && (nlk_sk(osk)->portid == portid))
+=======
+		if (net_eq(sock_net(osk), net) && (nlk_sk(osk)->pid == pid))
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			break;
 		len++;
 	}
@@ -1181,14 +1195,22 @@ static int netlink_autobind(struct socket *sock)
 	struct nl_portid_hash *hash = &nl_table[sk->sk_protocol].hash;
 	struct hlist_head *head;
 	struct sock *osk;
+<<<<<<< HEAD
 	s32 portid = task_tgid_vnr(current);
+=======
+	s32 pid = task_tgid_vnr(current);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	int err;
 	static s32 rover = -4097;
 
 retry:
 	cond_resched();
 	netlink_table_grab();
+<<<<<<< HEAD
 	head = nl_portid_hashfn(hash, portid);
+=======
+	head = nl_pid_hashfn(hash, pid);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	sk_for_each(osk, head) {
 		if (!net_eq(sock_net(osk), net))
 			continue;
