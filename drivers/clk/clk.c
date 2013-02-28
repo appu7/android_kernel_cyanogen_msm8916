@@ -101,6 +101,11 @@ static struct dentry *rootdir;
 static struct dentry *orphandir;
 static int inited = 0;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 static void clk_summary_show_one(struct seq_file *s, struct clk *c, int level)
 {
 	if (!c)
@@ -134,7 +139,11 @@ static int clk_summary_show(struct seq_file *s, void *data)
 	seq_printf(s, "   clock                        enable_cnt  prepare_cnt  rate\n");
 	seq_printf(s, "---------------------------------------------------------------------\n");
 
+<<<<<<< HEAD
 	clk_prepare_lock();
+=======
+	mutex_lock(&prepare_lock);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	hlist_for_each_entry(c, &clk_root_list, child_node)
 		clk_summary_show_subtree(s, c, 0);
@@ -142,7 +151,11 @@ static int clk_summary_show(struct seq_file *s, void *data)
 	hlist_for_each_entry(c, &clk_orphan_list, child_node)
 		clk_summary_show_subtree(s, c, 0);
 
+<<<<<<< HEAD
 	clk_prepare_unlock();
+=======
+	mutex_unlock(&prepare_lock);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	return 0;
 }
@@ -195,7 +208,11 @@ static int clk_dump(struct seq_file *s, void *data)
 
 	seq_printf(s, "{");
 
+<<<<<<< HEAD
 	clk_prepare_lock();
+=======
+	mutex_lock(&prepare_lock);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	hlist_for_each_entry(c, &clk_root_list, child_node) {
 		if (!first_node)
@@ -209,7 +226,11 @@ static int clk_dump(struct seq_file *s, void *data)
 		clk_dump_subtree(s, c, 0);
 	}
 
+<<<<<<< HEAD
 	clk_prepare_unlock();
+=======
+	mutex_unlock(&prepare_lock);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	seq_printf(s, "}");
 	return 0;
@@ -228,6 +249,10 @@ static const struct file_operations clk_dump_fops = {
 	.release	= single_release,
 };
 
+<<<<<<< HEAD
+=======
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 /* caller must hold prepare_lock */
 static int clk_debug_create_one(struct clk *clk, struct dentry *pdentry)
 {
@@ -392,7 +417,15 @@ static void clk_debug_reparent(struct clk *clk, struct clk *new_parent)
 static int __init clk_debug_init(void)
 {
 	struct clk *clk;
+<<<<<<< HEAD
 	struct dentry *d;
+=======
+<<<<<<< HEAD
+	struct hlist_node *tmp;
+=======
+	struct dentry *d;
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	rootdir = debugfs_create_dir("clk", NULL);
 
@@ -518,8 +551,11 @@ static int clk_disable_unused(void)
 		return 0;
 	}
 
+<<<<<<< HEAD
 	clk_prepare_lock();
 
+=======
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	hlist_for_each_entry(clk, &clk_root_list, child_node)
 		clk_disable_unused_subtree(clk);
 
@@ -1631,6 +1667,12 @@ int __clk_init(struct device *dev, struct clk *clk)
 	 * walk the list of orphan clocks and reparent any that are children of
 	 * this clock
 	 */
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	hlist_for_each_entry_safe(orphan, tmp, tmp2, &clk_orphan_list, child_node)
+=======
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	hlist_for_each_entry_safe(orphan, tmp2, &clk_orphan_list, child_node) {
 		if (orphan->ops->get_parent) {
 			i = orphan->ops->get_parent(orphan->hw);
@@ -1639,6 +1681,10 @@ int __clk_init(struct device *dev, struct clk *clk)
 			continue;
 		}
 
+<<<<<<< HEAD
+=======
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		for (i = 0; i < orphan->num_parents; i++)
 			if (!strcmp(clk->name, orphan->parent_names[i])) {
 				__clk_reparent(orphan, clk);

@@ -396,7 +396,20 @@ static void blkg_destroy_all(struct request_queue *q)
 
 static void blkg_rcu_free(struct rcu_head *rcu_head)
 {
+<<<<<<< HEAD
 	blkg_free(container_of(rcu_head, struct blkcg_gq, rcu_head));
+=======
+	struct blkio_group *blkg;
+	void *__key;
+
+	hlist_for_each_entry_rcu(blkg, &blkcg->blkg_list, blkcg_node) {
+		__key = blkg->key;
+		if (__key == key)
+			return blkg;
+	}
+
+	return NULL;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 }
 
 void __blkg_release(struct blkcg_gq *blkg)

@@ -258,6 +258,7 @@ static int __ip6addrlbl_add(struct ip6addrlbl_entry *newp, int replace)
 	ADDRLABEL(KERN_DEBUG "%s(newp=%p, replace=%d)\n", __func__, newp,
 		  replace);
 
+<<<<<<< HEAD
 	hlist_for_each_entry_safe(p, n,	&ip6addrlbl_table.head, list) {
 		if (p->prefixlen == newp->prefixlen &&
 		    net_eq(ip6addrlbl_net(p), ip6addrlbl_net(newp)) &&
@@ -265,6 +266,29 @@ static int __ip6addrlbl_add(struct ip6addrlbl_entry *newp, int replace)
 		    ipv6_addr_equal(&p->prefix, &newp->prefix)) {
 			if (!replace) {
 				ret = -EEXIST;
+=======
+	if (hlist_empty(&ip6addrlbl_table.head)) {
+		hlist_add_head_rcu(&newp->list, &ip6addrlbl_table.head);
+	} else {
+		struct hlist_node *n;
+		struct ip6addrlbl_entry *p = NULL;
+		hlist_for_each_entry_safe(p, n,
+					  &ip6addrlbl_table.head, list) {
+			if (p->prefixlen == newp->prefixlen &&
+			    net_eq(ip6addrlbl_net(p), ip6addrlbl_net(newp)) &&
+			    p->ifindex == newp->ifindex &&
+			    ipv6_addr_equal(&p->prefix, &newp->prefix)) {
+				if (!replace) {
+					ret = -EEXIST;
+					goto out;
+				}
+				hlist_replace_rcu(&p->list, &newp->list);
+				ip6addrlbl_put(p);
+				goto out;
+			} else if ((p->prefixlen == newp->prefixlen && !p->ifindex) ||
+				   (p->prefixlen < newp->prefixlen)) {
+				hlist_add_before_rcu(&newp->list, &p->list);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 				goto out;
 			}
 			hlist_replace_rcu(&p->list, &newp->list);

@@ -5954,8 +5954,12 @@ static long sctp_get_port_local(struct sock *sk, union sctp_addr *addr)
 			head = &sctp_port_hashtable[index];
 			sctp_spin_lock(&head->lock);
 			sctp_for_each_hentry(pp, &head->chain)
+<<<<<<< HEAD
 				if ((pp->port == rover) &&
 				    net_eq(sock_net(sk), pp->net))
+=======
+				if (pp->port == rover)
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 					goto next;
 			break;
 		next:
@@ -5982,7 +5986,11 @@ static long sctp_get_port_local(struct sock *sk, union sctp_addr *addr)
 		head = &sctp_port_hashtable[sctp_phashfn(sock_net(sk), snum)];
 		sctp_spin_lock(&head->lock);
 		sctp_for_each_hentry(pp, &head->chain) {
+<<<<<<< HEAD
 			if ((pp->port == snum) && net_eq(pp->net, sock_net(sk)))
+=======
+			if (pp->port == snum)
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 				goto pp_found;
 		}
 	}

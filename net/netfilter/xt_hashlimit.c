@@ -353,7 +353,11 @@ static struct xt_hashlimit_htable *htable_find_get(struct net *net,
 	struct xt_hashlimit_htable *hinfo;
 
 	hlist_for_each_entry(hinfo, &hashlimit_net->htables, node) {
+<<<<<<< HEAD
 		if (!strcmp(name, hinfo->name) &&
+=======
+		if (!strcmp(name, hinfo->pde->name) &&
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		    hinfo->family == family) {
 			hinfo->use++;
 			return hinfo;

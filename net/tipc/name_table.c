@@ -872,9 +872,14 @@ static int nametbl_list(char *buf, int len, u32 depth_info,
 		for (i = 0; i < TIPC_NAMETBL_SIZE; i++) {
 			seq_head = &table.types[i];
 			hlist_for_each_entry(seq, seq_head, ns_list) {
+<<<<<<< HEAD
 				ret += nameseq_list(seq, buf + ret, len - ret,
 						   depth, seq->type,
 						   lowbound, upbound, i);
+=======
+				nameseq_list(seq, buf, depth, seq->type,
+					     lowbound, upbound, i);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			}
 		}
 	} else {

@@ -1507,7 +1507,11 @@ int ipv6_chk_addr(struct net *net, const struct in6_addr *addr,
 		  const struct net_device *dev, int strict)
 {
 	struct inet6_ifaddr *ifp;
+<<<<<<< HEAD
 	unsigned int hash = inet6_addr_hash(addr);
+=======
+	unsigned int hash = ipv6_addr_hash(addr);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	rcu_read_lock_bh();
 	hlist_for_each_entry_rcu(ifp, &inet6_addr_lst[hash], addr_lst) {
@@ -1599,7 +1603,11 @@ struct inet6_ifaddr *ipv6_get_ifaddr(struct net *net, const struct in6_addr *add
 				     struct net_device *dev, int strict)
 {
 	struct inet6_ifaddr *ifp, *result = NULL;
+<<<<<<< HEAD
 	unsigned int hash = inet6_addr_hash(addr);
+=======
+	unsigned int hash = ipv6_addr_hash(addr);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	rcu_read_lock_bh();
 	hlist_for_each_entry_rcu_bh(ifp, &inet6_addr_lst[hash], addr_lst) {
@@ -3569,7 +3577,11 @@ int ipv6_chk_home_addr(struct net *net, const struct in6_addr *addr)
 {
 	int ret = 0;
 	struct inet6_ifaddr *ifp = NULL;
+<<<<<<< HEAD
 	unsigned int hash = inet6_addr_hash(addr);
+=======
+	unsigned int hash = ipv6_addr_hash(addr);
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	rcu_read_lock_bh();
 	hlist_for_each_entry_rcu_bh(ifp, &inet6_addr_lst[hash], addr_lst) {

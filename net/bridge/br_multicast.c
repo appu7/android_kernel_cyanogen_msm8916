@@ -510,8 +510,13 @@ static struct net_bridge_mdb_entry *br_multicast_get_group(
 {
 	struct net_bridge_mdb_htable *mdb;
 	struct net_bridge_mdb_entry *mp;
+<<<<<<< HEAD
 	unsigned int count = 0;
 	unsigned int max;
+=======
+	unsigned count = 0;
+	unsigned max;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	int elasticity;
 	int err;
 

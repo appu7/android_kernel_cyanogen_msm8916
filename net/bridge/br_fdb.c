@@ -266,10 +266,15 @@ struct net_bridge_fdb_entry *__br_fdb_get(struct net_bridge *br,
 {
 	struct net_bridge_fdb_entry *fdb;
 
+<<<<<<< HEAD
 	hlist_for_each_entry_rcu(fdb,
 				&br->hash[br_mac_hash(addr, vid)], hlist) {
 		if (ether_addr_equal(fdb->addr.addr, addr) &&
 		    fdb->vlan_id == vid) {
+=======
+	hlist_for_each_entry_rcu(fdb, &br->hash[br_mac_hash(addr)], hlist) {
+		if (!compare_ether_addr(fdb->addr.addr, addr)) {
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			if (unlikely(has_expired(br, fdb)))
 				break;
 			return fdb;
@@ -362,8 +367,12 @@ static struct net_bridge_fdb_entry *fdb_find(struct hlist_head *head,
 	struct net_bridge_fdb_entry *fdb;
 
 	hlist_for_each_entry(fdb, head, hlist) {
+<<<<<<< HEAD
 		if (ether_addr_equal(fdb->addr.addr, addr) &&
 		    fdb->vlan_id == vid)
+=======
+		if (!compare_ether_addr(fdb->addr.addr, addr))
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			return fdb;
 	}
 	return NULL;
@@ -376,8 +385,12 @@ static struct net_bridge_fdb_entry *fdb_find_rcu(struct hlist_head *head,
 	struct net_bridge_fdb_entry *fdb;
 
 	hlist_for_each_entry_rcu(fdb, head, hlist) {
+<<<<<<< HEAD
 		if (ether_addr_equal(fdb->addr.addr, addr) &&
 		    fdb->vlan_id == vid)
+=======
+		if (!compare_ether_addr(fdb->addr.addr, addr))
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			return fdb;
 	}
 	return NULL;
@@ -586,12 +599,21 @@ int br_fdb_dump(struct sk_buff *skb,
 	if (!(dev->priv_flags & IFF_EBRIDGE))
 		goto out;
 
+<<<<<<< HEAD
 	for (i = 0; i < BR_HASH_SIZE; i++) {
 		struct net_bridge_fdb_entry *f;
 
 		hlist_for_each_entry_rcu(f, &br->hash[i], hlist) {
 			if (idx < cb->args[0])
 				goto skip;
+=======
+		for (i = 0; i < BR_HASH_SIZE; i++) {
+			struct net_bridge_fdb_entry *f;
+
+			hlist_for_each_entry_rcu(f, &br->hash[i], hlist) {
+				if (idx < cb->args[0])
+					goto skip;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 			if (fdb_fill_info(skb, br, f,
 					  NETLINK_CB(cb->skb).portid,

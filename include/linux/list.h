@@ -694,9 +694,13 @@ static inline void hlist_move_list(struct hlist_head *old,
 	     pos = n)
 
 #define hlist_entry_safe(ptr, type, member) \
+<<<<<<< HEAD
 	({ typeof(ptr) ____ptr = (ptr); \
 	   ____ptr ? hlist_entry(____ptr, type, member) : NULL; \
 	})
+=======
+	(ptr) ? hlist_entry(ptr, type, member) : NULL
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 /**
  * hlist_for_each_entry	- iterate over list of given type

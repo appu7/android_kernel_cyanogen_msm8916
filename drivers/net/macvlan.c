@@ -63,8 +63,18 @@ static struct macvlan_dev *macvlan_hash_lookup(const struct macvlan_port *port,
 {
 	struct macvlan_dev *vlan;
 
+<<<<<<< HEAD
 	hlist_for_each_entry_rcu(vlan, &port->vlan_hash[addr[5]], hlist) {
 		if (ether_addr_equal_64bits(vlan->dev->dev_addr, addr))
+=======
+<<<<<<< HEAD
+	hlist_for_each_entry_rcu(vlan, n, &port->vlan_hash[addr[5]], hlist) {
+		if (!compare_ether_addr_64bits(vlan->dev->dev_addr, addr))
+=======
+	hlist_for_each_entry_rcu(vlan, &port->vlan_hash[addr[5]], hlist) {
+		if (ether_addr_equal_64bits(vlan->dev->dev_addr, addr))
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			return vlan;
 	}
 	return NULL;

@@ -2206,7 +2206,18 @@ static int cma_check_port(struct rdma_bind_list *bind_list,
 	struct sockaddr *addr, *cur_addr;
 
 	addr = (struct sockaddr *) &id_priv->id.route.addr.src_addr;
+<<<<<<< HEAD
 	hlist_for_each_entry(cur_id, &bind_list->owners, node) {
+=======
+<<<<<<< HEAD
+	if (cma_any_addr(addr) && !reuseaddr)
+		return -EADDRNOTAVAIL;
+
+	hlist_for_each_entry(cur_id, node, &bind_list->owners, node) {
+=======
+	hlist_for_each_entry(cur_id, &bind_list->owners, node) {
+>>>>>>> b67bfe0... hlist: drop the node parameter from iterators
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (id_priv == cur_id)
 			continue;
 

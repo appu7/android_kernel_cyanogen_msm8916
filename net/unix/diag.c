@@ -196,8 +196,11 @@ static int unix_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
 
 		num = 0;
 		sk_for_each(sk, &unix_socket_table[slot]) {
+<<<<<<< HEAD
 			if (!net_eq(sock_net(sk), net))
 				continue;
+=======
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			if (num < s_num)
 				goto next;
 			if (!(req->udiag_states & (1 << sk->sk_state)))

@@ -1549,7 +1549,11 @@ static struct lec_arp_table *lec_arp_find(struct lec_priv *priv,
 
 	head = &priv->lec_arp_tables[HASH(mac_addr[ETH_ALEN - 1])];
 	hlist_for_each_entry(entry, head, next) {
+<<<<<<< HEAD
 		if (ether_addr_equal(mac_addr, entry->mac_addr))
+=======
+		if (!compare_ether_addr(mac_addr, entry->mac_addr))
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			return entry;
 	}
 	return NULL;

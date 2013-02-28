@@ -1781,11 +1781,26 @@ static u64 cfqg_prfill_rwstat_recursive(struct seq_file *sf,
 static int cfqg_print_stat_recursive(struct cgroup *cgrp, struct cftype *cft,
 				     struct seq_file *sf)
 {
+<<<<<<< HEAD
 	struct blkcg *blkcg = cgroup_to_blkcg(cgrp);
 
 	blkcg_print_blkgs(sf, blkcg, cfqg_prfill_stat_recursive,
 			  &blkcg_policy_cfq, cft->private, false);
 	return 0;
+=======
+	struct hlist_node *n;
+	struct cfq_group *cfqg;
+
+	hlist_for_each_entry_safe(cfqg, n, &cfqd->cfqg_list, cfqd_node) {
+		/*
+		 * If cgroup removal path got to blk_group first and removed
+		 * it from cgroup list, then it will take care of destroying
+		 * cfqg also.
+		 */
+		if (!cfq_blkiocg_del_blkio_group(&cfqg->blkg))
+			cfq_destroy_cfqg(cfqd, cfqg);
+	}
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 }
 
 static int cfqg_print_rwstat_recursive(struct cgroup *cgrp, struct cftype *cft,

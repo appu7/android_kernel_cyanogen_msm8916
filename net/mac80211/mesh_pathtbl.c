@@ -459,6 +459,7 @@ static void mesh_gate_del(struct mesh_table *tbl, struct mesh_path *mpath)
 	struct mpath_node *gate;
 	struct hlist_node *q;
 
+<<<<<<< HEAD
 	hlist_for_each_entry_safe(gate, q, tbl->known_gates, list) {
 		if (gate->mpath != mpath)
 			continue;
@@ -473,6 +474,23 @@ static void mesh_gate_del(struct mesh_table *tbl, struct mesh_path *mpath)
 			  mpath->dst, mpath->sdata->u.mesh.num_gates);
 		break;
 	}
+=======
+	hlist_for_each_entry_safe(gate, q, tbl->known_gates, list)
+		if (gate->mpath == mpath) {
+			spin_lock_bh(&tbl->gates_lock);
+			hlist_del_rcu(&gate->list);
+			kfree_rcu(gate, rcu);
+			spin_unlock_bh(&tbl->gates_lock);
+			mpath->sdata->u.mesh.num_gates--;
+			mpath->is_gate = false;
+			mpath_dbg("Mesh path (%s): Deleted gate: %pM. "
+				  "%d known gates\n", mpath->sdata->name,
+				  mpath->dst, mpath->sdata->u.mesh.num_gates);
+			break;
+		}
+
+	return 0;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 }
 
 /**
@@ -553,6 +571,24 @@ struct mesh_path *mesh_path_add(struct ieee80211_sub_if_data *sdata,
 	spin_lock_init(&new_mpath->state_lock);
 	init_timer(&new_mpath->timer);
 
+<<<<<<< HEAD
+=======
+	tbl = resize_dereference_mesh_paths();
+
+	hash_idx = mesh_table_hash(dst, sdata, tbl);
+	bucket = &tbl->hash_buckets[hash_idx];
+
+	spin_lock(&tbl->hashwlock[hash_idx]);
+
+	err = -EEXIST;
+	hlist_for_each_entry(node, bucket, list) {
+		mpath = node->mpath;
+		if (mpath->sdata == sdata &&
+		    compare_ether_addr(dst, mpath->dst) == 0)
+			goto err_exists;
+	}
+
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	hlist_add_head_rcu(&new_node->list, bucket);
 	if (atomic_inc_return(&tbl->entries) >=
 	    tbl->mean_chain_len * (tbl->hash_mask + 1))

@@ -177,6 +177,7 @@ int kvm_set_irq_inatomic(struct kvm *kvm, int irq_source_id, u32 irq, int level)
 	rcu_read_lock();
 	irq_rt = rcu_dereference(kvm->irq_routing);
 	if (irq < irq_rt->nr_rt_entries)
+<<<<<<< HEAD
 		hlist_for_each_entry(e, &irq_rt->map[irq], link) {
 			if (likely(e->type == KVM_IRQ_ROUTING_MSI))
 				ret = kvm_set_msi_inatomic(e, kvm);
@@ -184,10 +185,51 @@ int kvm_set_irq_inatomic(struct kvm *kvm, int irq_source_id, u32 irq, int level)
 				ret = -EWOULDBLOCK;
 			break;
 		}
+=======
+		hlist_for_each_entry(e, &irq_rt->map[irq], link)
+			irq_set[i++] = *e;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	rcu_read_unlock();
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+void kvm_notify_acked_irq(struct kvm *kvm, unsigned irqchip, unsigned pin)
+{
+	struct kvm_irq_ack_notifier *kian;
+	int gsi;
+
+	trace_kvm_ack_irq(irqchip, pin);
+
+	rcu_read_lock();
+	gsi = rcu_dereference(kvm->irq_routing)->chip[irqchip][pin];
+	if (gsi != -1)
+		hlist_for_each_entry_rcu(kian, &kvm->irq_ack_notifier_list,
+					 link)
+			if (kian->gsi == gsi)
+				kian->irq_acked(kian);
+	rcu_read_unlock();
+}
+
+void kvm_register_irq_ack_notifier(struct kvm *kvm,
+				   struct kvm_irq_ack_notifier *kian)
+{
+	mutex_lock(&kvm->irq_lock);
+	hlist_add_head_rcu(&kian->link, &kvm->irq_ack_notifier_list);
+	mutex_unlock(&kvm->irq_lock);
+}
+
+void kvm_unregister_irq_ack_notifier(struct kvm *kvm,
+				    struct kvm_irq_ack_notifier *kian)
+{
+	mutex_lock(&kvm->irq_lock);
+	hlist_del_init_rcu(&kian->link);
+	mutex_unlock(&kvm->irq_lock);
+	synchronize_rcu();
+}
+
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 int kvm_request_irq_source_id(struct kvm *kvm)
 {
 	unsigned long *bitmap = &kvm->arch.irq_sources_bitmap;
@@ -278,7 +320,24 @@ int kvm_set_routing_entry(struct kvm_irq_routing_table *rt,
 	int r = -EINVAL;
 	int delta;
 	unsigned max_pin;
+<<<<<<< HEAD
 
+=======
+	struct kvm_kernel_irq_routing_entry *ei;
+
+	/*
+	 * Do not allow GSI to be mapped to the same irqchip more than once.
+	 * Allow only one to one mapping between GSI and MSI.
+	 */
+	hlist_for_each_entry(ei, &rt->map[ue->gsi], link)
+		if (ei->type == KVM_IRQ_ROUTING_MSI ||
+		    ue->type == KVM_IRQ_ROUTING_MSI ||
+		    ue->u.irqchip.irqchip == ei->irqchip.irqchip)
+			return r;
+
+	e->gsi = ue->gsi;
+	e->type = ue->type;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	switch (ue->type) {
 	case KVM_IRQ_ROUTING_IRQCHIP:
 		delta = 0;

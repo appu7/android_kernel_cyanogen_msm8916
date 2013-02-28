@@ -4297,11 +4297,23 @@ static bool __netdev_search_upper_dev(struct net_device *dev,
 static struct netdev_upper *__netdev_find_upper(struct net_device *dev,
 						struct net_device *upper_dev)
 {
+<<<<<<< HEAD
 	struct netdev_upper *upper;
 
 	list_for_each_entry(upper, &dev->upper_dev_list, list) {
 		if (upper->dev == upper_dev)
 			return upper;
+=======
+	struct net *net = seq_file_net(seq);
+	struct net_device *dev;
+	struct hlist_head *h;
+	unsigned int count = 0, offset = get_offset(*pos);
+
+	h = &net->dev_name_head[get_bucket(*pos)];
+	hlist_for_each_entry_rcu(dev, h, name_hlist) {
+		if (++count == offset)
+			return dev;
+>>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	}
 	return NULL;
 }
