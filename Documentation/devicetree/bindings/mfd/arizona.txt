@@ -5,6 +5,7 @@ of analogue I/O.
 
 Required properties:
 
+<<<<<<< HEAD
   - compatible : One of the following chip-specific strings:
         "wlf,wm5102"
         "wlf,wm5110"
@@ -19,6 +20,11 @@ Required properties:
         "cirrus,cs47l24"
         "cirrus,cs47l85"
 
+=======
+  - compatible : one of the following chip-specific strings:
+	"wlf,wm5102"
+	"wlf,wm5110"
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
   - reg : I2C slave address when connected using I2C, chip select number when
     using SPI.
 
@@ -36,16 +42,23 @@ Required properties:
   - #gpio-cells : Must be 2. The first cell is the pin number and the
     second cell is used to specify optional parameters (currently unused).
 
+<<<<<<< HEAD
   - AVDD-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply (wm5102, wm5110),
     DBVDD4-supply (wm8285), CPVDD-supply, SPKVDDL-supply (wm5102, wm5110),
     SPKVDDR-supply (wm5102, wm5110), SPKVDD-supply (wm8997, cs47l24) : Power
     supplies for the device, as covered in
     Documentation/devicetree/bindings/regulator/regulator.txt
+=======
+  - AVDD1-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply, CPVDD-supply,
+    SPKVDDL-supply, SPKVDDR-supply : power supplies for the device, as covered
+    in Documentation/devicetree/bindings/regulator/regulator.txt
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 
 Optional properties:
 
   - wlf,reset : GPIO specifier for the GPIO controlling /RESET
   - wlf,ldoena : GPIO specifier for the GPIO controlling LDOENA
+<<<<<<< HEAD
   - wlf,clk32k-src : set input source for codec 32kHz clock.
       0 = default, 1 = MCLK1, 2 = MCLK2, 3 = None
 
@@ -149,6 +162,14 @@ Optional subnodes:
     Documentation/devicetree/bindings/regulator/regulator.txt
   - micvdd : Initial data for the MICVDD regulator, as covered in
     Documentation/devicetree/bindings/regulator/regulator.txt
+=======
+
+  - wlf,gpio-defaults : A list of GPIO configuration register values. If
+    absent, no configuration of these registers is performed. If any
+    entry has a value that is out of range for a 16 bit register then
+    the chip default will be used.  If present exactly five values must
+    be specified.
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 
 Example:
 
@@ -156,13 +177,17 @@ codec: wm5102@1a {
 	compatible = "wlf,wm5102";
 	reg = <0x1a>;
 	interrupts = <347>;
+<<<<<<< HEAD
 	interrupt-controller;
+=======
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 	#interrupt-cells = <2>;
         interrupt-parent = <&gic>;
 
 	gpio-controller;
 	#gpio-cells = <2>;
 
+<<<<<<< HEAD
 	wlf,micd-detect-debounce = <10>;
 	wlf,micd-bias-start-time = <0x1>;
 	wlf,micd-rate = <0x1>;
@@ -201,4 +226,13 @@ codec: wm5102@1a {
 	>;
 
 	wlf,max-channels-clocked = <2 0 0>;
+=======
+	wlf,gpio-defaults = <
+		0x00000000, /* AIF1TXLRCLK */
+		0xffffffff,
+		0xffffffff,
+		0xffffffff,
+		0xffffffff,
+	>;
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 };

@@ -27,9 +27,13 @@ static int arizona_i2c_probe(struct i2c_client *i2c,
 {
 	struct arizona *arizona;
 	const struct regmap_config *regmap_config;
+<<<<<<< HEAD
 	const struct regmap_config *regmap_32bit_config = NULL;
 	unsigned long type;
 	int ret;
+=======
+	int ret, type;
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 
 	if (i2c->dev.of_node)
 		type = arizona_of_get_type(&i2c->dev);

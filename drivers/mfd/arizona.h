@@ -71,9 +71,15 @@ int arizona_irq_init(struct arizona *arizona);
 int arizona_irq_exit(struct arizona *arizona);
 
 #ifdef CONFIG_OF
+<<<<<<< HEAD
 unsigned long arizona_of_get_type(struct device *dev);
 #else
 static inline unsigned long arizona_of_get_type(struct device *dev)
+=======
+int arizona_of_get_type(struct device *dev);
+#else
+static inline int arizona_of_get_type(struct device *dev)
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 {
 	return 0;
 }
