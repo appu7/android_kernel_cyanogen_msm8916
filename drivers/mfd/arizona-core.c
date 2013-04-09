@@ -1721,6 +1721,7 @@ int arizona_dev_init(struct arizona *arizona)
 	regcache_cache_only(arizona->regmap, false);
 
 	/* Verify that this is a chip we know about */
+<<<<<<< HEAD
 	ret = regmap_read(arizona->regmap, ARIZONA_SOFTWARE_RESET, &reg);
 	if (ret != 0) {
 		dev_err(dev, "Failed to read ID register: %d\n", ret);
@@ -1774,23 +1775,17 @@ int arizona_dev_init(struct arizona *arizona)
 	}
 
 	/* Read the device ID information & do device specific stuff */
+=======
+>>>>>>> 30b4a3c... mfd: arizona: Read the device identification information after boot
 	ret = regmap_read(arizona->regmap, ARIZONA_SOFTWARE_RESET, &reg);
 	if (ret != 0) {
 		dev_err(dev, "Failed to read ID register: %d\n", ret);
 		goto err_reset;
 	}
 
-	ret = regmap_read(arizona->regmap, ARIZONA_DEVICE_REVISION,
-			  &arizona->rev);
-	if (ret != 0) {
-		dev_err(dev, "Failed to read revision register: %d\n", ret);
-		goto err_reset;
-	}
-	arizona->rev &= ARIZONA_DEVICE_REVISION_MASK;
-
 	switch (reg) {
-#ifdef CONFIG_MFD_WM5102
 	case 0x5102:
+<<<<<<< HEAD
 		type_name = "WM5102";
 		if (arizona->type != WM5102) {
 			dev_err(arizona->dev, "WM5102 registered as %d\n",
@@ -1863,6 +1858,18 @@ int arizona_dev_init(struct arizona *arizona)
 		case WM8998:
 			type_name = "WM8998";
 			break;
+=======
+	case 0x5110:
+		break;
+	default:
+		dev_err(arizona->dev, "Unknown device ID: %x\n", reg);
+		goto err_reset;
+	}
+
+	/* If we have a /RESET GPIO we'll already be reset */
+	if (!arizona->pdata.reset) {
+		regcache_mark_dirty(arizona->regmap);
+>>>>>>> 30b4a3c... mfd: arizona: Read the device identification information after boot
 
 		case WM1814:
 			type_name = "WM1814";
@@ -1894,6 +1901,7 @@ int arizona_dev_init(struct arizona *arizona)
 			arizona->type = WM8285;
 		}
 
+<<<<<<< HEAD
 		apply_patch = clearwater_patch;
 		break;
 #endif
@@ -1902,6 +1910,17 @@ int arizona_dev_init(struct arizona *arizona)
 		switch (arizona->type) {
 		case CS47L35:
 			type_name = "CS47L35";
+=======
+	/* Ensure device startup is complete */
+	switch (arizona->type) {
+	case WM5102:
+		ret = regmap_read(arizona->regmap, 0x19, &val);
+		if (ret != 0)
+			dev_err(dev,
+				"Failed to check write sequencer state: %d\n",
+				ret);
+		else if (val & 0x01)
+>>>>>>> 30b4a3c... mfd: arizona: Read the device identification information after boot
 			break;
 
 		default:
@@ -1918,6 +1937,53 @@ default:
 		goto err_reset;
 	}
 
+<<<<<<< HEAD
+=======
+	/* Read the device ID information & do device specific stuff */
+	ret = regmap_read(arizona->regmap, ARIZONA_SOFTWARE_RESET, &reg);
+	if (ret != 0) {
+		dev_err(dev, "Failed to read ID register: %d\n", ret);
+		goto err_reset;
+	}
+
+	ret = regmap_read(arizona->regmap, ARIZONA_DEVICE_REVISION,
+			  &arizona->rev);
+	if (ret != 0) {
+		dev_err(dev, "Failed to read revision register: %d\n", ret);
+		goto err_reset;
+	}
+	arizona->rev &= ARIZONA_DEVICE_REVISION_MASK;
+
+	switch (reg) {
+#ifdef CONFIG_MFD_WM5102
+	case 0x5102:
+		type_name = "WM5102";
+		if (arizona->type != WM5102) {
+			dev_err(arizona->dev, "WM5102 registered as %d\n",
+				arizona->type);
+			arizona->type = WM5102;
+		}
+		apply_patch = wm5102_patch;
+		arizona->rev &= 0x7;
+		break;
+#endif
+#ifdef CONFIG_MFD_WM5110
+	case 0x5110:
+		type_name = "WM5110";
+		if (arizona->type != WM5110) {
+			dev_err(arizona->dev, "WM5110 registered as %d\n",
+				arizona->type);
+			arizona->type = WM5110;
+		}
+		apply_patch = wm5110_patch;
+		break;
+#endif
+	default:
+		dev_err(arizona->dev, "Unknown device ID %x\n", reg);
+		goto err_reset;
+	}
+
+>>>>>>> 30b4a3c... mfd: arizona: Read the device identification information after boot
 	dev_info(dev, "%s revision %c\n", type_name, arizona->rev + 'A');
 
 	if (apply_patch) {
