@@ -799,6 +799,7 @@ static int arizona_runtime_resume(struct device *dev)
 			goto err;
 		}
 
+<<<<<<< HEAD
 		mutex_lock(&arizona->reg_setting_lock);
 		regmap_write(arizona->regmap, 0x80, 0x3);
 		ret = regcache_sync_region(arizona->regmap, CLEARWATER_CP_MODE,
@@ -809,6 +810,17 @@ static int arizona_runtime_resume(struct device *dev)
 		if (ret != 0) {
 			dev_err(arizona->dev, "Failed to restore keyed cache\n");
 			goto err;
+=======
+		if (arizona->external_dcvdd) {
+			ret = regmap_update_bits(arizona->regmap,
+						 ARIZONA_ISOLATION_CONTROL,
+						 ARIZONA_ISOLATE_DCVDD1, 0);
+			if (ret != 0) {
+				dev_err(arizona->dev,
+					"Failed to connect DCVDD: %d\n", ret);
+				goto err;
+			}
+>>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
 		}
 		break;
 	}
@@ -848,6 +860,7 @@ static int arizona_runtime_suspend(struct device *dev)
 
 	dev_dbg(arizona->dev, "Entering AoD mode\n");
 
+<<<<<<< HEAD
 	switch(arizona->type) {
 	case WM5102:
 	case WM8997:
@@ -909,6 +922,21 @@ static int arizona_runtime_suspend(struct device *dev)
 		}
 	}
 
+=======
+	if (arizona->external_dcvdd) {
+		ret = regmap_update_bits(arizona->regmap,
+					 ARIZONA_ISOLATION_CONTROL,
+					 ARIZONA_ISOLATE_DCVDD1,
+					 ARIZONA_ISOLATE_DCVDD1);
+		if (ret != 0) {
+			dev_err(arizona->dev, "Failed to isolate DCVDD: %d\n",
+				ret);
+			return ret;
+		}
+	}
+
+	regulator_disable(arizona->dcvdd);
+>>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
 	regcache_cache_only(arizona->regmap, true);
 	regcache_mark_dirty(arizona->regmap);
 	if (arizona->regmap_32bit)
@@ -2121,6 +2149,21 @@ default:
 		break;
 	}
 
+<<<<<<< HEAD
+=======
+	/*
+	 * LDO1 can only be used to supply DCVDD so if it has no
+	 * consumers then DCVDD is supplied externally.
+	 */
+	if (arizona->pdata.ldo1 &&
+	    arizona->pdata.ldo1->num_consumer_supplies == 0)
+		arizona->external_dcvdd = true;
+
+	pm_runtime_set_autosuspend_delay(arizona->dev, 100);
+	pm_runtime_use_autosuspend(arizona->dev);
+	pm_runtime_enable(arizona->dev);
+
+>>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
 	/* Chip default */
 	if (!arizona->pdata.clk32k_src)
 		arizona->pdata.clk32k_src = ARIZONA_32KZ_MCLK2;

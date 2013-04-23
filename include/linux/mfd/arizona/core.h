@@ -137,7 +137,10 @@ struct arizona {
 
 	unsigned int external_dcvdd:1;
 
+<<<<<<< HEAD
 	unsigned int irq_sem;
+=======
+>>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
 	int irq;
 	struct irq_domain *virq;
 	struct regmap_irq_chip_data *aod_irq_chip;
