@@ -930,6 +930,7 @@ SOC_DOUBLE_R_TLV("SPKDAT1 Digital Volume", ARIZONA_DAC_DIGITAL_VOLUME_5L,
 SOC_VALUE_ENUM("HPOUT1 OSR", wm5102_hpout_osr[0]),
 SOC_VALUE_ENUM("HPOUT2 OSR", wm5102_hpout_osr[1]),
 SOC_VALUE_ENUM("EPOUT OSR", wm5102_hpout_osr[2]),
+<<<<<<< HEAD
 
 SOC_DOUBLE("HPOUT1 DRE Switch", ARIZONA_DRE_ENABLE,
 	   ARIZONA_DRE1L_ENA_SHIFT, ARIZONA_DRE1R_ENA_SHIFT, 1, 0),
@@ -943,6 +944,8 @@ SOC_SINGLE("DRE Threshold", ARIZONA_DRE_CONTROL_2,
 
 SOC_SINGLE("DRE Low Level ABS", ARIZONA_DRE_CONTROL_3,
 	   ARIZONA_DRE_LOW_LEVEL_ABS_SHIFT, 15, 0),
+=======
+>>>>>>> 3ac68c9... ASoC: wm5102: Correct OSR control name for EPOUT
 
 SOC_ENUM("Output Ramp Up", arizona_out_vi_ramp),
 SOC_ENUM("Output Ramp Down", arizona_out_vd_ramp),
