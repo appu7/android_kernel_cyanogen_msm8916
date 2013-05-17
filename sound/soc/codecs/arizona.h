@@ -66,6 +66,7 @@
 #define ARIZONA_CLK_98MHZ  5
 #define ARIZONA_CLK_147MHZ 6
 
+<<<<<<< HEAD
 #define CLEARWATER_DSP_CLK_9MHZ   0
 #define CLEARWATER_DSP_CLK_18MHZ  1
 #define CLEARWATER_DSP_CLK_36MHZ  2
@@ -74,6 +75,10 @@
 
 #define ARIZONA_MAX_DAI  11
 #define ARIZONA_MAX_ADSP 7
+=======
+#define ARIZONA_MAX_DAI  6
+#define ARIZONA_MAX_ADSP 4
+>>>>>>> 8efaa81... ASoC: arizona: Provide simple DAI ops for autoconfiguring interfaces
 
 struct arizona;
 struct wm_adsp;
