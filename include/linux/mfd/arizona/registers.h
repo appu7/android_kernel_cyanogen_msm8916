@@ -1327,6 +1327,7 @@
 #define ARIZONA_DSP2_STATUS_1                    0x1204
 #define ARIZONA_DSP2_STATUS_2                    0x1205
 #define ARIZONA_DSP2_STATUS_3                    0x1206
+<<<<<<< HEAD
 #define ARIZONA_DSP2_STATUS_4                    0x1207
 #define ARIZONA_DSP2_WDMA_BUFFER_1               0x1210
 #define ARIZONA_DSP2_WDMA_BUFFER_2               0x1211
@@ -1348,6 +1349,8 @@
 #define ARIZONA_DSP2_RDMA_CONFIG_1               0x1234
 #define ARIZONA_DSP2_RDMA_OFFSET_1               0x1235
 #define ARIZONA_DSP2_EXTERNAL_START_SELECT_1     0x1238
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable
 #define ARIZONA_DSP2_SCRATCH_0                   0x1240
 #define ARIZONA_DSP2_SCRATCH_1                   0x1241
 #define ARIZONA_DSP2_SCRATCH_2                   0x1242
@@ -1359,6 +1362,7 @@
 #define ARIZONA_DSP3_STATUS_1                    0x1304
 #define ARIZONA_DSP3_STATUS_2                    0x1305
 #define ARIZONA_DSP3_STATUS_3                    0x1306
+<<<<<<< HEAD
 #define ARIZONA_DSP3_STATUS_4                    0x1307
 #define ARIZONA_DSP3_WDMA_BUFFER_1               0x1310
 #define ARIZONA_DSP3_WDMA_BUFFER_2               0x1311
@@ -1380,6 +1384,8 @@
 #define ARIZONA_DSP3_RDMA_CONFIG_1               0x1334
 #define ARIZONA_DSP3_RDMA_OFFSET_1               0x1335
 #define ARIZONA_DSP3_EXTERNAL_START_SELECT_1     0x1338
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable
 #define ARIZONA_DSP3_SCRATCH_0                   0x1340
 #define ARIZONA_DSP3_SCRATCH_1                   0x1341
 #define ARIZONA_DSP3_SCRATCH_2                   0x1342
@@ -1449,6 +1455,7 @@
 #define ARIZONA_DSP4_STATUS_1                    0x1404
 #define ARIZONA_DSP4_STATUS_2                    0x1405
 #define ARIZONA_DSP4_STATUS_3                    0x1406
+<<<<<<< HEAD
 #define ARIZONA_DSP4_STATUS_4                    0x1407
 #define ARIZONA_DSP4_WDMA_BUFFER_1               0x1410
 #define ARIZONA_DSP4_WDMA_BUFFER_2               0x1411
@@ -1470,6 +1477,8 @@
 #define ARIZONA_DSP4_RDMA_CONFIG_1               0x1434
 #define ARIZONA_DSP4_RDMA_OFFSET_1               0x1435
 #define ARIZONA_DSP4_EXTERNAL_START_SELECT_1     0x1438
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable
 #define ARIZONA_DSP4_SCRATCH_0                   0x1440
 #define ARIZONA_DSP4_SCRATCH_1                   0x1441
 #define ARIZONA_DSP4_SCRATCH_2                   0x1442
