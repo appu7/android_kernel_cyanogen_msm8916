@@ -497,7 +497,7 @@ struct wm_coeff_ctl {
 	struct list_head list;
 	void *cache;
 	size_t len;
-	unsigned int dirty:1;
+	unsigned int set:1;
 	struct snd_kcontrol *kcontrol;
 };
 
@@ -793,7 +793,7 @@ static int wm_coeff_put(struct snd_kcontrol *kcontrol,
 	memcpy(ctl->cache, p, ctl->len);
 
 	if (!ctl->enabled) {
-		ctl->dirty = 1;
+		ctl->set = 1;
 		return 0;
 	}
 
@@ -1205,7 +1205,7 @@ static int wm_coeff_init_control_caches(struct wm_coeff *wm_coeff)
 
 	list_for_each_entry(ctl, &wm_coeff->ctl_list,
 			    list) {
-		if (!ctl->enabled || ctl->dirty)
+		if (!ctl->enabled || ctl->set)
 			continue;
 		ret = wm_coeff_read_control(ctl->kcontrol,
 					    ctl->cache,
@@ -1226,13 +1226,12 @@ static int wm_coeff_sync_controls(struct wm_coeff *wm_coeff)
 			    list) {
 		if (!ctl->enabled)
 			continue;
-		if (ctl->dirty) {
+		if (ctl->set) {
 			ret = wm_coeff_write_control(ctl->kcontrol,
 						     ctl->cache,
 						     ctl->len);
 			if (ret < 0)
 				return ret;
-			ctl->dirty = 0;
 		}
 	}
 
@@ -1308,7 +1307,7 @@ static int wm_adsp_create_control(struct snd_soc_codec *codec,
 		goto err_ctl;
 	}
 	ctl->enabled = 1;
-	ctl->dirty = 0;
+	ctl->set = 0;
 	ctl->ops.xget = wm_coeff_get;
 	ctl->ops.xput = wm_coeff_put;
 	ctl->card = codec->card->snd_card;
@@ -3658,6 +3657,7 @@ static int wm_adsp_ack_buffer_interrupt(struct wm_adsp *dsp)
 	int ret;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	ret = wm_adsp_host_buffer_read(dsp,
 				       HOST_BUFFER_FIELD(irq_count),
 				       &irq_ack);
@@ -3665,11 +3665,14 @@ static int wm_adsp_ack_buffer_interrupt(struct wm_adsp *dsp)
 		return ret;
 =======
 		/* Initialize caches for enabled and non-dirty controls */
+=======
+		/* Initialize caches for enabled and unset controls */
+>>>>>>> 6b33c71... ASoC: wm_adsp: Ensure set controls are synced on each boot
 		ret = wm_coeff_init_control_caches(dsp->wm_coeff);
 		if (ret != 0)
 			goto err;
 
-		/* Sync dirty controls */
+		/* Sync set controls */
 		ret = wm_coeff_sync_controls(dsp->wm_coeff);
 		if (ret != 0)
 			goto err;
@@ -3863,15 +3866,19 @@ static ssize_t wm_adsp_debugfs_running_read(struct file *file,
 	char temp[2];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	temp[0] = dsp->running ? 'Y' : 'N';
 	temp[1] = '\n';
 =======
 		/* Initialize caches for enabled and non-dirty controls */
+=======
+		/* Initialize caches for enabled and unset controls */
+>>>>>>> 6b33c71... ASoC: wm_adsp: Ensure set controls are synced on each boot
 		ret = wm_coeff_init_control_caches(dsp->wm_coeff);
 		if (ret != 0)
 			goto err;
 
-		/* Sync dirty controls */
+		/* Sync set controls */
 		ret = wm_coeff_sync_controls(dsp->wm_coeff);
 		if (ret != 0)
 			goto err;
