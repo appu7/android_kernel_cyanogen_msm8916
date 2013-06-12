@@ -290,11 +290,16 @@
 #define ARIZONA_DAC_VOLUME_LIMIT_6R              0x43E
 #define ARIZONA_NOISE_GATE_SELECT_6R             0x43F
 #define ARIZONA_DRE_ENABLE                       0x440
+<<<<<<< HEAD
 #define ARIZONA_DRE_CONTROL_1                    0x441
 #define ARIZONA_DRE_CONTROL_2                    0x442
 #define ARIZONA_DRE_CONTROL_3                    0x443
 #define CLEARWATER_EDRE_ENABLE                   0x448
 #define CLEARWATER_EDRE_MANUAL                   0x44A
+=======
+#define ARIZONA_DRE_CONTROL_2                    0x442
+#define ARIZONA_DRE_CONTROL_3                    0x443
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
 #define ARIZONA_DAC_AEC_CONTROL_1                0x450
 #define ARIZONA_DAC_AEC_CONTROL_2                0x451
 #define ARIZONA_NOISE_GATE_CONTROL               0x458
@@ -5066,10 +5071,13 @@
 /*
  * R1088 (0x440) - DRE Enable
  */
+<<<<<<< HEAD
 #define ARIZONA_DRE3R_ENA                        0x0020  /* DRE3L_ENA */
 #define ARIZONA_DRE3R_ENA_MASK                   0x0020  /* DRE3L_ENA */
 #define ARIZONA_DRE3R_ENA_SHIFT                       5  /* DRE3L_ENA */
 #define ARIZONA_DRE3R_ENA_WIDTH                       1  /* DRE3L_ENA */
+=======
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
 #define ARIZONA_DRE3L_ENA                        0x0010  /* DRE3L_ENA */
 #define ARIZONA_DRE3L_ENA_MASK                   0x0010  /* DRE3L_ENA */
 #define ARIZONA_DRE3L_ENA_SHIFT                       4  /* DRE3L_ENA */
@@ -5092,6 +5100,7 @@
 #define ARIZONA_DRE1L_ENA_WIDTH                       1  /* DRE1L_ENA */
 
 /*
+<<<<<<< HEAD
  * R1088 (0x440) - DRE Enable (Vegas)
  */
 #define VEGAS_DRE3L_ENA                          0x0020  /* DRE3L_ENA */
@@ -5127,14 +5136,19 @@
 #define ARIZONA_DRE_ENV_TC_FAST_WIDTH                 4  /* DRE_ENV_TC_FAST - [11:8] */
 
 /*
+=======
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
  * R1090 (0x442) - DRE Control 2
  */
 #define ARIZONA_DRE_T_LOW_MASK                   0x3F00  /* DRE_T_LOW - [13:8] */
 #define ARIZONA_DRE_T_LOW_SHIFT                       8  /* DRE_T_LOW - [13:8] */
 #define ARIZONA_DRE_T_LOW_WIDTH                       6  /* DRE_T_LOW - [13:8] */
+<<<<<<< HEAD
 #define ARIZONA_DRE_ALOG_VOL_DELAY_MASK          0x000F  /* DRE_ALOG_VOL_DELAY - [3:0] */
 #define ARIZONA_DRE_ALOG_VOL_DELAY_SHIFT              0  /* DRE_ALOG_VOL_DELAY - [3:0] */
 #define ARIZONA_DRE_ALOG_VOL_DELAY_WIDTH              4  /* DRE_ALOG_VOL_DELAY - [3:0] */
+=======
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
 
 /*
  * R1091 (0x443) - DRE Control 3
@@ -5146,6 +5160,7 @@
 #define ARIZONA_DRE_LOW_LEVEL_ABS_SHIFT               0  /* LOW_LEVEL_ABS - [3:0] */
 #define ARIZONA_DRE_LOW_LEVEL_ABS_WIDTH               4  /* LOW_LEVEL_ABS - [3:0] */
 
+<<<<<<< HEAD
 /* R486 (0x448) - EDRE_Enable
  */
 #define CLEARWATER_EDRE_OUT4L_THR3_ENA           0x0800  /* EDRE_OUT4L_THR3_ENA */
@@ -5197,6 +5212,8 @@
 #define CLEARWATER_EDRE_OUT1R_THR1_ENA_SHIFT          0  /* EDRE_OUT1R_THR1_ENA */
 #define CLEARWATER_EDRE_OUT1R_THR1_ENA_WIDTH          1  /* EDRE_OUT1R_THR1_ENA */
 
+=======
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
 /*
  * R1104 (0x450) - DAC AEC Control 1
  */
