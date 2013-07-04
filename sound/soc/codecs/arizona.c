@@ -21,6 +21,7 @@
 #include <sound/tlv.h>
 
 #include <linux/mfd/arizona/core.h>
+#include <linux/mfd/arizona/gpio.h>
 #include <linux/mfd/arizona/registers.h>
 
 #include "arizona.h"
@@ -591,6 +592,7 @@ int arizona_init_spk(struct snd_soc_codec *codec)
 }
 EXPORT_SYMBOL_GPL(arizona_init_spk);
 
+<<<<<<< HEAD
 int arizona_mux_put(struct snd_kcontrol *kcontrol,
 		    struct snd_ctl_elem_value *ucontrol)
 {
@@ -684,19 +686,46 @@ static const struct snd_soc_dapm_route arizona_mono_routes[] = {
 };
 
 int arizona_init_mono(struct snd_soc_codec *codec)
+=======
+int arizona_init_gpio(struct snd_soc_codec *codec)
+>>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
 {
 	struct arizona_priv *priv = snd_soc_codec_get_drvdata(codec);
 	struct arizona *arizona = priv->arizona;
 	int i;
 
+<<<<<<< HEAD
 	for (i = 0; i < ARIZONA_MAX_OUTPUT; ++i) {
 		if (arizona->pdata.out_mono[i])
 			snd_soc_dapm_add_routes(&codec->dapm,
 						&arizona_mono_routes[i], 1);
+=======
+	switch (arizona->type) {
+	case WM5110:
+		snd_soc_dapm_disable_pin(&codec->dapm, "DRC2 Signal Activity");
+	}
+
+	snd_soc_dapm_disable_pin(&codec->dapm, "DRC1 Signal Activity");
+
+	for (i = 0; i < ARRAY_SIZE(arizona->pdata.gpio_defaults); i++) {
+		switch (arizona->pdata.gpio_defaults[i] & ARIZONA_GPN_FN_MASK) {
+		case ARIZONA_GP_FN_DRC1_SIGNAL_DETECT:
+			snd_soc_dapm_enable_pin(&codec->dapm,
+						"DRC1 Signal Activity");
+			break;
+		case ARIZONA_GP_FN_DRC2_SIGNAL_DETECT:
+			snd_soc_dapm_enable_pin(&codec->dapm,
+						"DRC2 Signal Activity");
+			break;
+		default:
+			break;
+		}
+>>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
 	}
 
 	return 0;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(arizona_init_mono);
 
 static const char * const arizona_dmic_refs[] = {
@@ -714,6 +743,18 @@ static const char * const marley_dmic_refs[] = {
 };
 
 static const char * const arizona_dmic_inputs[] = {
+=======
+EXPORT_SYMBOL_GPL(arizona_init_gpio);
+
+const char *arizona_mixer_texts[ARIZONA_NUM_MIXER_INPUTS] = {
+	"None",
+	"Tone Generator 1",
+	"Tone Generator 2",
+	"Haptics",
+	"AEC",
+	"Mic Mute Mixer",
+	"Noise Generator",
+>>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
 	"IN1L",
 	"IN1R",
 	"IN2L",
