@@ -3159,7 +3159,10 @@ static bool florida_volatile_register(struct device *dev, unsigned int reg)
 	case ARIZONA_AOD_WKUP_AND_TRIG:
 	case ARIZONA_AOD_IRQ1:
 	case ARIZONA_AOD_IRQ2:
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
 	case ARIZONA_AOD_IRQ_RAW_STATUS:
+=======
+>>>>>>> 4fa74d8... mfd: wm5110: Set FX_CTRL2 to volatile:drivers/mfd/wm5110-tables.c
 	case ARIZONA_FX_CTRL2:
 	case ARIZONA_ASRC_STATUS:
 	case ARIZONA_DSP_STATUS:
