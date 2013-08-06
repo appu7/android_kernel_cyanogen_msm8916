@@ -935,12 +935,17 @@ static int arizona_runtime_suspend(struct device *dev)
 		}
 	}
 
+<<<<<<< HEAD
 	regulator_disable(arizona->dcvdd);
 >>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
 	regcache_cache_only(arizona->regmap, true);
 	regcache_mark_dirty(arizona->regmap);
 	if (arizona->regmap_32bit)
 		regcache_mark_dirty(arizona->regmap_32bit);
+=======
+	regcache_cache_only(arizona->regmap, true);
+	regcache_mark_dirty(arizona->regmap);
+>>>>>>> 390cf6d... mfd: arizona: Move regulator disable to after marking cache only
 	regulator_disable(arizona->dcvdd);
 
 	return 0;
