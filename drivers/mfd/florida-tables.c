@@ -2017,7 +2017,10 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_MIC_DETECT_1:
 	case ARIZONA_MIC_DETECT_2:
 	case ARIZONA_MIC_DETECT_3:
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
 	case ARIZONA_MIC_DETECT_4:
+=======
+>>>>>>> cac6b14... mfd: wm5110: Add mic detect level registers:drivers/mfd/wm5110-tables.c
 	case ARIZONA_MIC_DETECT_LEVEL_1:
 	case ARIZONA_MIC_DETECT_LEVEL_2:
 	case ARIZONA_MIC_DETECT_LEVEL_3:
