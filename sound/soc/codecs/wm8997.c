@@ -132,6 +132,7 @@ static DECLARE_TLV_DB_SCALE(digital_tlv, -6400, 50, 0);
 static DECLARE_TLV_DB_SCALE(noise_tlv, 0, 600, 0);
 static DECLARE_TLV_DB_SCALE(ng_tlv, -10200, 600, 0);
 
+<<<<<<< HEAD:sound/soc/codecs/wm8997.c
 static const struct reg_default wm8997_sysclk_reva_patch[] = {
 	{ 0x301D, 0x7B15 },
 	{ 0x301B, 0x0050 },
@@ -232,6 +233,27 @@ SOC_SINGLE("IN1 High Performance Switch", ARIZONA_IN1L_CONTROL,
 	   ARIZONA_IN1_OSR_SHIFT, 1, 0),
 SOC_SINGLE("IN2 High Performance Switch", ARIZONA_IN2L_CONTROL,
 	   ARIZONA_IN2_OSR_SHIFT, 1, 0),
+=======
+#define WM5110_NG_SRC(name, base) \
+	SOC_SINGLE(name " NG HPOUT1L Switch",  base,  0, 1, 0), \
+	SOC_SINGLE(name " NG HPOUT1R Switch",  base,  1, 1, 0), \
+	SOC_SINGLE(name " NG HPOUT2L Switch",  base,  2, 1, 0), \
+	SOC_SINGLE(name " NG HPOUT2R Switch",  base,  3, 1, 0), \
+	SOC_SINGLE(name " NG HPOUT3L Switch",  base,  4, 1, 0), \
+	SOC_SINGLE(name " NG HPOUT3R Switch",  base,  5, 1, 0), \
+	SOC_SINGLE(name " NG SPKOUTL Switch",  base,  6, 1, 0), \
+	SOC_SINGLE(name " NG SPKOUTR Switch",  base,  7, 1, 0), \
+	SOC_SINGLE(name " NG SPKDAT1L Switch", base,  8, 1, 0), \
+	SOC_SINGLE(name " NG SPKDAT1R Switch", base,  9, 1, 0), \
+	SOC_SINGLE(name " NG SPKDAT2L Switch", base, 10, 1, 0), \
+	SOC_SINGLE(name " NG SPKDAT2R Switch", base, 11, 1, 0)
+
+static const struct snd_kcontrol_new wm5110_snd_controls[] = {
+SOC_ENUM("IN1 OSR", arizona_in_dmic_osr[0]),
+SOC_ENUM("IN2 OSR", arizona_in_dmic_osr[1]),
+SOC_ENUM("IN3 OSR", arizona_in_dmic_osr[2]),
+SOC_ENUM("IN4 OSR", arizona_in_dmic_osr[3]),
+>>>>>>> 6753a15... ASoC: wm5110: Correct input OSR bits for wm5110:sound/soc/codecs/wm5110.c
 
 SOC_SINGLE_RANGE_TLV("IN1L Volume", ARIZONA_IN1L_CONTROL,
 		     ARIZONA_IN1L_PGA_VOL_SHIFT, 0x40, 0x5f, 0, ana_tlv),

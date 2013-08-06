@@ -1670,6 +1670,7 @@ const SOC_ENUM_SINGLE_DECL(arizona_ng_hold,
 			   arizona_ng_hold_text);
 EXPORT_SYMBOL_GPL(arizona_ng_hold);
 
+<<<<<<< HEAD
 static const char * const arizona_in_hpf_cut_text[] = {
 	"2.5Hz", "5Hz", "10Hz", "20Hz", "40Hz"
 };
@@ -1682,6 +1683,10 @@ EXPORT_SYMBOL_GPL(arizona_in_hpf_cut_enum);
 
 static const char * const arizona_in_dmic_osr_text[] = {
 	"1.536MHz", "3.072MHz", "6.144MHz", "768kHz",
+=======
+static const char * const arizona_in_dmic_osr_text[] = {
+	"1.536MHz", "3.072MHz", "6.144MHz",
+>>>>>>> 6753a15... ASoC: wm5110: Correct input OSR bits for wm5110
 };
 
 const struct soc_enum arizona_in_dmic_osr[] = {
@@ -1700,6 +1705,7 @@ const struct soc_enum arizona_in_dmic_osr[] = {
 };
 EXPORT_SYMBOL_GPL(arizona_in_dmic_osr);
 
+<<<<<<< HEAD
 static const char * const clearwater_in_dmic_osr_text[CLEARWATER_OSR_ENUM_SIZE] = {
 	"384kHz", "768kHz", "1.536MHz", "3.072MHz", "6.144MHz",
 };
@@ -1930,6 +1936,8 @@ exit:
 }
 EXPORT_SYMBOL_GPL(arizona_ip_mode_put);
 
+=======
+>>>>>>> 6753a15... ASoC: wm5110: Correct input OSR bits for wm5110
 static void arizona_in_set_vu(struct snd_soc_codec *codec, int ena)
 {
 	struct arizona_priv *priv = snd_soc_codec_get_drvdata(codec);

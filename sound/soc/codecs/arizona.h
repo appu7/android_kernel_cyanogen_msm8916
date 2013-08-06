@@ -306,6 +306,7 @@ extern const struct soc_enum arizona_lhpf3_mode;
 extern const struct soc_enum arizona_lhpf4_mode;
 
 extern const struct soc_enum arizona_ng_hold;
+<<<<<<< HEAD
 extern const struct soc_enum arizona_in_hpf_cut_enum;
 extern const struct soc_enum arizona_in_dmic_osr[];
 extern const struct soc_enum clearwater_in_dmic_osr[];
@@ -321,6 +322,9 @@ extern int arizona_ip_mode_put(struct snd_kcontrol *kcontrol,
 
 extern int arizona_put_anc_input(struct snd_kcontrol *kcontrol,
 			  struct snd_ctl_elem_value *ucontrol);
+=======
+extern const struct soc_enum arizona_in_dmic_osr[];
+>>>>>>> 6753a15... ASoC: wm5110: Correct input OSR bits for wm5110
 
 extern int arizona_in_ev(struct snd_soc_dapm_widget *w,
 			 struct snd_kcontrol *kcontrol,
