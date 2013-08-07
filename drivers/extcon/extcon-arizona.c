@@ -1241,6 +1241,7 @@ static irqreturn_t arizona_jackdet(int irq, void *data)
 		info->micd_timeout = DEFAULT_MICD_TIMEOUT;
 
 out:
+<<<<<<< HEAD
 	switch (arizona->type) {
 	case WM5102:
 	case WM5110:
@@ -1258,6 +1259,14 @@ out:
 	default:
 		break;
 	}
+=======
+	/* Clear trig_sts to make sure DCVDD is not forced up */
+	regmap_write(arizona->regmap, ARIZONA_AOD_WKUP_AND_TRIG,
+		     ARIZONA_MICD_CLAMP_FALL_TRIG_STS |
+		     ARIZONA_MICD_CLAMP_RISE_TRIG_STS |
+		     ARIZONA_JD1_FALL_TRIG_STS |
+		     ARIZONA_JD1_RISE_TRIG_STS);
+>>>>>>> 5f11de9... extcon: arizona: Clear trig_sts bits on all paths
 
 	mutex_unlock(&info->lock);
 
