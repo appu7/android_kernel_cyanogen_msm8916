@@ -483,8 +483,12 @@ static int arizona_hpdet_read(struct arizona_extcon_info *info)
 			   >> ARIZONA_HP_IMPEDANCE_RANGE_SHIFT;
 
 		if (range < ARRAY_SIZE(arizona_hpdet_b_ranges) - 1 &&
+<<<<<<< HEAD
 		    (val < arizona_hpdet_b_ranges[range].threshold ||
 		     val >= ARIZONA_HPDET_B_RANGE_MAX)) {
+=======
+		    (val < 100 || val >= 0x3fb)) {
+>>>>>>> eee2789... extcon: arizona: Correct typo in headphone detect range transitions
 			range++;
 			dev_dbg(arizona->dev, "Moving to HPDET range %d\n",
 				range);
@@ -497,8 +501,12 @@ static int arizona_hpdet_read(struct arizona_extcon_info *info)
 		}
 
 		/* If we go out of range report top of range */
+<<<<<<< HEAD
 		if (val < arizona_hpdet_b_ranges[range].threshold ||
 		    val >= ARIZONA_HPDET_B_RANGE_MAX) {
+=======
+		if (val < 100 || val >= 0x3fb) {
+>>>>>>> eee2789... extcon: arizona: Correct typo in headphone detect range transitions
 			dev_dbg(arizona->dev, "Measurement out of range\n");
 			return ARIZONA_HPDET_MAX;
 		}
