@@ -3879,6 +3879,7 @@ static int arizona_is_enabled_fll(struct arizona_fll *fll)
 static int arizona_wait_for_fll(struct arizona_fll *fll, bool requested)
 {
 	struct arizona *arizona = fll->arizona;
+<<<<<<< HEAD
 	unsigned int reg, mask;
 	unsigned int val = 0;
 	bool status;
@@ -3938,6 +3939,10 @@ static int arizona_enable_fll(struct arizona_fll *fll)
 		regmap_update_bits(fll->arizona->regmap, fll->base + 1,
 				   ARIZONA_FLL1_FREERUN, ARIZONA_FLL1_FREERUN);
 	}
+=======
+	int ret;
+	bool use_sync = false;
+>>>>>>> a5f268d... ASoC: arizona: Improve handling of setting REFCLK to 0
 
 	/*
 	 * If we have both REFCLK and SYNCCLK then enable both,
@@ -3945,14 +3950,24 @@ static int arizona_enable_fll(struct arizona_fll *fll)
 	 */
 	if (fll->ref_src >= 0 && fll->ref_freq &&
 	    fll->ref_src != fll->sync_src) {
+<<<<<<< HEAD
 		arizona_calc_fll(fll, &cfg, fll->ref_freq, false);
+=======
+		regmap_update_bits(arizona->regmap, fll->base + 5,
+				   ARIZONA_FLL1_OUTDIV_MASK,
+				   ref->outdiv << ARIZONA_FLL1_OUTDIV_SHIFT);
+>>>>>>> a5f268d... ASoC: arizona: Improve handling of setting REFCLK to 0
 
 		fll_change = arizona_apply_fll(arizona, fll->base, &cfg, fll->ref_src,
 				  false);
 		if (fll->sync_src >= 0) {
+<<<<<<< HEAD
 			arizona_calc_fll(fll, &cfg, fll->sync_freq, true);
 
 			fll_change |= arizona_apply_fll(arizona, fll->base + 0x10, &cfg,
+=======
+			arizona_apply_fll(arizona, fll->base + 0x10, sync,
+>>>>>>> a5f268d... ASoC: arizona: Improve handling of setting REFCLK to 0
 					  fll->sync_src, true);
 			use_sync = true;
 		}
@@ -4035,10 +4050,26 @@ int arizona_set_fll_refclk(struct arizona_fll *fll, int source,
 	if (fll->ref_src == source && fll->ref_freq == Fref)
 		return 0;
 
+<<<<<<< HEAD
 	if (fll->fout && Fref > 0) {
 		ret = arizona_validate_fll(fll, Fref, fll->fvco);
 		if (ret != 0)
 			return ret;
+=======
+	if (fll->fout) {
+		if (Fref > 0) {
+			ret = arizona_calc_fll(fll, &ref, Fref, fll->fout);
+			if (ret != 0)
+				return ret;
+		}
+
+		if (fll->sync_src >= 0) {
+			ret = arizona_calc_fll(fll, &sync, fll->sync_freq,
+					       fll->fout);
+			if (ret != 0)
+				return ret;
+		}
+>>>>>>> a5f268d... ASoC: arizona: Improve handling of setting REFCLK to 0
 	}
 
 	fll->ref_src = source;
