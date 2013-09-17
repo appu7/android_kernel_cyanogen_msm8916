@@ -847,6 +847,7 @@ static const struct reg_default florida_reg_default[] = {
 	{ 0x00000440, 0x8FFF },    /* R1088  - DRE Enable */
 	{ 0x00000450, 0x0000 },    /* R1104  - DAC AEC Control 1 */
 	{ 0x00000458, 0x0000 },    /* R1112  - Noise Gate Control */
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
 	{ 0x00000460, 0x0C40 },
 	{ 0x00000461, 0x8000 },
 	{ 0x00000462, 0x0C41 },
@@ -879,6 +880,10 @@ static const struct reg_default florida_reg_default[] = {
 	{ 0x0000047D, 0x0001 },
 	{ 0x0000047E, 0x07FF },
 	{ 0x00000483, 0x0826 },
+=======
+	{ 0x00000480, 0x0040 },    /* R1152  - Class W ANC Threshold 1 */
+	{ 0x00000481, 0x0040 },    /* R1153  - Class W ANC Threshold 2 */
+>>>>>>> a7570be... mfd: wm5110: Update noise gate default to match the patch file:drivers/mfd/wm5110-tables.c
 	{ 0x00000490, 0x0069 },    /* R1168  - PDM SPK1 CTRL 1 */
 	{ 0x00000491, 0x0000 },    /* R1169  - PDM SPK1 CTRL 2 */
 	{ 0x00000492, 0x0069 },    /* R1170  - PDM SPK2 CTRL 1 */
