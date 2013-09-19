@@ -43,6 +43,7 @@ Required properties:
     second cell is used to specify optional parameters (currently unused).
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   - AVDD-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply (wm5102, wm5110),
     DBVDD4-supply (wm8285), CPVDD-supply, SPKVDDL-supply (wm5102, wm5110),
     SPKVDDR-supply (wm5102, wm5110), SPKVDD-supply (wm8997, cs47l24) : Power
@@ -50,6 +51,9 @@ Required properties:
     Documentation/devicetree/bindings/regulator/regulator.txt
 =======
   - AVDD1-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply, CPVDD-supply,
+=======
+  - AVDD-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply, CPVDD-supply,
+>>>>>>> 5ae2f3d... mfd: arizona: Add device tree helper functions
     SPKVDDL-supply, SPKVDDR-supply : power supplies for the device, as covered
     in Documentation/devicetree/bindings/regulator/regulator.txt
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
@@ -228,11 +232,11 @@ codec: wm5102@1a {
 	wlf,max-channels-clocked = <2 0 0>;
 =======
 	wlf,gpio-defaults = <
-		0x00000000, /* AIF1TXLRCLK */
-		0xffffffff,
-		0xffffffff,
-		0xffffffff,
-		0xffffffff,
+		0x00000000 /* AIF1TXLRCLK */
+		0xffffffff
+		0xffffffff
+		0xffffffff
+		0xffffffff
 	>;
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 };
