@@ -183,6 +183,20 @@ Optional subnodes:
     milliseconds
   - wlf,micd-force-micbias : Force MICBIAS continuously on during microphone
     detection
+  - wlf,micd-ranges : Microphone detection level and key configuration, this
+    field can be of variable length but should always be a multiple of 2 cells
+    long, each two cell group represents one button configuration
+    The first cell is the maximum impedance for this button in ohms
+    The second cell the key that should be reported to the input layer
+  - wlf,micd-configs : Headset polarity configurations, the field can be of
+    variable length but should always be a multiple of 3 cells long, each two
+    cell group represents one polarity configration
+    The first cell is the accessory detection source as per the ACCDET_SRC bits
+    in the ACCESSORY_DETECT_MODE_1 register
+    The second cell represents the MICBIAS to be used as per the MICD_BIAS_SRC
+    bits in the MIC_DETECT_1 register
+    The third cell represents the value of the micd-pol-gpio pin, a non-zero
+    value indicates this should be on
 
   - wlf,gpio-defaults : A list of GPIO configuration register values. If
     absent, no configuration of these registers is performed. If any
@@ -223,6 +237,9 @@ codec: wm5102@1a {
 	wlf,micd-timeout = <10>;
 	wlf,micd-force-micbias;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 62346a7... mfd: arizona: Add micdet ranges and polarity device tree bindings
 	wlf,micd-ranges = <
 		11 0x100
 		28 0x101
@@ -235,6 +252,7 @@ codec: wm5102@1a {
 		0x1 1 0
 		0x0 2 1
 	>;
+<<<<<<< HEAD
 	wlf,fixed-hpdet-imp = <8>;
 
 	wlf,micbias2 = <2600 0 1 1 0>;
@@ -257,6 +275,8 @@ codec: wm5102@1a {
 	wlf,max-channels-clocked = <2 0 0>;
 =======
 =======
+=======
+>>>>>>> 62346a7... mfd: arizona: Add micdet ranges and polarity device tree bindings
 
 >>>>>>> 6d2143f... mfd: arizona: Add simple microphone detection device tree bindings
 	wlf,gpio-defaults = <
