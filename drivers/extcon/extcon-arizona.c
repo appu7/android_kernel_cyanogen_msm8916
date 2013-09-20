@@ -261,6 +261,7 @@ static void arizona_extcon_set_mode(struct arizona_extcon_info *info, int mode)
 
 static const char *arizona_extcon_get_micbias(struct arizona_extcon_info *info)
 {
+<<<<<<< HEAD
 	struct arizona *arizona = info->arizona;
 
 	switch (arizona->type) {
@@ -275,6 +276,15 @@ static const char *arizona_extcon_get_micbias(struct arizona_extcon_info *info)
 		default:
 			return "MICVDD";
 		}
+=======
+	switch (info->micd_modes[0].bias) {
+	case 1:
+		return "MICBIAS1";
+	case 2:
+		return "MICBIAS2";
+	case 3:
+		return "MICBIAS3";
+>>>>>>> d61f8d1... extcon: arizona: Don't require micbias to be shifted in pdata
 	default:
 		switch (info->micd_modes[0].bias) {
 		case 1:
