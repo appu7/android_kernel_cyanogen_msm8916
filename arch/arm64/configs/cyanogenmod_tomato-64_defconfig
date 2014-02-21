@@ -709,9 +709,14 @@ CONFIG_EXFAT_DISCARD=y
 CONFIG_EXFAT_DEFAULT_CODEPAGE=437
 CONFIG_EXFAT_DEFAULT_IOCHARSET="utf8"
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 1c884f8... msm: Add Intelli Hotplug Driver
 =======
 
 CONFIG_INTELLI_HOTPLUG=y
 CONFIG_CPU_FREQ_GOV_HELLSACTIVE=y
 >>>>>>> 72d861e... Fixed mismerge
+=======
+CONFIG_INTELLI_HOTPLUG=y
+#CONFIG_CPU_FREQ_GOV_HELLSACTIVE is not set
+>>>>>>> f5a39e2... power: quickwakeup: initial driver
