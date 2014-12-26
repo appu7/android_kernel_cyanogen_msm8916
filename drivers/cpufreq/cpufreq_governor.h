@@ -134,8 +134,6 @@ struct cpu_dbs_common_info {
 	u64 prev_cpu_idle;
 	u64 prev_cpu_wall;
 	u64 prev_cpu_nice;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	/*
 	 * Used to keep track of load in the previous interval. However, when
 	 * explicitly set to zero, it is used as a flag to ensure that we copy
@@ -143,22 +141,13 @@ struct cpu_dbs_common_info {
 	 * wake-up from idle.
 	 */
 	unsigned int prev_load;
-=======
-	unsigned int prev_load;
-=======
->>>>>>> bd05c99... cpufreq: governor: remove copy_prev_load from 'struct cpu_dbs_common_info'
 	/*
 	 * Used to keep track of load in the previous interval. However, when
 	 * explicitly set to zero, it is used as a flag to ensure that we copy
 	 * the previous load to the current interval only once, upon the first
 	 * wake-up from idle.
 	 */
-<<<<<<< HEAD
 	bool copy_prev_load;
->>>>>>> 3170afb... cpufreq: governor: Be friendly towards latency-sensitive bursty workloads
-=======
-	unsigned int prev_load;
->>>>>>> bd05c99... cpufreq: governor: remove copy_prev_load from 'struct cpu_dbs_common_info'
 	struct cpufreq_policy *cur_policy;
 	struct delayed_work work;
 	/*
