@@ -177,21 +177,29 @@ static int tz_init(struct devfreq_msm_adreno_tz_data *priv,
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+
+>>>>>>> 7210b15... block: add sioplus iosched
 #ifdef CONFIG_ADRENO_IDLER
 extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq,
 		 unsigned long *freq);
 #endif
-=======
+
 #ifdef CONFIG_SIMPLE_GPU_ALGORITHM
 extern int simple_gpu_active;
 extern int simple_gpu_algorithm(int level,
 				struct devfreq_msm_adreno_tz_data *priv);
 #endif
 
+<<<<<<< HEAD
 >>>>>>> 610bc0e... Simple GPU Algorithm: Initial coding for devfreq based Adreno Drivers
 >>>>>>> 9b0c06d... Simple gpu algorithm added
+=======
+
+>>>>>>> 7210b15... block: add sioplus iosched
 static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 				u32 *flag)
 {
@@ -210,6 +218,29 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 	}
 
 	*freq = stats.current_frequency;
+<<<<<<< HEAD
+=======
+
+	*flag = 0;
+
+	/*
+	 * Force to use & record as min freq when system has
+	 * entered pm-suspend or screen-off state.
+	 */
+	if (suspended || power_suspended) {
+		*freq = devfreq->profile->freq_table[devfreq->profile->max_state - 1];
+		return 0;
+	}
+
+#ifdef CONFIG_ADRENO_IDLER
+	if (adreno_idler(stats, devfreq, freq)) {
+		/* adreno_idler has asked to bail out now */
+		return 0;
+	}
+#endif
+
+
+>>>>>>> 7210b15... block: add sioplus iosched
 	priv->bin.total_time += stats.total_time;
 	priv->bin.busy_time += stats.busy_time;
 
