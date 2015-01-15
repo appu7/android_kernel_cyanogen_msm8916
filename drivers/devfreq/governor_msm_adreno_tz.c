@@ -176,6 +176,22 @@ static int tz_init(struct devfreq_msm_adreno_tz_data *priv,
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+#ifdef CONFIG_ADRENO_IDLER
+extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq,
+		 unsigned long *freq);
+#endif
+=======
+#ifdef CONFIG_SIMPLE_GPU_ALGORITHM
+extern int simple_gpu_active;
+extern int simple_gpu_algorithm(int level,
+				struct devfreq_msm_adreno_tz_data *priv);
+#endif
+
+>>>>>>> 610bc0e... Simple GPU Algorithm: Initial coding for devfreq based Adreno Drivers
+>>>>>>> 9b0c06d... Simple gpu algorithm added
 static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 				u32 *flag)
 {
@@ -234,15 +250,25 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 		busy_bin = 0;
 		frame_flag = 0;
 	} else {
-
+#ifdef CONFIG_SIMPLE_GPU_ALGORITHM
+		if (simple_gpu_active != 0)
+			val = simple_gpu_algorithm(level, priv);
+		else
 		scm_data[0] = level;
 		scm_data[1] = priv->bin.total_time;
 		scm_data[2] = priv->bin.busy_time;
 		__secure_tz_update_entry3(scm_data, sizeof(scm_data),
 					&val, sizeof(val), priv->is_64);
-	}
-	priv->bin.total_time = 0;
-	priv->bin.busy_time = 0;
+#else
+		scm_data[0] = level;
+		scm_data[1] = priv->bin.total_time;
+		scm_data[2] = priv->bin.busy_time;
+		__secure_tz_update_entry3(scm_data, sizeof(scm_data),
+					&val, sizeof(val), priv->is_64);
+#endif
+ 	}
+ 	priv->bin.total_time = 0;
+ 	priv->bin.busy_time = 0;
 
 	/*
 	 * If the decision is to move to a different level, make sure the GPU
