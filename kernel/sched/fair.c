@@ -2220,6 +2220,7 @@ dec_nr_big_small_task(struct hmp_sched_stats *stats, struct task_struct *p)
 		stats->nr_big_tasks--;
 	else if (is_small_task(p))
 		stats->nr_small_tasks--;
+<<<<<<< HEAD
 
 	BUG_ON(stats->nr_big_tasks < 0 || stats->nr_small_tasks < 0);
 }
@@ -2230,6 +2231,18 @@ static void inc_rq_hmp_stats(struct rq *rq, struct task_struct *p)
 	inc_nr_big_small_task(&rq->hmp_stats, p);
 }
 
+=======
+
+	BUG_ON(stats->nr_big_tasks < 0 || stats->nr_small_tasks < 0);
+}
+
+static void inc_rq_hmp_stats(struct rq *rq, struct task_struct *p)
+{
+	inc_cumulative_runnable_avg(&rq->hmp_stats, p);
+	inc_nr_big_small_task(&rq->hmp_stats, p);
+}
+
+>>>>>>> aa60abd... sched: Consolidate hmp stats into their own struct
 static void dec_rq_hmp_stats(struct rq *rq, struct task_struct *p)
 {
 	dec_cumulative_runnable_avg(&rq->hmp_stats, p);

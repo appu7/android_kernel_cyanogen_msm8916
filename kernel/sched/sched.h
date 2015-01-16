@@ -957,8 +957,13 @@ dec_cumulative_runnable_avg(struct hmp_sched_stats *stats,
 #else	/* CONFIG_SCHED_HMP */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 struct hmp_sched_stats;
 =======
+=======
+struct hmp_sched_stats;
+
+>>>>>>> aa60abd... sched: Consolidate hmp stats into their own struct
 static inline unsigned int nr_eligible_big_tasks(int cpu)
 {
 	return 0;
@@ -1049,11 +1054,14 @@ static inline void clear_reserved(int cpu)
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 extern unsigned int sched_enable_power_aware;
 =======
 extern unsigned int sched_enable_hmp;
 >>>>>>> 709e58d... sched: Add sysctl to enable power aware scheduling
 
+=======
+>>>>>>> aa60abd... sched: Consolidate hmp stats into their own struct
 int mostly_idle_cpu(int cpu);
 extern void check_for_migration(struct rq *rq, struct task_struct *p);
 extern void pre_big_small_task_count_change(const struct cpumask *cpus);
