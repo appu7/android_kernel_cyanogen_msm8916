@@ -905,6 +905,7 @@ extern void fixup_nr_big_small_task(int cpu);
 unsigned int max_task_load(void);
 extern void sched_account_irqtime(int cpu, struct task_struct *curr,
 				 u64 delta, u64 wallclock);
+extern unsigned int nr_eligible_big_tasks(int cpu);
 
 /*
  * 'load' is in reference to "best cpu" at its best frequency.
@@ -955,7 +956,14 @@ dec_cumulative_runnable_avg(struct hmp_sched_stats *stats,
 
 #else	/* CONFIG_SCHED_HMP */
 
+<<<<<<< HEAD
 struct hmp_sched_stats;
+=======
+static inline unsigned int nr_eligible_big_tasks(int cpu)
+{
+	return 0;
+}
+>>>>>>> 8c8343c... sched: Keep track of average nr_big_tasks
 
 static inline int pct_task_load(struct task_struct *p) { return 0; }
 
