@@ -1553,6 +1553,7 @@ static inline unsigned int do_avg_nr_running(struct rq *rq)
 
 static inline void inc_nr_running(struct rq *rq)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_INTELLI_HOTPLUG
 	struct nr_stats_s *nr_stats = &per_cpu(runqueue_stats, rq->cpu);
 #endif
@@ -1562,6 +1563,9 @@ static inline void inc_nr_running(struct rq *rq)
 	nr_stats->ave_nr_running = do_avg_nr_running(rq);
 	nr_stats->nr_last_stamp = rq->clock_task;
 #endif
+=======
+	sched_update_nr_prod(cpu_of(rq), 1, true);
+>>>>>>> 2836dfe... sched: Fix bug in average nr_running and nr_iowait calculation
 	rq->nr_running++;
 #ifdef CONFIG_INTELLI_HOTPLUG
 	write_seqcount_end(&nr_stats->ave_seqcnt);
@@ -1580,6 +1584,7 @@ static inline void inc_nr_running(struct rq *rq)
 
 static inline void dec_nr_running(struct rq *rq)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_INTELLI_HOTPLUG
 	struct nr_stats_s *nr_stats = &per_cpu(runqueue_stats, rq->cpu);
 #endif
@@ -1589,6 +1594,9 @@ static inline void dec_nr_running(struct rq *rq)
 	nr_stats->ave_nr_running = do_avg_nr_running(rq);
 	nr_stats->nr_last_stamp = rq->clock_task;
 #endif
+=======
+	sched_update_nr_prod(cpu_of(rq), 1, false);
+>>>>>>> 2836dfe... sched: Fix bug in average nr_running and nr_iowait calculation
 	rq->nr_running--;
 #ifdef CONFIG_INTELLI_HOTPLUG
 	write_seqcount_end(&nr_stats->ave_seqcnt);
