@@ -706,6 +706,7 @@ CONFIG_EXFAT_DISCARD=y
 # CONFIG_EXFAT_DELAYED_SYNC is not set
 # CONFIG_EXFAT_KERNEL_DEBUG is not set
 # CONFIG_EXFAT_DEBUG_MSG is not set
+# CONFIG_EXFAT_VIRTUAL_XATTR is not set
 CONFIG_EXFAT_DEFAULT_CODEPAGE=437
 CONFIG_EXFAT_DEFAULT_IOCHARSET="utf8"
 <<<<<<< HEAD
@@ -719,4 +720,13 @@ CONFIG_CPU_FREQ_GOV_HELLSACTIVE=y
 =======
 CONFIG_INTELLI_HOTPLUG=y
 #CONFIG_CPU_FREQ_GOV_HELLSACTIVE is not set
+<<<<<<< HEAD
 >>>>>>> f5a39e2... power: quickwakeup: initial driver
+=======
+CONFIG_NETWORK_FILESYSTEMS=y
+# CONFIG_NFS_FS is not set
+# CONFIG_NFSD is not set
+CONFIG_NTFS_FS=y
+# CONFIG_NTFS_DEBUG is not set
+CONFIG_NTFS_RW=y
+>>>>>>> 0af2277... msm: mdss: Add KCAL support for post processing control [v2]
