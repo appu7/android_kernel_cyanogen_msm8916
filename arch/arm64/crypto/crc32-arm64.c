@@ -148,6 +148,9 @@ static int chksum_final(struct shash_desc *desc, u8 *out)
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9c1f860... crypto: arm64/crc32 - bring in line with generic CRC32
 	put_unaligned_le32(ctx->crc, out);
 	return 0;
 }
@@ -156,8 +159,11 @@ static int chksumc_final(struct shash_desc *desc, u8 *out)
 {
 	struct chksum_desc_ctx *ctx = shash_desc_ctx(desc);
 
+<<<<<<< HEAD
 =======
 >>>>>>> dc98098... crypto: crc32 - Add ARM64 CRC32 hw accelerated module
+=======
+>>>>>>> 9c1f860... crypto: arm64/crc32 - bring in line with generic CRC32
 	put_unaligned_le32(~ctx->crc, out);
 	return 0;
 }
@@ -165,10 +171,14 @@ static int chksumc_final(struct shash_desc *desc, u8 *out)
 static int __chksum_finup(u32 crc, const u8 *data, unsigned int len, u8 *out)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	put_unaligned_le32(crc32_arm64_le_hw(crc, data, len), out);
 =======
 	put_unaligned_le32(~crc32_arm64_le_hw(crc, data, len), out);
 >>>>>>> dc98098... crypto: crc32 - Add ARM64 CRC32 hw accelerated module
+=======
+	put_unaligned_le32(crc32_arm64_le_hw(crc, data, len), out);
+>>>>>>> 9c1f860... crypto: arm64/crc32 - bring in line with generic CRC32
 	return 0;
 }
 
@@ -215,6 +225,9 @@ static int crc32_cra_init(struct crypto_tfm *tfm)
 	struct chksum_ctx *mctx = crypto_tfm_ctx(tfm);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9c1f860... crypto: arm64/crc32 - bring in line with generic CRC32
 	mctx->key = 0;
 	return 0;
 }
@@ -223,8 +236,11 @@ static int crc32c_cra_init(struct crypto_tfm *tfm)
 {
 	struct chksum_ctx *mctx = crypto_tfm_ctx(tfm);
 
+<<<<<<< HEAD
 =======
 >>>>>>> dc98098... crypto: crc32 - Add ARM64 CRC32 hw accelerated module
+=======
+>>>>>>> 9c1f860... crypto: arm64/crc32 - bring in line with generic CRC32
 	mctx->key = ~0;
 	return 0;
 }
@@ -256,10 +272,14 @@ static struct shash_alg crc32c_alg = {
 	.init			=	chksum_init,
 	.update			=	chksumc_update,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	.final			=	chksumc_final,
 =======
 	.final			=	chksum_final,
 >>>>>>> dc98098... crypto: crc32 - Add ARM64 CRC32 hw accelerated module
+=======
+	.final			=	chksumc_final,
+>>>>>>> 9c1f860... crypto: arm64/crc32 - bring in line with generic CRC32
 	.finup			=	chksumc_finup,
 	.digest			=	chksumc_digest,
 	.descsize		=	sizeof(struct chksum_desc_ctx),
@@ -272,10 +292,14 @@ static struct shash_alg crc32c_alg = {
 		.cra_ctxsize		=	sizeof(struct chksum_ctx),
 		.cra_module		=	THIS_MODULE,
 <<<<<<< HEAD
+<<<<<<< HEAD
 		.cra_init		=	crc32c_cra_init,
 =======
 		.cra_init		=	crc32_cra_init,
 >>>>>>> dc98098... crypto: crc32 - Add ARM64 CRC32 hw accelerated module
+=======
+		.cra_init		=	crc32c_cra_init,
+>>>>>>> 9c1f860... crypto: arm64/crc32 - bring in line with generic CRC32
 	}
 };
 
