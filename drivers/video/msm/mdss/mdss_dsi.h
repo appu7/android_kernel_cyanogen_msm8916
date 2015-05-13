@@ -438,7 +438,11 @@ struct mdss_dsi_ctrl_pdata {
 	struct panel_horizontal_idle *line_idle;
 	struct mdss_util_intf *mdss_util;
 
+<<<<<<< HEAD
 	struct timespec wait_until_ts;
+=======
+	bool dfps_status;	/* dynamic refresh status */
+>>>>>>> b2dc799... msm: mdss: suppress dsi fifo errors during refresh rate update
 };
 
 struct dsi_status_data {
