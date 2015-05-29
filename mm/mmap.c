@@ -2736,6 +2736,18 @@ void exit_mmap(struct mm_struct *mm)
 	}
 	vm_unacct_memory(nr_accounted);
 
+<<<<<<< HEAD
+=======
+	mm->mmap = NULL;
+	mm->mm_rb = RB_ROOT;
+<<<<<<< HEAD
+	vmacache_invalidate(mm);
+=======
+	mm->mmap_cache = NULL;
+>>>>>>> 20137b9... UKMS support
+	up_write(&mm->mmap_sem);
+
+>>>>>>> 7273b5d... UKMS support
 	WARN_ON(mm->nr_ptes > (FIRST_USER_ADDRESS+PMD_SIZE-1)>>PMD_SHIFT);
 }
 

@@ -158,6 +158,18 @@ enum zone_stat_item {
 	NR_ANON_TRANSPARENT_HUGEPAGES,
 	NR_FREE_CMA_PAGES,
 	NR_SWAPCACHE,
+<<<<<<< HEAD
+=======
+=======
+#ifdef CONFIG_UKSM
+	NR_UKSM_ZERO_PAGES,
+#endif
+<<<<<<< HEAD
+>>>>>>> 8db42f7... mm: Add UKSM support
+=======
+>>>>>>> 2b25bc5... mm: Add UKSM support
+>>>>>>> 20137b9... UKMS support
+>>>>>>> 7273b5d... UKMS support
 	NR_VM_ZONE_STAT_ITEMS };
 
 /*

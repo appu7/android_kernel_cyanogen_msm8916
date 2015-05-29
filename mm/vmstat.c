@@ -743,6 +743,18 @@ const char * const vmstat_text[] = {
 	"nr_anon_transparent_hugepages",
 	"nr_free_cma",
 	"nr_swapcache",
+<<<<<<< HEAD
+=======
+=======
+#ifdef CONFIG_UKSM
+	"nr_uksm_zero_pages",
+#endif
+<<<<<<< HEAD
+>>>>>>> 8db42f7... mm: Add UKSM support
+=======
+>>>>>>> 2b25bc5... mm: Add UKSM support
+>>>>>>> 20137b9... UKMS support
+>>>>>>> 7273b5d... UKMS support
 	"nr_dirty_threshold",
 	"nr_dirty_background_threshold",
 
