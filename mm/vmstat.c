@@ -748,7 +748,11 @@ const char * const vmstat_text[] = {
 #ifdef CONFIG_UKSM
 	"nr_uksm_zero_pages",
 #endif
+<<<<<<< HEAD
 >>>>>>> 8db42f7... mm: Add UKSM support
+=======
+>>>>>>> 2b25bc5... mm: Add UKSM support
+>>>>>>> 20137b9... UKMS support
 	"nr_dirty_threshold",
 	"nr_dirty_background_threshold",
 

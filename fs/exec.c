@@ -59,7 +59,11 @@
 =======
 #include <linux/resource.h>
 #include <linux/ksm.h>
+<<<<<<< HEAD
 >>>>>>> 8db42f7... mm: Add UKSM support
+=======
+>>>>>>> 2b25bc5... mm: Add UKSM support
+>>>>>>> 20137b9... UKMS support
 
 #include <asm/uaccess.h>
 #include <asm/mmu_context.h>

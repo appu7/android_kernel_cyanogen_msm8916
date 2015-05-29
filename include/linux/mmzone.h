@@ -163,7 +163,11 @@ enum zone_stat_item {
 #ifdef CONFIG_UKSM
 	NR_UKSM_ZERO_PAGES,
 #endif
+<<<<<<< HEAD
 >>>>>>> 8db42f7... mm: Add UKSM support
+=======
+>>>>>>> 2b25bc5... mm: Add UKSM support
+>>>>>>> 20137b9... UKMS support
 	NR_VM_ZONE_STAT_ITEMS };
 
 /*
