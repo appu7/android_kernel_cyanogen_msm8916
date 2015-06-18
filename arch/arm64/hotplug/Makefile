@@ -1,0 +1,1 @@
+obj-$(CONFIG_INTELLI_HOTPLUG) += intelli_hotplug.o
