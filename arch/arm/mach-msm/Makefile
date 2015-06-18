@@ -71,11 +71,8 @@ obj-$(CONFIG_MSM_SMCMOD) += smcmod.o
 obj-$(CONFIG_ARCH_MSM8974) += msm_mpmctr.o
 
 obj-$(CONFIG_PERFMAP) += perfmap.o
-<<<<<<< HEAD
-=======
+
 obj-$(CONFIG_MMI_UNIT_INFO) += mmi-unit-info.o
 obj-$(CONFIG_MMI_SOC_INFO) += mmi_soc_info.o
-obj-$(CONFIG_ZEN_DECISION) += msm_zen_decision.o
-obj-$(CONFIG_MSM_SLEEPER) += msm-sleeper.o
-obj-$(CONFIG_INTELLI_HOTPLUG) += intelli_hotplug.o
->>>>>>> 2f04c09... msm: Add Intelli Hotplug Driver
+
+
