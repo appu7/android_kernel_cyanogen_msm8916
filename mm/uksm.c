@@ -2671,10 +2671,14 @@ out:
  * in cmp_and_merge_page on one of the rmap_items we would be removing.
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 int unmerge_uksm_pages(struct vm_area_struct *vma,
 =======
 inline int unmerge_uksm_pages(struct vm_area_struct *vma,
 >>>>>>> 20137b9... UKMS support
+=======
+int unmerge_uksm_pages(struct vm_area_struct *vma,
+>>>>>>> a3b28c5... UKSM: Fix for GCC 5+
 		      unsigned long start, unsigned long end)
 {
 	unsigned long addr;
