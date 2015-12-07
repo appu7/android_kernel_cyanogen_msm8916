@@ -824,6 +824,144 @@ fail_cmd:
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+static struct cal_block_data *afe_find_cal_topo_id_by_port(
+			struct cal_type_data *cal_type, u16 port_id)
+{
+	struct list_head		*ptr, *next;
+	struct cal_block_data	*cal_block = NULL;
+	int32_t path;
+	struct audio_cal_info_afe_top *afe_top;
+
+	list_for_each_safe(ptr, next,
+		&cal_type->cal_blocks) {
+		cal_block = list_entry(ptr,
+			struct cal_block_data, list);
+
+		path = ((afe_get_port_type(port_id) ==
+			MSM_AFE_PORT_TYPE_TX)?(TX_DEVICE):(RX_DEVICE));
+		afe_top =
+		(struct audio_cal_info_afe_top *)cal_block->cal_info;
+		if (afe_top->path == path) {
+			pr_debug("%s: top_id:%x acdb_id:%d afe_port:%d\n",
+			__func__, afe_top->topology, afe_top->acdb_id,
+			q6audio_get_port_id(port_id));
+			return cal_block;
+		}
+	}
+	return NULL;
+}
+
+static int afe_get_cal_topology_id(u16 port_id, u32 *topology_id)
+{
+	int ret = 0;
+
+	struct cal_block_data   *cal_block = NULL;
+	struct audio_cal_info_afe_top   *afe_top_info = NULL;
+
+	if (this_afe.cal_data[AFE_TOPOLOGY_CAL] == NULL) {
+		pr_debug("%s: [AFE_TOPOLOGY_CAL] not initialized\n", __func__);
+		return -EINVAL;
+	}
+	if (topology_id == NULL) {
+		pr_err("%s: topology_id is NULL\n", __func__);
+		return -EINVAL;
+	}
+	*topology_id = 0;
+
+	mutex_lock(&this_afe.cal_data[AFE_TOPOLOGY_CAL]->lock);
+	cal_block = afe_find_cal_topo_id_by_port(
+		this_afe.cal_data[AFE_TOPOLOGY_CAL], port_id);
+	if (cal_block == NULL) {
+		pr_debug("%s: [AFE_TOPOLOGY_CAL] not initialized for this port %d\n",
+				__func__, port_id);
+		ret = -EINVAL;
+		goto unlock;
+	}
+
+	afe_top_info = ((struct audio_cal_info_afe_top *)
+		cal_block->cal_info);
+	if (!afe_top_info->topology) {
+		pr_err("%s: invalid topology id : [%d, %d]\n",
+		       __func__, afe_top_info->acdb_id, afe_top_info->topology);
+		ret = -EINVAL;
+		goto unlock;
+	}
+	*topology_id = (u32)afe_top_info->topology;
+
+	pr_debug("%s: port_id = %u acdb_id = %d topology_id = %u ret=%d\n",
+		__func__, port_id, afe_top_info->acdb_id,
+		afe_top_info->topology, ret);
+unlock:
+	mutex_unlock(&this_afe.cal_data[AFE_TOPOLOGY_CAL]->lock);
+	return ret;
+}
+
+static int afe_send_port_topology_id(u16 port_id)
+{
+	struct afe_audioif_config_command	config;
+	int index = 0;
+	int ret = 0;
+	u32 topology_id = 0;
+
+	index = q6audio_get_port_index(port_id);
+	if (index < 0 || index > AFE_MAX_PORTS) {
+		pr_err("%s: AFE port index[%d] invalid!\n",
+				__func__, index);
+		goto done;
+	}
+
+	ret = afe_get_cal_topology_id(port_id, &topology_id);
+	if (ret || !topology_id) {
+		pr_debug("%s: AFE port[%d] get_cal_topology[%d] invalid!\n",
+				__func__, port_id, topology_id);
+		goto done;
+	}
+
+	config.hdr.hdr_field = APR_HDR_FIELD(APR_MSG_TYPE_SEQ_CMD,
+				APR_HDR_LEN(APR_HDR_SIZE), APR_PKT_VER);
+	config.hdr.pkt_size = sizeof(config);
+	config.hdr.src_port = 0;
+	config.hdr.dest_port = 0;
+	config.hdr.token = index;
+
+	config.hdr.opcode = AFE_PORT_CMD_SET_PARAM_V2;
+	config.param.port_id = q6audio_get_port_id(port_id);
+	config.param.payload_size = sizeof(config) - sizeof(struct apr_hdr) -
+				    sizeof(config.param);
+	config.param.payload_address_lsw = 0x00;
+	config.param.payload_address_msw = 0x00;
+	config.param.mem_map_handle = 0x00;
+	config.pdata.module_id = AFE_MODULE_AUDIO_DEV_INTERFACE;
+	config.pdata.param_id   = AFE_PARAM_ID_SET_TOPOLOGY;
+	config.pdata.param_size =  sizeof(config.port);
+	config.port.topology.minor_version = AFE_API_VERSION_TOPOLOGY_V1;
+	config.port.topology.topology_id = topology_id;
+
+	pr_debug("%s: param PL size=%d iparam_size[%d][%zd %zd %zd %zd] param_id[0x%x]\n",
+		__func__, config.param.payload_size, config.pdata.param_size,
+		sizeof(config), sizeof(config.param), sizeof(config.port),
+		sizeof(struct apr_hdr), config.pdata.param_id);
+
+	ret = afe_apr_send_pkt(&config, &this_afe.wait[index]);
+	if (ret) {
+		pr_err("%s: AFE set topology id enable for port 0x%x failed %d\n",
+			__func__, port_id, ret);
+		goto done;
+	} else if (atomic_read(&this_afe.status) != 0) {
+		pr_err("%s: set topology_id config cmd failed\n", __func__);
+		ret = -EINVAL;
+		goto done;
+	}
+done:
+	pr_debug("%s: AFE set topology id 0x%x  enable for port 0x%x ret %d\n",
+			__func__, topology_id, port_id, ret);
+	return ret;
+
+}
+
+>>>>>>> 287ae92... qdsp6v2: q6afe: silence spammy debug logs
 static void remap_cal_data(struct cal_block_data *cal_block, int cal_index)
 {
 	int ret = 0;
