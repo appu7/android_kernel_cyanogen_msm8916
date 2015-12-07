@@ -43,8 +43,7 @@ config FB_MSM_MDSS_MDP3
 	---help---
 	The MDP3 provides support for an older version display controller
 	included in latest display sub-system, known as MDSS.
-<<<<<<< HEAD
-=======
+
 
 config FB_MSM_MDSS_XLOG_DEBUG
 	depends on FB_MSM_MDSS
@@ -59,11 +58,8 @@ config FB_MSM_MDSS_KCAL_CTRL
 	depends on FB_MSM_MDSS
 	bool "MDSS color control"
 	---help---
-<<<<<<< HEAD
 	  Enable sysfs for rgb/lut control for mdss-mdp display controllers
 	  in the MDSS sub-system.
->>>>>>> b41b4bd... msm: mdss: Add KCAL support for post processing control [v2]
-=======
 	  Enable sysfs for post-processing control of mdss-mdp5 display
 	  controllers in MDSS.
->>>>>>> 965f2d6... msm: mdss: KCAL: Update Kconfig description
+
