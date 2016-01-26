@@ -537,6 +537,7 @@ alloc:
 static int __allocate_data_blocks(struct inode *inode, loff_t offset,
 							size_t count)
 {
+<<<<<<< HEAD
 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
 	struct dnode_of_data dn;
 	u64 start = F2FS_BYTES_TO_BLK(offset);
@@ -597,6 +598,14 @@ out:
 	if (dn.node_changed)
 		f2fs_balance_fs(sbi);
 	return err;
+=======
+	struct f2fs_map_blocks map;
+
+	map.m_lblk = F2FS_BYTES_TO_BLK(offset);
+	map.m_len = F2FS_BYTES_TO_BLK(count);
+
+	return f2fs_map_blocks(inode, &map, 1, F2FS_GET_BLOCK_DIO);
+>>>>>>> bca42cc... f2fs: simplify __allocate_data_blocks
 }
 
 /*
