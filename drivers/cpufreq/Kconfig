@@ -144,7 +144,15 @@ config CPU_FREQ_DEFAULT_GOV_BARRY_ALLEN
 	  loading your cpufreq low-level hardware driver, using the
 	  'barry_allen' governor for latency-sensitive workloads.
 
+<<<<<<< HEAD
 >>>>>>> 7b40772... cpufreq: Add new governor Barry-Allen [@Javilonas]
+=======
+config CPU_FREQ_DEFAULT_GOV_NIGHTMARE
+	bool "nightmare"
+	select CPU_FREQ_GOV_NIGHTMARE
+	help
+
+>>>>>>> 88432dc... cpufreq: Add NIGHTMARE Governor
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
@@ -273,7 +281,14 @@ config CPU_FREQ_GOV_BARRY_ALLEN
 
 	  If in doubt, say N.
 
+<<<<<<< HEAD
 >>>>>>> 7b40772... cpufreq: Add new governor Barry-Allen [@Javilonas]
+=======
+config CPU_FREQ_GOV_NIGHTMARE
+	tristate "'nightmare' cpufreq governor"
+	depends on CPU_FREQ
+
+>>>>>>> 88432dc... cpufreq: Add NIGHTMARE Governor
 config CPU_BOOST
 	tristate "Event base short term CPU freq boost"
 	depends on CPU_FREQ
