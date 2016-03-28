@@ -752,15 +752,11 @@ static void __add_dirty_inode(struct inode *inode, enum inode_type type)
 
 	set_inode_flag(fi, flag);
 	list_add_tail(&fi->dirty_list, &sbi->inode_list[type]);
-	if (type == DIR_INODE)
-		stat_inc_dirty_dir(sbi);
+	stat_inc_dirty_inode(sbi, type);
 }
 
-<<<<<<< HEAD
-=======
 static void __remove_dirty_inode(struct inode *inode, enum inode_type type)
 {
-	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
 	struct f2fs_inode_info *fi = F2FS_I(inode);
 	int flag = (type == DIR_INODE) ? FI_DIRTY_DIR : FI_DIRTY_FILE;
 
@@ -770,11 +766,9 @@ static void __remove_dirty_inode(struct inode *inode, enum inode_type type)
 
 	list_del_init(&fi->dirty_list);
 	clear_inode_flag(fi, flag);
-	if (type == DIR_INODE)
-		stat_dec_dirty_dir(sbi);
+	stat_dec_dirty_inode(F2FS_I_SB(inode), type);
 }
 
->>>>>>> fc5e918... f2fs: record dirty status of regular/symlink inode
 void update_dirty_page(struct inode *inode, struct page *page)
 {
 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
@@ -812,23 +806,9 @@ void remove_dirty_inode(struct inode *inode)
 			!S_ISLNK(inode->i_mode))
 		return;
 
-<<<<<<< HEAD
-	spin_lock(&sbi->dir_inode_lock);
-	if (get_dirty_pages(inode) ||
-			!is_inode_flag_set(F2FS_I(inode), FI_DIRTY_DIR)) {
-		spin_unlock(&sbi->dir_inode_lock);
-		return;
-	}
-
-	list_del_init(&fi->dirty_list);
-	clear_inode_flag(fi, FI_DIRTY_DIR);
-	stat_dec_dirty_dir(sbi);
-	spin_unlock(&sbi->dir_inode_lock);
-=======
 	spin_lock(&sbi->inode_lock[type]);
 	__remove_dirty_inode(inode, type);
 	spin_unlock(&sbi->inode_lock[type]);
->>>>>>> fc5e918... f2fs: record dirty status of regular/symlink inode
 
 	/* Only from the recovery routine */
 	if (is_inode_flag_set(fi, FI_DELAY_IPUT)) {

@@ -318,22 +318,6 @@ static int __commit_inmem_pages(struct inode *inode,
 	bool submit_bio = false;
 	int err = 0;
 
-<<<<<<< HEAD
-	/*
-	 * The abort is true only when f2fs_evict_inode is called.
-	 * Basically, the f2fs_evict_inode doesn't produce any data writes, so
-	 * that we don't need to call f2fs_balance_fs.
-	 * Otherwise, f2fs_gc in f2fs_balance_fs can wait forever until this
-	 * inode becomes free by iget_locked in f2fs_iget.
-	 */
-	if (!abort) {
-		f2fs_balance_fs(sbi);
-		f2fs_lock_op(sbi);
-	}
-
-	mutex_lock(&fi->inmem_lock);
-=======
->>>>>>> 57c802f... f2fs: split drop_inmem_pages from commit_inmem_pages
 	list_for_each_entry_safe(cur, tmp, &fi->inmem_pages, list) {
 		struct page *page = cur->page;
 
@@ -412,8 +396,10 @@ int commit_inmem_pages(struct inode *inode)
  * This function balances dirty node and dentry pages.
  * In addition, it controls garbage collection.
  */
-void f2fs_balance_fs(struct f2fs_sb_info *sbi)
+void f2fs_balance_fs(struct f2fs_sb_info *sbi, bool need)
 {
+	if (!need)
+		return;
 	/*
 	 * We should do GC or end up with checkpoint, if there are so many dirty
 	 * dir/node pages without enough free segments.

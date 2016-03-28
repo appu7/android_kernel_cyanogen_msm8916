@@ -584,75 +584,6 @@ alloc:
 
 ssize_t f2fs_preallocate_blocks(struct inode *inode, loff_t pos, size_t count, bool dio)
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-	struct dnode_of_data dn;
-	u64 start = F2FS_BYTES_TO_BLK(offset);
-	u64 len = F2FS_BYTES_TO_BLK(count);
-	bool allocated;
-	u64 end_offset;
-	int err = 0;
-
-	while (len) {
-		f2fs_lock_op(sbi);
-
-		/* When reading holes, we need its node page */
-		set_new_dnode(&dn, inode, NULL, NULL, 0);
-		err = get_dnode_of_data(&dn, start, ALLOC_NODE);
-		if (err)
-			goto out;
-
-		allocated = false;
-		end_offset = ADDRS_PER_PAGE(dn.node_page, F2FS_I(inode));
-
-		while (dn.ofs_in_node < end_offset && len) {
-			block_t blkaddr;
-
-			if (unlikely(f2fs_cp_error(sbi))) {
-				err = -EIO;
-				goto sync_out;
-			}
-
-			blkaddr = datablock_addr(dn.node_page, dn.ofs_in_node);
-			if (blkaddr == NULL_ADDR || blkaddr == NEW_ADDR) {
-				err = __allocate_data_block(&dn);
-				if (err)
-					goto sync_out;
-				allocated = true;
-			}
-			len--;
-			start++;
-			dn.ofs_in_node++;
-		}
-
-		if (allocated)
-			sync_inode_page(&dn);
-
-		f2fs_put_dnode(&dn);
-		f2fs_unlock_op(sbi);
-
-		if (dn.node_changed)
-			f2fs_balance_fs(sbi);
-	}
-	return err;
-
-sync_out:
-	if (allocated)
-		sync_inode_page(&dn);
-	f2fs_put_dnode(&dn);
-out:
-	f2fs_unlock_op(sbi);
-	if (dn.node_changed)
-		f2fs_balance_fs(sbi);
-	return err;
-=======
-=======
-	struct inode *inode = file_inode(iocb->ki_filp);
->>>>>>> bf535d8... f2fs: move dio preallocation into f2fs_file_write_iter
-=======
->>>>>>> 3d244b2... f2fs: preallocate blocks for buffered aio writes
 	struct f2fs_map_blocks map;
 	ssize_t ret = 0;
 
@@ -660,14 +591,6 @@ out:
 	map.m_len = F2FS_BLK_ALIGN(count);
 	map.m_next_pgofs = NULL;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	return f2fs_map_blocks(inode, &map, 1, F2FS_GET_BLOCK_DIO);
->>>>>>> bca42cc... f2fs: simplify __allocate_data_blocks
-=======
-	if (iocb->ki_filp->f_flags & O_DIRECT &&
-		!(f2fs_encrypted_inode(inode) && S_ISREG(inode->i_mode))) {
-=======
 	if (f2fs_encrypted_inode(inode))
 		return 0;
 
@@ -678,7 +601,6 @@ out:
 		return f2fs_map_blocks(inode, &map, 1, F2FS_GET_BLOCK_PRE_DIO);
 	}
 	if (pos + count > MAX_INLINE_DATA) {
->>>>>>> 3d244b2... f2fs: preallocate blocks for buffered aio writes
 		ret = f2fs_convert_inline_inode(inode);
 		if (ret)
 			return ret;
@@ -686,7 +608,6 @@ out:
 	if (!f2fs_has_inline_data(inode))
 		return f2fs_map_blocks(inode, &map, 1, F2FS_GET_BLOCK_PRE_AIO);
 	return ret;
->>>>>>> bf535d8... f2fs: move dio preallocation into f2fs_file_write_iter
 }
 
 /*
@@ -806,69 +727,14 @@ next_block:
 
 		if (allocated)
 			sync_inode_page(&dn);
-		allocated = false;
 		f2fs_put_dnode(&dn);
 
 		if (create) {
 			f2fs_unlock_op(sbi);
-<<<<<<< HEAD
-			if (dn.node_changed)
-				f2fs_balance_fs(sbi);
-			f2fs_lock_op(sbi);
-		}
-
-		set_new_dnode(&dn, inode, NULL, NULL, 0);
-		err = get_dnode_of_data(&dn, pgofs, mode);
-		if (err) {
-			if (err == -ENOENT)
-				err = 0;
-			goto unlock_out;
-		}
-
-		end_offset = ADDRS_PER_PAGE(dn.node_page, F2FS_I(inode));
-	}
-
-	blkaddr = datablock_addr(dn.node_page, dn.ofs_in_node);
-
-	if (blkaddr == NEW_ADDR || blkaddr == NULL_ADDR) {
-		if (create) {
-			if (unlikely(f2fs_cp_error(sbi))) {
-				err = -EIO;
-				goto sync_out;
-			}
-			err = __allocate_data_block(&dn);
-			if (err)
-				goto sync_out;
-			allocated = true;
-			map->m_flags |= F2FS_MAP_NEW;
-			blkaddr = dn.data_blkaddr;
-		} else {
-			/*
-			 * we only merge preallocated unwritten blocks
-			 * for fiemap.
-			 */
-			if (flag != F2FS_GET_BLOCK_FIEMAP ||
-					blkaddr != NEW_ADDR)
-				goto sync_out;
-		}
-	}
-
-	/* Give more consecutive addresses for the readahead */
-	if ((map->m_pblk != NEW_ADDR &&
-			blkaddr == (map->m_pblk + ofs)) ||
-			(map->m_pblk == NEW_ADDR &&
-			blkaddr == NEW_ADDR)) {
-		ofs++;
-		dn.ofs_in_node++;
-		pgofs++;
-		map->m_len++;
-		goto get_next;
-=======
 			f2fs_balance_fs(sbi, allocated);
 		}
 		allocated = false;
 		goto next_dnode;
->>>>>>> 496671b... f2fs: simplify f2fs_map_blocks
 	}
 
 sync_out:
@@ -878,8 +744,7 @@ sync_out:
 unlock_out:
 	if (create) {
 		f2fs_unlock_op(sbi);
-		if (dn.node_changed)
-			f2fs_balance_fs(sbi);
+		f2fs_balance_fs(sbi, allocated);
 	}
 out:
 	trace_f2fs_map_blocks(inode, map, err);
@@ -1353,15 +1218,9 @@ out:
 	}
 
 	unlock_page(page);
-<<<<<<< HEAD
-	if (need_balance_fs)
-		f2fs_balance_fs(sbi);
-	if (wbc->for_reclaim || unlikely(f2fs_cp_error(sbi))) {
-=======
 	f2fs_balance_fs(sbi, need_balance_fs);
 
 	if (unlikely(f2fs_cp_error(sbi)))
->>>>>>> d4e2029... f2fs: introduce f2fs_submit_merged_bio_cond
 		f2fs_submit_merged_bio(sbi, DATA, WRITE);
 
 	return 0;
@@ -1692,7 +1551,7 @@ repeat:
 
 	if (need_balance && has_not_enough_free_secs(sbi, 0)) {
 		unlock_page(page);
-		f2fs_balance_fs(sbi);
+		f2fs_balance_fs(sbi, true);
 		lock_page(page);
 		if (page->mapping != mapping) {
 			/* The page got truncated from under us */
