@@ -118,6 +118,7 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
+<<<<<<< HEAD
 config CPU_FREQ_DEFAULT_GOV_DANCEDANCE
             bool "dancedance"
             select CPU_FREQ_GOV_DANCEDANCE
@@ -202,6 +203,12 @@ config CPU_FREQ_DEFAULT_GOV_HELLSACTIVE
 	  you to get a full dynamic cpu frequency capable system by simply
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
+=======
+config CPU_FREQ_DEFAULT_GOV_DESPAIR
+	bool "despair"
+	select CPU_FREQ_GOV_DESPAIR
+	help
+>>>>>>> 627dc29... cpufreq: add despair governor
 
 endchoice
 
@@ -308,6 +315,7 @@ config CPU_FREQ_GOV_CONSERVATIVE
 
 	  If in doubt, say N.
 
+<<<<<<< HEAD
 
 config CPU_FREQ_GOV_BARRY_ALLEN
 	tristate "'barry_allen' cpufreq policy governor"
@@ -340,6 +348,12 @@ config CPU_FREQ_GOV_IMPULSE
     If in doubt, say N.
 
 
+=======
+config CPU_FREQ_GOV_DESPAIR
+	tristate "'despair' cpufreq governor"
+	depends on CPU_FREQ
+	
+>>>>>>> 627dc29... cpufreq: add despair governor
 config CPU_BOOST
 	tristate "Event base short term CPU freq boost"
 	depends on CPU_FREQ
