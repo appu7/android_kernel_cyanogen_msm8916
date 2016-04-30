@@ -167,6 +167,7 @@ int cpufreq_frequency_table_target(struct cpufreq_policy *policy,
 				}
 			}
 			break;
+<<<<<<< HEAD
 		case CPUFREQ_RELATION_C:
 			diff = abs(freq - target_freq);
 			if (diff < optimal.frequency ||
@@ -176,6 +177,17 @@ int cpufreq_frequency_table_target(struct cpufreq_policy *policy,
 				optimal.driver_data = i;
 			}
 			break;
+=======
+case CPUFREQ_RELATION_C:
+ diff = abs(freq - target_freq);
+ if (diff < optimal.frequency ||
+ (diff == optimal.frequency &&
+ freq > table[optimal.driver_data].frequency)) {
+ optimal.frequency = diff;
+ optimal.driver_data = i;
+ }
+ break;
+>>>>>>> 68e2935... Add Darkness Governor with Optimizations
 		}
 	}
 	if (optimal.driver_data > i) {
