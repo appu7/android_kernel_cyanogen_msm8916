@@ -675,4 +675,8 @@ source "lib/Kconfig"
 
 source "arch/arm64/mm/Kconfig"
 
+<<<<<<< HEAD
 source "arch/arm64/hotplug/Kconfig"
+=======
+source "arch/arm64/hotplug/Kconfig"
+>>>>>>> 0d6c5ad... Prepare Source for HotPlugs
