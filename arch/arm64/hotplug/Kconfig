@@ -13,4 +13,17 @@ config ASMP
 	default n
 	help
            Automatically hotplugs the multiple cpu cores on and off based on cpu load and suspend state.
+<<<<<<< HEAD
 >>>>>>> 7f45454... Add AutoSMP HotPlug
+=======
+
+config BRICKED_HOTPLUG
+ 	   bool "Enable kernel based mpdecision"
+ 	   depends on MSM_RUN_QUEUE_STATS
+	   
+config ALUCARD_HOTPLUG
+	bool "Enable alucard-hotplug cpu hotplug driver"
+ 	default n
+ 	help
+ 	  Generic Alucard-hotplug cpu hotplug driver for ARM SOCs
+>>>>>>> c2521c9... fixed compilation errors
