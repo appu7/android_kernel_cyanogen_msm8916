@@ -98,12 +98,15 @@ config IOSCHED_FIOPS
           IOPS equally among all processes in the system. It's mainly for
           Flash based storage.
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 =======
 <<<<<<< HEAD
 		  
 =======
+=======
+>>>>>>> c2521c9... fixed compilation errors
 
 config IOSCHED_SIO
 	tristate "Simple I/O scheduler"
@@ -118,8 +121,12 @@ config IOSCHED_SIO
 config IOSCHED_SIOPLUS
 	tristate "Simple I/O scheduler plus"
 
+<<<<<<< HEAD
 >>>>>>> 14b41db... block: add sioplus iosched
 >>>>>>> 7210b15... block: add sioplus iosched
+=======
+
+>>>>>>> c2521c9... fixed compilation errors
 choice
 	prompt "Default I/O scheduler"
 	default DEFAULT_CFQ
@@ -175,6 +182,7 @@ config DEFAULT_IOSCHED
 	default "fiops" if DEFAULT_FIOPS
 	default "noop" if DEFAULT_NOOP
 <<<<<<< HEAD
+<<<<<<< HEAD
 	default "zen" if DEFAULT_ZEN
 =======
 <<<<<<< HEAD
@@ -183,6 +191,11 @@ config DEFAULT_IOSCHED
 	default "sioplus" if DEFAULT_SIOPLUS
 >>>>>>> 14b41db... block: add sioplus iosched
 >>>>>>> 7210b15... block: add sioplus iosched
+=======
+	default "sio" if DEFAULT_SIO
+	default "sioplus" if DEFAULT_SIOPLUS
+
+>>>>>>> c2521c9... fixed compilation errors
 
 endmenu
 
