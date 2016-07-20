@@ -138,12 +138,25 @@
 			qcom,gpu-pwrlevel@4 {
 				reg = <4>;
 				qcom,gpu-freq = <220000000>;
-				qcom,bus-freq = <1>;
+				qcom,bus-freq = <2>;
 			};
+<<<<<<< HEAD
 
 			qcom,gpu-pwrlevel@5 {
 				reg = <5>;
 				qcom,gpu-freq = <160000000>;
+=======
+			
+			qcom,gpu-pwrlevel@4 {
+				reg = <4>;
+				qcom,gpu-freq = <160000000>;
+				qcom,bus-freq = <1>;
+			};
+			
+			qcom,gpu-pwrlevel@5 {
+				reg = <5>;
+				qcom,gpu-freq = <100000000>;
+>>>>>>> c4eac52... Added underclock for gpu
 				qcom,bus-freq = <1>;
 			};
 			
