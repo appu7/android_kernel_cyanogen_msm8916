@@ -334,19 +334,10 @@ static ssize_t kcal_enable_store(struct device *dev,
 
 	lut_data->enable = kcal_enable;
 
-<<<<<<< HEAD
 	mdss_mdp_kcal_update_pcc(lut_data);
 	mdss_mdp_kcal_update_pa(lut_data);
 	mdss_mdp_kcal_update_igc(lut_data);
 	mdss_mdp_kcal_display_commit();
-=======
-	if (mdss_mdp_kcal_is_panel_on()) {
-		mdss_mdp_kcal_update_pcc(lut_data);
-		mdss_mdp_kcal_update_pa(lut_data);
-		mdss_mdp_kcal_update_igc(lut_data);
-	} else
-		lut_data->queue_changes = true;
->>>>>>> 4152966... fixed mismerge
 
 	return count;
 }
@@ -372,15 +363,8 @@ static ssize_t kcal_invert_store(struct device *dev,
 
 	lut_data->invert = kcal_invert;
 
-<<<<<<< HEAD
 	mdss_mdp_kcal_update_igc(lut_data);
 	mdss_mdp_kcal_display_commit();
-=======
-	if (mdss_mdp_kcal_is_panel_on())
-		mdss_mdp_kcal_update_igc(lut_data);
-	else
-		lut_data->queue_changes = true;
->>>>>>> 4152966... fixed mismerge
 
 	return count;
 }
@@ -509,42 +493,6 @@ static DEVICE_ATTR(kcal_val, S_IWUSR | S_IRUGO, kcal_val_show, kcal_val_store);
 static DEVICE_ATTR(kcal_cont, S_IWUSR | S_IRUGO, kcal_cont_show,
 	kcal_cont_store);
 
-<<<<<<< HEAD
-=======
-static int mdss_mdp_kcal_update_queue(struct device *dev)
-{
-	struct kcal_lut_data *lut_data = dev_get_drvdata(dev);
-
-	if (lut_data->queue_changes) {
-		mdss_mdp_kcal_update_pcc(lut_data);
-		mdss_mdp_kcal_update_pa(lut_data);
-		mdss_mdp_kcal_update_igc(lut_data);
-		lut_data->queue_changes = false;
-	}
-
-	return 0;
-}
-
-#if defined(CONFIG_FB) && !defined(CONFIG_MMI_PANEL_NOTIFICATIONS)
-static int fb_notifier_callback(struct notifier_block *nb,
-	unsigned long event, void *data)
-{
-	int *blank;
-	struct fb_event *evdata = data;
-	struct kcal_lut_data *lut_data =
-		container_of(nb, struct kcal_lut_data, panel_nb);
-
-	if (evdata && evdata->data && event == FB_EVENT_BLANK) {
-		blank = evdata->data;
-		if (*blank == FB_BLANK_UNBLANK)
-			mdss_mdp_kcal_update_queue(&lut_data->dev);
-	}
-
-	return 0;
-}
-#endif
-
->>>>>>> 4152966... fixed mismerge
 static int kcal_ctrl_probe(struct platform_device *pdev)
 {
 	int ret;
