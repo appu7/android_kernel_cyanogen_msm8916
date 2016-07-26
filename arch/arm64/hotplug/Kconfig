@@ -22,7 +22,6 @@ config ALUCARD_HOTPLUG
  	default n
  	help
  	  Generic Alucard-hotplug cpu hotplug driver for ARM SOCs
-<<<<<<< HEAD
 
 config BLU_PLUG
 	bool "Dynamic hotplug driver"
@@ -62,6 +61,10 @@ config BLU_PLUG
 	  services. It is simply designed to "handle" specific behaviors that are caused
 	  by disabling these services.
 
-	  If unsure, say N.  
-=======
->>>>>>> parent of 5bbefd6... mm: Add UKSM support
+	  If unsure, say N.
+	  
+config MAKO_HOTPLUG
+        bool "Enable mako_hotplug cpu hotplug driver"
+        default y
+        help
+          Generic mako_hotplug cpu hotplug driver for ARM SOCs	  
