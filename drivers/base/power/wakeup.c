@@ -440,12 +440,9 @@ static bool wakeup_source_not_registered(struct wakeup_source *ws)
 static void wakeup_source_activate(struct wakeup_source *ws)
 {
 	unsigned int cec;
-
-<<<<<<< HEAD
 	if (WARN(wakeup_source_not_registered(ws),
 			"unregistered wakeup source\n"))
 		return;
-=======
 if (!enable_si_ws && !strcmp(ws->name, "sensor_ind"))
  return;
 
@@ -460,7 +457,6 @@ if (!enable_si_ws && !strcmp(ws->name, "sensor_ind"))
 
  if (!enable_wlan_wake_ws && !strcmp(ws->name, "wlan_wake"))
  return;
->>>>>>> 92b1f49... Added support for WakeLock Toggles
 
 	/*
 	 * active wakeup source should bring the system

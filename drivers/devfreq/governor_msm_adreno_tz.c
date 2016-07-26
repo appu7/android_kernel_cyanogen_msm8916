@@ -152,21 +152,11 @@ static int tz_init(struct devfreq_msm_adreno_tz_data *priv,
 	return ret;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> 7210b15... block: add sioplus iosched
-=======
->>>>>>> 1a076ab... Adreno idler
 #ifdef CONFIG_ADRENO_IDLER
 extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq,
 		 unsigned long *freq);
 #endif
-<<<<<<< HEAD
+
 
 #ifdef CONFIG_SIMPLE_GPU_ALGORITHM
 extern int simple_gpu_active;
@@ -174,14 +164,6 @@ extern int simple_gpu_algorithm(int level,
 				struct devfreq_msm_adreno_tz_data *priv);
 #endif
 
-<<<<<<< HEAD
->>>>>>> 610bc0e... Simple GPU Algorithm: Initial coding for devfreq based Adreno Drivers
->>>>>>> 9b0c06d... Simple gpu algorithm added
-=======
-
->>>>>>> 7210b15... block: add sioplus iosched
-=======
->>>>>>> 1a076ab... Adreno idler
 static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 				u32 *flag)
 {
@@ -206,12 +188,6 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 	}
 
 	*freq = stats.current_frequency;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 42bdd52... Update and enable powersuspend
 	*flag = 0;
 
 	/*
@@ -230,19 +206,6 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 	}
 #endif
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
->>>>>>> 7210b15... block: add sioplus iosched
-=======
->>>>>>> 499672d... Update and enable powersuspend
->>>>>>> 42bdd52... Update and enable powersuspend
-=======
->>>>>>> 499672d... Update and enable powersuspend
-=======
->>>>>>> 71d2013... Introduce Adreno idler for devfreq-based Adreno devices
->>>>>>> 1445ecf... Adreno idler
->>>>>>> 1a076ab... Adreno idler
 	priv->bin.total_time += stats.total_time;
 	priv->bin.busy_time += stats.busy_time;
 

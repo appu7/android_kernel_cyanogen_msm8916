@@ -97,36 +97,10 @@ config IOSCHED_FIOPS
 	  This is an IOPS based I/O scheduler. It will try to distribute
           IOPS equally among all processes in the system. It's mainly for
           Flash based storage.
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-=======
-<<<<<<< HEAD
-		  
-=======
-=======
->>>>>>> c2521c9... fixed compilation errors
-
-config IOSCHED_SIO
-	tristate "Simple I/O scheduler"
-	default y
-	---help---
-	  The Simple I/O scheduler is an extremely simple scheduler,
-	  based on noop and deadline, that relies on deadlines to
-	  ensure fairness. The algorithm does not do any sorting but
-	  basic merging, trying to keep a minimum overhead. It is aimed
-	  mainly for aleatory access devices (eg: flash devices).
 	  
 config IOSCHED_SIOPLUS
 	tristate "Simple I/O scheduler plus"
-
-<<<<<<< HEAD
->>>>>>> 14b41db... block: add sioplus iosched
->>>>>>> 7210b15... block: add sioplus iosched
-=======
-
->>>>>>> c2521c9... fixed compilation errors
+	
 choice
 	prompt "Default I/O scheduler"
 	default DEFAULT_CFQ
@@ -181,21 +155,8 @@ config DEFAULT_IOSCHED
 	default "bfq" if DEFAULT_BFQ
 	default "fiops" if DEFAULT_FIOPS
 	default "noop" if DEFAULT_NOOP
-<<<<<<< HEAD
-<<<<<<< HEAD
 	default "zen" if DEFAULT_ZEN
-=======
-<<<<<<< HEAD
-=======
-	default "sio" if DEFAULT_SIO
 	default "sioplus" if DEFAULT_SIOPLUS
->>>>>>> 14b41db... block: add sioplus iosched
->>>>>>> 7210b15... block: add sioplus iosched
-=======
-	default "sio" if DEFAULT_SIO
-	default "sioplus" if DEFAULT_SIOPLUS
-
->>>>>>> c2521c9... fixed compilation errors
 
 endmenu
 

@@ -2216,6 +2216,7 @@ dec_nr_big_small_task(struct hmp_sched_stats *stats, struct task_struct *p)
 	BUG_ON(stats->nr_big_tasks < 0 || stats->nr_small_tasks < 0);
 }
 
+<<<<<<< HEAD
 static void inc_rq_hmp_stats(struct rq *rq, struct task_struct *p)
 {
 	inc_cumulative_runnable_avg(&rq->hmp_stats, p);
@@ -2223,6 +2224,17 @@ static void inc_rq_hmp_stats(struct rq *rq, struct task_struct *p)
 }
 
 static void dec_rq_hmp_stats(struct rq *rq, struct task_struct *p)
+=======
+static void
+inc_rq_hmp_stats(struct rq *rq, struct task_struct *p, int change_cra)
+{
+	inc_nr_big_small_task(&rq->hmp_stats, p);
+	if (change_cra)
+		inc_cumulative_runnable_avg(&rq->hmp_stats, p);
+}
+
+static void dec_rq_hmp_stats(struct rq *rq, struct task_struct *p, int change_cra)
+>>>>>>> 4152966... fixed mismerge
 {
 	dec_cumulative_runnable_avg(&rq->hmp_stats, p);
 	dec_nr_big_small_task(&rq->hmp_stats, p);
