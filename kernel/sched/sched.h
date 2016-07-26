@@ -968,20 +968,12 @@ dec_cumulative_runnable_avg(struct hmp_sched_stats *stats,
 }
 
 #else	/* CONFIG_SCHED_HMP */
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 struct hmp_sched_stats;
-=======
-=======
-struct hmp_sched_stats;
-
->>>>>>> aa60abd... sched: Consolidate hmp stats into their own struct
 static inline unsigned int nr_eligible_big_tasks(int cpu)
 {
 	return 0;
 }
->>>>>>> 8c8343c... sched: Keep track of average nr_big_tasks
+
 
 static inline int pct_task_load(struct task_struct *p) { return 0; }
 
@@ -1066,15 +1058,11 @@ static inline void clear_reserved(int cpu)
 	clear_bit(CPU_RESERVED, &rq->hmp_flags);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-extern unsigned int sched_enable_power_aware;
-=======
-extern unsigned int sched_enable_hmp;
->>>>>>> 709e58d... sched: Add sysctl to enable power aware scheduling
 
-=======
->>>>>>> aa60abd... sched: Consolidate hmp stats into their own struct
+extern unsigned int sched_enable_power_aware;
+
+extern unsigned int sched_enable_hmp;
+
 int mostly_idle_cpu(int cpu);
 extern void check_for_migration(struct rq *rq, struct task_struct *p);
 extern void pre_big_small_task_count_change(const struct cpumask *cpus);
@@ -1587,7 +1575,6 @@ static inline unsigned int do_avg_nr_running(struct rq *rq)
 
 static inline void inc_nr_running(struct rq *rq)
 {
-<<<<<<< HEAD
 #ifdef CONFIG_INTELLI_HOTPLUG
 	struct nr_stats_s *nr_stats = &per_cpu(runqueue_stats, rq->cpu);
 #endif
@@ -1597,9 +1584,7 @@ static inline void inc_nr_running(struct rq *rq)
 	nr_stats->ave_nr_running = do_avg_nr_running(rq);
 	nr_stats->nr_last_stamp = rq->clock_task;
 #endif
-=======
 	sched_update_nr_prod(cpu_of(rq), 1, true);
->>>>>>> 2836dfe... sched: Fix bug in average nr_running and nr_iowait calculation
 	rq->nr_running++;
 #ifdef CONFIG_INTELLI_HOTPLUG
 	write_seqcount_end(&nr_stats->ave_seqcnt);
@@ -1623,7 +1608,6 @@ static inline void inc_nr_running(struct rq *rq)
 
 static inline void dec_nr_running(struct rq *rq)
 {
-<<<<<<< HEAD
 #ifdef CONFIG_INTELLI_HOTPLUG
 	struct nr_stats_s *nr_stats = &per_cpu(runqueue_stats, rq->cpu);
 #endif
@@ -1633,9 +1617,7 @@ static inline void dec_nr_running(struct rq *rq)
 	nr_stats->ave_nr_running = do_avg_nr_running(rq);
 	nr_stats->nr_last_stamp = rq->clock_task;
 #endif
-=======
 	sched_update_nr_prod(cpu_of(rq), 1, false);
->>>>>>> 2836dfe... sched: Fix bug in average nr_running and nr_iowait calculation
 	rq->nr_running--;
 #ifdef CONFIG_INTELLI_HOTPLUG
 	write_seqcount_end(&nr_stats->ave_seqcnt);
