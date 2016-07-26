@@ -1885,6 +1885,7 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	}
 
 	p->ravg.sum = 0;
+<<<<<<< HEAD
 
 	/*
 	 * A throttled deadline sched class task gets dequeued without
@@ -1892,7 +1893,9 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	 * avoid decrementing it here again.
 	 */
 	if (p->on_rq && (!task_has_dl_policy(p) || !p->dl.dl_throttled))
+=======
 	if (p->on_rq)
+>>>>>>> aa60abd... sched: Consolidate hmp stats into their own struct
 		p->sched_class->dec_hmp_sched_stats(rq, p);
 
 	avg = div64_u64(sum, sched_ravg_hist_size);
@@ -1908,10 +1911,11 @@ static void update_history(struct rq *rq, struct task_struct *p,
 
 	p->ravg.demand = demand;
 
-
+<<<<<<< HEAD
 	if (p->on_rq && (!task_has_dl_policy(p) || !p->dl.dl_throttled))
-
+=======
 	if (p->on_rq)
+>>>>>>> aa60abd... sched: Consolidate hmp stats into their own struct
 		p->sched_class->inc_hmp_sched_stats(rq, p);
 
 done:
@@ -2383,6 +2387,23 @@ void sched_get_cpus_busy(struct sched_load *busy,
 	i = 0;
 	for_each_cpu(cpu, query_cpus) {
 		rq = cpu_rq(cpu);
+<<<<<<< HEAD
+
+		if (!notifier_sent[i]) {
+			load[i] = scale_load_to_freq(load[i], max_freq[i],
+						     cur_freq[i]);
+			if (load[i] > window_size)
+				load[i] = window_size;
+			load[i] = scale_load_to_freq(load[i], cur_freq[i],
+						     rq->max_possible_freq);
+		} else {
+			load[i] = scale_load_to_freq(load[i], max_freq[i],
+						     rq->max_possible_freq);
+		}
+
+		busy[i] = div64_u64(load[i], NSEC_PER_USEC);
+
+=======
 
 		if (!notifier_sent[i]) {
 			load[i] = scale_load_to_freq(load[i], max_freq[i],
@@ -2408,12 +2429,16 @@ void sched_get_cpus_busy(struct sched_load *busy,
 		busy[i].prev_load = div64_u64(load[i], NSEC_PER_USEC);
 		busy[i].new_task_load = div64_u64(nload[i], NSEC_PER_USEC);
 
+<<<<<<< HEAD
+>>>>>>> 173bb49... sched: prevent task migration while governor queries CPUs' load
+		trace_sched_get_busy(cpu, busy[i]);
+=======
 		trace_sched_get_busy(cpu, busy[i].prev_load,
 				     busy[i].new_task_load);
+>>>>>>> 9d4a465... sched: account new task load so that governor can apply different policy
 		i++;
 	}
 }
-
 
 unsigned long sched_get_busy(int cpu)
 {
