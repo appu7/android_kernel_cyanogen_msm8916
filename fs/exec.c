@@ -55,11 +55,9 @@
 #include <linux/pipe_fs_i.h>
 #include <linux/oom.h>
 #include <linux/compat.h>
-<<<<<<< HEAD
-=======
 #include <linux/resource.h>
 #include <linux/ksm.h>
->>>>>>> 8db42f7... mm: Add UKSM support
+
 
 #include <asm/uaccess.h>
 #include <asm/mmu_context.h>
