@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 config INTELLI_HOTPLUG
 	bool "Intelli hotplug driver"
 	depends on HOTPLUG_CPU
@@ -6,16 +5,13 @@ config INTELLI_HOTPLUG
 	help
 	  An intelligent cpu hotplug driver for
 	  Low Latency Frequency Transition capable processors.
-=======
+
 config ASMP
 	bool "Multi-core automatic hotplug support"
 	depends on SMP
 	default n
 	help
            Automatically hotplugs the multiple cpu cores on and off based on cpu load and suspend state.
-<<<<<<< HEAD
->>>>>>> 7f45454... Add AutoSMP HotPlug
-=======
 
 config BRICKED_HOTPLUG
  	   bool "Enable kernel based mpdecision"
@@ -26,4 +22,3 @@ config ALUCARD_HOTPLUG
  	default n
  	help
  	  Generic Alucard-hotplug cpu hotplug driver for ARM SOCs
->>>>>>> c2521c9... fixed compilation errors

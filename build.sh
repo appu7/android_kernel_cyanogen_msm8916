@@ -3,13 +3,8 @@ export ARCH=arm64
 export SUBARCH=arm64
 export USE_CCACHE=1
 #make menuconfig
+#./dtbTool -2 -o ./arch/arm64/boot/dt.img -s 2048 -p ./scripts/dtc/ ./arch/arm/boot/dts/
 make cyanogenmod_tomato-64_defconfig
-<<<<<<< HEAD
-make -j8
-=======
-<<<<<<< HEAD
 make -j5
-=======
-make -j8
->>>>>>> 1b3a355... Simple gpu algorithm added
->>>>>>> 9b0c06d... Simple gpu algorithm added
+
+

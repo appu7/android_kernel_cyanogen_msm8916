@@ -280,11 +280,6 @@ static cpumask_var_t *wq_numa_possible_cpumask;
 static bool wq_disable_numa;
 module_param_named(disable_numa, wq_disable_numa, bool, 0444);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> ddfc72b... Added support for Power-Efficient WorkQueue
 /* see the comment above the definition of WQ_POWER_EFFICIENT */
 #ifdef CONFIG_WQ_POWER_EFFICIENT_DEFAULT
 static bool wq_power_efficient = true;
@@ -294,10 +289,6 @@ static bool wq_power_efficient;
 
 module_param_named(power_efficient, wq_power_efficient, bool, 0644);
 
-<<<<<<< HEAD
->>>>>>> ec838f7... workqueues: Introduce new flag WQ_POWER_EFFICIENT for power oriented workqueues
-=======
->>>>>>> ddfc72b... Added support for Power-Efficient WorkQueue
 static bool wq_numa_enabled;		/* unbound NUMA affinity enabled */
 
 /* buf for wq_update_unbound_numa_attrs(), protected by CPU hotplug exclusion */

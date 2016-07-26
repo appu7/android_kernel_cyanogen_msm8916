@@ -1725,6 +1725,10 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	 * avoid decrementing it here again.
 	 */
 	if (p->on_rq && (!task_has_dl_policy(p) || !p->dl.dl_throttled))
+<<<<<<< HEAD
+=======
+	if (p->on_rq)
+>>>>>>> 4152966... fixed mismerge
 		p->sched_class->dec_hmp_sched_stats(rq, p);
 
 	avg = div64_u64(sum, sched_ravg_hist_size);
@@ -1741,6 +1745,10 @@ static void update_history(struct rq *rq, struct task_struct *p,
 	p->ravg.demand = demand;
 
 	if (p->on_rq && (!task_has_dl_policy(p) || !p->dl.dl_throttled))
+<<<<<<< HEAD
+=======
+	if (p->on_rq)
+>>>>>>> 4152966... fixed mismerge
 		p->sched_class->inc_hmp_sched_stats(rq, p);
 
 done:
@@ -2210,6 +2218,7 @@ void sched_get_cpus_busy(unsigned long *busy, const struct cpumask *query_cpus)
 		if (!notifier_sent[i]) {
 			load[i] = scale_load_to_freq(load[i], max_freq[i],
 						     cur_freq[i]);
+<<<<<<< HEAD
 			if (load[i] > window_size)
 				load[i] = window_size;
 			load[i] = scale_load_to_freq(load[i], cur_freq[i],
@@ -2222,6 +2231,31 @@ void sched_get_cpus_busy(unsigned long *busy, const struct cpumask *query_cpus)
 		busy[i] = div64_u64(load[i], NSEC_PER_USEC);
 
 		trace_sched_get_busy(cpu, busy[i]);
+=======
+			nload[i] = scale_load_to_freq(nload[i], max_freq[i],
+						      cur_freq[i]);
+			if (load[i] > window_size)
+				load[i] = window_size;
+			if (nload[i] > window_size)
+				nload[i] = window_size;
+
+			load[i] = scale_load_to_freq(load[i], cur_freq[i],
+						     rq->max_possible_freq);
+			nload[i] = scale_load_to_freq(nload[i], cur_freq[i],
+						      rq->max_possible_freq);
+		} else {
+			load[i] = scale_load_to_freq(load[i], max_freq[i],
+						     rq->max_possible_freq);
+			nload[i] = scale_load_to_freq(nload[i], max_freq[i],
+						     rq->max_possible_freq);
+		}
+
+		busy[i].prev_load = div64_u64(load[i], NSEC_PER_USEC);
+		busy[i].new_task_load = div64_u64(nload[i], NSEC_PER_USEC);
+
+		trace_sched_get_busy(cpu, busy[i].prev_load,
+				     busy[i].new_task_load);
+>>>>>>> 4152966... fixed mismerge
 		i++;
 	}
 }

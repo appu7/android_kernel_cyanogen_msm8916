@@ -1031,8 +1031,14 @@ static inline void clear_reserved(int cpu)
 	clear_bit(CPU_RESERVED, &rq->hmp_flags);
 }
 
+<<<<<<< HEAD
 extern unsigned int sched_enable_power_aware;
 
+=======
+
+extern unsigned int sched_enable_power_aware;
+extern unsigned int sched_enable_hmp;
+>>>>>>> 4152966... fixed mismerge
 int mostly_idle_cpu(int cpu);
 extern void check_for_migration(struct rq *rq, struct task_struct *p);
 extern void pre_big_small_task_count_change(const struct cpumask *cpus);
@@ -1548,6 +1554,10 @@ static inline void inc_nr_running(struct rq *rq)
 	nr_stats->ave_nr_running = do_avg_nr_running(rq);
 	nr_stats->nr_last_stamp = rq->clock_task;
 #endif
+<<<<<<< HEAD
+=======
+	sched_update_nr_prod(cpu_of(rq), 1, true);
+>>>>>>> 4152966... fixed mismerge
 	rq->nr_running++;
 #ifdef CONFIG_INTELLI_HOTPLUG
 	write_seqcount_end(&nr_stats->ave_seqcnt);
@@ -1575,6 +1585,10 @@ static inline void dec_nr_running(struct rq *rq)
 	nr_stats->ave_nr_running = do_avg_nr_running(rq);
 	nr_stats->nr_last_stamp = rq->clock_task;
 #endif
+<<<<<<< HEAD
+=======
+	sched_update_nr_prod(cpu_of(rq), 1, false);
+>>>>>>> 4152966... fixed mismerge
 	rq->nr_running--;
 #ifdef CONFIG_INTELLI_HOTPLUG
 	write_seqcount_end(&nr_stats->ave_seqcnt);
