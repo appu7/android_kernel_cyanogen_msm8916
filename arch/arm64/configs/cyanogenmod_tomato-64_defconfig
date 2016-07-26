@@ -728,6 +728,7 @@ CONFIG_NETWORK_FILESYSTEMS=y
 # CONFIG_NFSD is not set
 CONFIG_NTFS_FS=y
 # CONFIG_NTFS_DEBUG is not set
+<<<<<<< HEAD
 CONFIG_NTFS_RW=y
 <<<<<<< HEAD
 >>>>>>> 0af2277... msm: mdss: Add KCAL support for post processing control [v2]
@@ -735,3 +736,6 @@ CONFIG_NTFS_RW=y
 
 CONFIG_FB_MSM_MDSS_KCAL_CTRL=y
 >>>>>>> 5eca647... qdsp6v2: q6afe: silence spammy debug logs
+=======
+CONFIG_NTFS_RW=y
+>>>>>>> a808a89... Revert "qdsp6v2: q6afe: silence spammy debug logs"
