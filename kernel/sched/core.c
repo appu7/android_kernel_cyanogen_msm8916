@@ -2206,7 +2206,6 @@ void sched_get_cpus_busy(unsigned long *busy, const struct cpumask *query_cpus)
 	i = 0;
 	for_each_cpu(cpu, query_cpus) {
 		rq = cpu_rq(cpu);
-<<<<<<< HEAD
 
 		if (!notifier_sent[i]) {
 			load[i] = scale_load_to_freq(load[i], max_freq[i],
@@ -2222,23 +2221,6 @@ void sched_get_cpus_busy(unsigned long *busy, const struct cpumask *query_cpus)
 
 		busy[i] = div64_u64(load[i], NSEC_PER_USEC);
 
-=======
-
-		if (!notifier_sent[i]) {
-			load[i] = scale_load_to_freq(load[i], max_freq[i],
-						     cur_freq[i]);
-			if (load[i] > window_size)
-				load[i] = window_size;
-			load[i] = scale_load_to_freq(load[i], cur_freq[i],
-						     rq->max_possible_freq);
-		} else {
-			load[i] = scale_load_to_freq(load[i], max_freq[i],
-						     rq->max_possible_freq);
-		}
-
-		busy[i] = div64_u64(load[i], NSEC_PER_USEC);
-
->>>>>>> 173bb49... sched: prevent task migration while governor queries CPUs' load
 		trace_sched_get_busy(cpu, busy[i]);
 		i++;
 	}
