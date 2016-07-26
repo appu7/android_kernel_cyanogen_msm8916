@@ -884,6 +884,7 @@ CONFIG_CPU_FREQ_GOV_DARKNESS=y
 CONFIG_CPU_FREQ_GOV_INTEL=y
 CONFIG_CPU_FREQ_GOV_LIONFISH=y
 CONFIG_CPU_FREQ_GOV_SMARTMAX=y
+CONFIG_CPU_FREQ_GOV_DESPAIR=y
 
 
 #AdvancedTCP_Options
@@ -938,7 +939,14 @@ CONFIG_SIMPLE_GPU_ALGORITHM=y
 
 CONFIG_ZEN_DECISION=y
 CONFIG_BLU_PLUG=y
+<<<<<<< HEAD
 CONFIG_KSM=y
 CONFIG_UKSM=y
 # CONFIG_KSM_LEGACY is not set
 >>>>>>> abff5f5... cpufreq: add despair governor
+=======
+CONFIG_MAKO_HOTPLUG=y
+#CONFIG_KSM is not set
+#CONFIG_UKSM is not set
+# CONFIG_KSM_LEGACY is not set
+>>>>>>> cd263b3... Added hotplugs and compiler references
