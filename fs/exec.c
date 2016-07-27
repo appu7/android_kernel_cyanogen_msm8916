@@ -56,11 +56,23 @@
 #include <linux/oom.h>
 #include <linux/compat.h>
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include <linux/resource.h>
 #include <linux/ksm.h>
 =======
 
 >>>>>>> cd263b3da3fed084fb0d06d8ee8a6fa6072553be
+=======
+=======
+#include <linux/resource.h>
+#include <linux/ksm.h>
+<<<<<<< HEAD
+>>>>>>> 8db42f7... mm: Add UKSM support
+=======
+>>>>>>> 2b25bc5... mm: Add UKSM support
+>>>>>>> 20137b9... UKMS support
+
+>>>>>>> parent of 7ca5863... messedup
 #include <asm/uaccess.h>
 #include <asm/mmu_context.h>
 #include <asm/tlb.h>
