@@ -770,15 +770,24 @@ const char * const vmstat_text[] = {
 	"nr_uksm_zero_pages",
 #endif
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 7ca5863... messedup
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 81f4f8e... Revert "UKMS support"
 >>>>>>> 8db42f7... mm: Add UKSM support
+<<<<<<< HEAD
 =======
 >>>>>>> 2b25bc5... mm: Add UKSM support
 >>>>>>> 20137b9... UKMS support
 >>>>>>> parent of 7ca5863... messedup
+<<<<<<< HEAD
 >>>>>>> b5652f1... Revert "messedup"
+=======
+=======
+>>>>>>> parent of 7273b5d... UKMS support
+>>>>>>> 81f4f8e... Revert "UKMS support"
 	"nr_dirty_threshold",
 	"nr_dirty_background_threshold",
 

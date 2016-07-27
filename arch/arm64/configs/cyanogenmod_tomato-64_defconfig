@@ -998,9 +998,9 @@ CONFIG_SOUND_CONTROL_HAX_3_GPL=y
 #Kernel samepage merging
 =======
 
-<<<<<<< HEAD
 CONFIG_ZEN_DECISION=y
 CONFIG_BLU_PLUG=y
+<<<<<<< HEAD
 =======
 
 CONFIG_EXFAT_FS=y
@@ -1015,7 +1015,12 @@ CONFIG_RWSEM_XCHGADD_ALGORITHM=y
 CONFIG_SOUND_CONTROL_HAX_3_GPL=y
 >>>>>>> 20137b9... UKMS support
 >>>>>>> parent of 7ca5863... messedup
+<<<<<<< HEAD
 >>>>>>> b5652f1... Revert "messedup"
+=======
+=======
+>>>>>>> parent of 7273b5d... UKMS support
+>>>>>>> 81f4f8e... Revert "UKMS support"
 CONFIG_KSM=y
 CONFIG_UKSM=y
 # CONFIG_KSM_LEGACY is not set

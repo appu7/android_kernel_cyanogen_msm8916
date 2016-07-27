@@ -83,11 +83,7 @@
 =======
 #include <linux/resource.h>
 #include <linux/ksm.h>
-<<<<<<< HEAD
 >>>>>>> 8db42f7... mm: Add UKSM support
-=======
->>>>>>> 2b25bc5... mm: Add UKSM support
->>>>>>> 20137b9... UKMS support
 
 >>>>>>> parent of 7ca5863... messedup
 >>>>>>> b5652f1... Revert "messedup"
