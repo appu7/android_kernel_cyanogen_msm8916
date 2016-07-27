@@ -168,7 +168,7 @@ static int is_full_zero(const void *s1, size_t len)
 #else
 static int is_full_zero(const void *s1, size_t len)
 {
-	const unsigned long *src = s1;
+	unsigned long *src = s1;
 	int i;
 
 	len /= sizeof(*src);
@@ -182,7 +182,7 @@ static int is_full_zero(const void *s1, size_t len)
 }
 #endif
 
-//#define U64_MAX		(~((u64)0))
+#define U64_MAX		(~((u64)0))
 #define UKSM_RUNG_ROUND_FINISHED  (1 << 0)
 #define TIME_RATIO_SCALE	10000
 
@@ -516,15 +516,7 @@ static unsigned int uksm_max_cpu_percentage;
 
 static int uksm_cpu_governor = 1;
 
-static char *uksm_cpu_governor_str[8] = { 
-	"arm-full", 
-	"arm-medium", 
-	"arm-low", 
-	"arm-quiet", 
-	"full", 
-	"medium", 
-	"low", 
-	"quiet" };
+static char *uksm_cpu_governor_str[4] = { "full", "medium", "low", "quiet" };
 
 struct uksm_cpu_preset_s {
 	int cpu_ratio[SCAN_LADDER_SIZE];
@@ -540,21 +532,17 @@ struct uksm_cpu_preset_s {
  * - Cover times: these times are used when pages are added to a rung; the scan
  *   rate won't scale down as fewer pages are left to scan.
  */
-struct uksm_cpu_preset_s uksm_cpu_preset[8] = {
+struct uksm_cpu_preset_s uksm_cpu_preset[4] = {
 	{ {-5000, -7500, -9000, -10000}, {90000, 500, 200, 100}, 18},
 	{ {-5000, -6000, -7500, -10000}, {120000, 1000, 500, 250}, 12},
 	{ {-5000, -6000, -7500, -10000}, {180000, 2500, 1000, 500}, 7},
 	{ {-2500, -3500, -5000, -10000}, {300000, 4000, 2500, 1500}, 1},
-	{ {20, 40, -2500, -10000}, {1000, 500, 200, 50}, 95},
-	{ {20, 30, -2500, -10000}, {1000, 500, 400, 100}, 50},
-	{ {10, 20, -5000, -10000}, {1500, 1000, 1000, 250}, 20},
-	{ {10, 20, 40, 75}, {2000, 1000, 1000, 1000}, 1},
 };
 
 /* Time per page can vary widely; ema seems to respond much better to the
  * bounded range offered by pages per usec.
  */
-#define UKSM_PAGE_COUNT_DEFAULT	400
+#define UKSM_PAGE_COUNT_DEFAULT	250
 /* Based on task runtime */
 static unsigned long uksm_ema_task_pages = UKSM_PAGE_COUNT_DEFAULT;
 /* Based on wall time */
@@ -2687,7 +2675,15 @@ out:
  * to the next pass of ksmd - consider, for example, how ksmd might be
  * in cmp_and_merge_page on one of the rmap_items we would be removing.
  */
+<<<<<<< HEAD
+<<<<<<< HEAD
+int unmerge_uksm_pages(struct vm_area_struct *vma,
+=======
 inline int unmerge_uksm_pages(struct vm_area_struct *vma,
+>>>>>>> 20137b9... UKMS support
+=======
+int unmerge_uksm_pages(struct vm_area_struct *vma,
+>>>>>>> a3b28c5... UKSM: Fix for GCC 5+
 		      unsigned long start, unsigned long end)
 {
 	unsigned long addr;
@@ -4705,7 +4701,7 @@ out:
 	return referenced;
 }
 
-int try_to_unmap_ksm(struct page *page, enum ttu_flags flags, struct vm_area_struct *target_vma)
+int try_to_unmap_ksm(struct page *page, enum ttu_flags flags)
 {
 	struct stable_node *stable_node;
 	struct node_vma *node_vma;
@@ -5707,7 +5703,7 @@ static int __init uksm_init(void)
 	struct task_struct *uksm_thread;
 	int err;
 
-	uksm_sleep_jiffies = msecs_to_jiffies(250);
+	uksm_sleep_jiffies = msecs_to_jiffies(500);
 
 	slot_tree_init();
 	init_scan_ladder();
