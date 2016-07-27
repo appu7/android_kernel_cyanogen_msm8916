@@ -159,6 +159,7 @@ enum zone_stat_item {
 	NR_FREE_CMA_PAGES,
 	NR_SWAPCACHE,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 #ifdef CONFIG_UKSM
@@ -170,6 +171,11 @@ enum zone_stat_item {
 >>>>>>> 2b25bc5... mm: Add UKSM support
 >>>>>>> 20137b9... UKMS support
 >>>>>>> 7273b5d... UKMS support
+=======
+#ifdef CONFIG_UKSM
+	NR_UKSM_ZERO_PAGES,
+#endif
+>>>>>>> 7ca5863... messedup
 	NR_VM_ZONE_STAT_ITEMS };
 
 /*

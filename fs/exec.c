@@ -56,6 +56,7 @@
 #include <linux/oom.h>
 #include <linux/compat.h>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -68,6 +69,10 @@
 >>>>>>> 20137b9... UKMS support
 >>>>>>> 7273b5d... UKMS support
 
+=======
+#include <linux/resource.h>
+#include <linux/ksm.h>
+>>>>>>> 7ca5863... messedup
 #include <asm/uaccess.h>
 #include <asm/mmu_context.h>
 #include <asm/tlb.h>
