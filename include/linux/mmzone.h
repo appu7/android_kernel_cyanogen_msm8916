@@ -157,8 +157,8 @@ enum zone_stat_item {
 #endif
 	NR_ANON_TRANSPARENT_HUGEPAGES,
 	NR_FREE_CMA_PAGES,
-<<<<<<< HEAD
 	NR_SWAPCACHE,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -203,6 +203,8 @@ enum zone_stat_item {
 =======
 >>>>>>> parent of 7273b5d... UKMS support
 >>>>>>> 81f4f8e... Revert "UKMS support"
+=======
+>>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+
 	NR_VM_ZONE_STAT_ITEMS };
 
 /*

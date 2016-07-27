@@ -1,4 +1,4 @@
-CONFIG_LOCALVERSION="-cyanogenmod"
+CONFIG_LOCALVERSION="-Xzotic r1"
 CONFIG_AUDIT=y
 CONFIG_NO_HZ=y
 CONFIG_HIGH_RES_TIMERS=y
@@ -813,9 +813,6 @@ CONFIG_ANDROID_LMK_ADJ_RBTREE=y
 #CONFIG_CPU_IDLE_GOV_LADDER is not set
 # CONFIG_RWSEM_GENERIC_SPINLOCK is not set
 CONFIG_RWSEM_XCHGADD_ALGORITHM=y
-CONFIG_CPU_FREQ_GOV_BARRY_ALLEN=y
-CONFIG_CPU_FREQ_GOV_NIGHTMARE=y
-CONFIG_CPU_FREQ_GOV_DANCEDANCE=y
 CONFIG_EXFAT_FS=y
 CONFIG_EXFAT_DISCARD=y
 # CONFIG_EXFAT_DELAYED_SYNC is not set
@@ -855,6 +852,7 @@ CONFIG_FB_MSM_MDSS_KCAL_CTRL=y
 >>>>>>> 5eca647... qdsp6v2: q6afe: silence spammy debug logs
 =======
 CONFIG_NTFS_RW=y
+<<<<<<< HEAD
 >>>>>>> a808a89... Revert "qdsp6v2: q6afe: silence spammy debug logs"
 =======
 CONFIG_NTFS_RW=y
@@ -888,6 +886,9 @@ CONFIG_SOUND_PRIME=y
 
 
 >>>>>>> b5652f1... Revert "messedup"
+=======
+#Governors
+>>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+
 CONFIG_CPU_FREQ_GOV_IMPULSE=y
 CONFIG_CPU_FREQ_GOV_INTELLIACTIVE=y
 CONFIG_CPU_FREQ_GOV_INTELLIDEMAND=y
@@ -897,8 +898,8 @@ CONFIG_CPU_FREQ_GOV_DARKNESS=y
 CONFIG_CPU_FREQ_GOV_INTEL=y
 CONFIG_CPU_FREQ_GOV_LIONFISH=y
 CONFIG_CPU_FREQ_GOV_SMARTMAX=y
-<<<<<<< HEAD
 CONFIG_CPU_FREQ_GOV_DESPAIR=y
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -918,6 +919,11 @@ CONFIG_CPU_FREQ_GOV_DANCEDANCE=y
 
 >>>>>>> parent of 7ca5863... messedup
 >>>>>>> b5652f1... Revert "messedup"
+=======
+CONFIG_CPU_FREQ_GOV_BARRY_ALLEN=y
+CONFIG_CPU_FREQ_GOV_NIGHTMARE=y
+CONFIG_CPU_FREQ_GOV_DANCEDANCE=y
+>>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+
 #AdvancedTCP_Options
 CONFIG_TCP_CONG_ADVANCED=y
 CONFIG_TCP_CONG_BIC=y
@@ -948,10 +954,15 @@ CONFIG_LZ4HC_COMPRESS=y
 CONFIG_BRICKED_HOTPLUG=y
 CONFIG_ASMP=y
 CONFIG_ALUCARD_HOTPLUG=y
+CONFIG_ZEN_DECISION=y
+CONFIG_BLU_PLUG=y
+CONFIG_MAKO_HOTPLUG=y
 #Sound sontrols
 CONFIG_DTS_EAGLE=y
+CONFIG_DOLBY_DAP=y
+CONFIG_SOUND_PRIME=y
+CONFIG_SOUND_CONTROL_HAX_3_GPL=y
 #Thermal
-
 #Hard boot
 CONFIG_KEXEC=y
 CONFIG_KEXEC_HARDBOOT=y
@@ -967,6 +978,7 @@ CONFIG_SIMPLE_GPU_ALGORITHM=y
 >>>>>>> df33ccf... fixed mismerge
 =======
 CONFIG_SIMPLE_GPU_ALGORITHM=y
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -1031,3 +1043,9 @@ CONFIG_MAKO_HOTPLUG=y
 #CONFIG_UKSM is not set
 # CONFIG_KSM_LEGACY is not set
 >>>>>>> cd263b3... Added hotplugs and compiler references
+=======
+#Kernel samepage merging
+#CONFIG_KSM is not set 
+#CONFIG_UKSM is not set
+# CONFIG_KSM_LEGACY is not set
+>>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+

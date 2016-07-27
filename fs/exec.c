@@ -58,6 +58,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -87,6 +88,9 @@
 
 >>>>>>> parent of 7ca5863... messedup
 >>>>>>> b5652f1... Revert "messedup"
+=======
+
+>>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+
 #include <asm/uaccess.h>
 #include <asm/mmu_context.h>
 #include <asm/tlb.h>

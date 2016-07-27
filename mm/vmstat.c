@@ -742,8 +742,8 @@ const char * const vmstat_text[] = {
 #endif
 	"nr_anon_transparent_hugepages",
 	"nr_free_cma",
-<<<<<<< HEAD
 	"nr_swapcache",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -788,6 +788,8 @@ const char * const vmstat_text[] = {
 =======
 >>>>>>> parent of 7273b5d... UKMS support
 >>>>>>> 81f4f8e... Revert "UKMS support"
+=======
+>>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+
 	"nr_dirty_threshold",
 	"nr_dirty_background_threshold",
 
