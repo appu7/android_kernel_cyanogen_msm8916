@@ -2739,11 +2739,7 @@ void exit_mmap(struct mm_struct *mm)
 <<<<<<< HEAD
 	mm->mmap = NULL;
 	mm->mm_rb = RB_ROOT;
-<<<<<<< HEAD
 	vmacache_invalidate(mm);
-=======
-	mm->mmap_cache = NULL;
->>>>>>> 20137b9... UKMS support
 	up_write(&mm->mmap_sem);
 
 =======
