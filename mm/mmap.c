@@ -2736,14 +2736,6 @@ void exit_mmap(struct mm_struct *mm)
 	}
 	vm_unacct_memory(nr_accounted);
 
-<<<<<<< HEAD
-	mm->mmap = NULL;
-	mm->mm_rb = RB_ROOT;
-	vmacache_invalidate(mm);
-	up_write(&mm->mmap_sem);
-
-=======
->>>>>>> cd263b3da3fed084fb0d06d8ee8a6fa6072553be
 	WARN_ON(mm->nr_ptes > (FIRST_USER_ADDRESS+PMD_SIZE-1)>>PMD_SHIFT);
 }
 

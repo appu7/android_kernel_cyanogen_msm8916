@@ -1,4 +1,4 @@
-export CROSS_COMPILE=/home/ajith/8916/UBERTC-aarch64-linux-android-4.9-new/bin/aarch64-linux-android-
+export CROSS_COMPILE=/home/ajith/8916/gcc-linaro-5.3-2016.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
 export ARCH=arm64
 export SUBARCH=arm64
 export USE_CCACHE=1

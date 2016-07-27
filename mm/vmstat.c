@@ -742,28 +742,7 @@ const char * const vmstat_text[] = {
 #endif
 	"nr_anon_transparent_hugepages",
 	"nr_free_cma",
-<<<<<<< HEAD
 	"nr_swapcache",
-<<<<<<< HEAD
-<<<<<<< HEAD
-#ifdef CONFIG_UKSM
-	"nr_uksm_zero_pages",
-#endif
-=======
->>>>>>> cd263b3da3fed084fb0d06d8ee8a6fa6072553be
-=======
-=======
-#ifdef CONFIG_UKSM
-	"nr_uksm_zero_pages",
-#endif
->>>>>>> 8db42f7... mm: Add UKSM support
-<<<<<<< HEAD
-=======
->>>>>>> 2b25bc5... mm: Add UKSM support
->>>>>>> 20137b9... UKMS support
->>>>>>> parent of 7ca5863... messedup
-=======
->>>>>>> parent of 7273b5d... UKMS support
 	"nr_dirty_threshold",
 	"nr_dirty_background_threshold",
 
