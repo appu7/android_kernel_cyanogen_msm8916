@@ -61,4 +61,10 @@ config BLU_PLUG
 	  services. It is simply designed to "handle" specific behaviors that are caused
 	  by disabling these services.
 
-	  If unsure, say N.  
+	  If unsure, say N.
+	  
+config MAKO_HOTPLUG
+        bool "Enable mako_hotplug cpu hotplug driver"
+        default y
+        help
+          Generic mako_hotplug cpu hotplug driver for ARM SOCs	  
