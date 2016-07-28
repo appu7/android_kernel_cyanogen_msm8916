@@ -1,3 +1,5 @@
+CFLAGS_btusb.o := -Wno-incompatible-pointer-types \
+
 #
 # Makefile for the Linux Bluetooth HCI device drivers.
 #
