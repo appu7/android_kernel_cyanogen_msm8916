@@ -59,6 +59,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -91,6 +92,9 @@
 =======
 
 >>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+
+=======
+#include <linux/ksm.h>
+>>>>>>> 2141daa... messed up
 #include <asm/uaccess.h>
 #include <asm/mmu_context.h>
 #include <asm/tlb.h>
