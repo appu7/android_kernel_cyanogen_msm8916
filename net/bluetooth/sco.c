@@ -264,14 +264,10 @@ static struct sock *__sco_get_sock_listen_by_addr(bdaddr_t *ba)
 {
 	struct sock *sk;
 
-<<<<<<< HEAD
 	sk_for_each(sk, &sco_sk_list.head) {
 		if (sk->sk_state != BT_LISTEN)
 			continue;
 
-=======
-	sk_for_each(sk, &sco_sk_list.head)
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (!bacmp(&bt_sk(sk)->src, ba))
 			return sk;
 	}
@@ -1012,11 +1008,7 @@ static void sco_conn_ready(struct sco_conn *conn)
 /* ----- SCO interface with lower layer (HCI) ----- */
 int sco_connect_ind(struct hci_dev *hdev, bdaddr_t *bdaddr, __u8 *flags)
 {
-<<<<<<< HEAD
 	struct sock *sk;
-=======
-	register struct sock *sk;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	int lm = 0;
 
 	BT_DBG("hdev %s, bdaddr %pMR", hdev->name, bdaddr);
@@ -1087,13 +1079,8 @@ static int sco_debugfs_show(struct seq_file *f, void *p)
 	read_lock(&sco_sk_list.lock);
 
 	sk_for_each(sk, &sco_sk_list.head) {
-<<<<<<< HEAD
 		seq_printf(f, "%pMR %pMR %d\n", &bt_sk(sk)->src,
 			   &bt_sk(sk)->dst, sk->sk_state);
-=======
-		seq_printf(f, "%s %s %d\n", batostr(&bt_sk(sk)->src),
-				batostr(&bt_sk(sk)->dst), sk->sk_state);
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	}
 
 	read_unlock(&sco_sk_list.lock);

@@ -102,11 +102,7 @@ __instance_lookup(struct nfnl_log_net *log, u_int16_t group_num)
 	struct hlist_head *head;
 	struct nfulnl_instance *inst;
 
-<<<<<<< HEAD
 	head = &log->instance_table[instance_hashfn(group_num)];
-=======
-	head = &instance_table[instance_hashfn(group_num)];
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	hlist_for_each_entry_rcu(inst, head, hlist) {
 		if (inst->group_num == group_num)
 			return inst;
@@ -753,12 +749,7 @@ nfulnl_rcv_nl_event(struct notifier_block *this,
 			struct hlist_head *head = &log->instance_table[i];
 
 			hlist_for_each_entry_safe(inst, t2, head, hlist) {
-<<<<<<< HEAD
 				if (n->portid == inst->peer_portid)
-=======
-				if ((net_eq(n->net, &init_net)) &&
-				    (n->pid == inst->peer_pid))
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 					__instance_destroy(inst);
 			}
 		}

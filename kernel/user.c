@@ -110,11 +110,7 @@ static struct user_struct *uid_hash_find(kuid_t uid, struct hlist_head *hashent)
 	struct user_struct *user;
 
 	hlist_for_each_entry(user, hashent, uidhash_node) {
-<<<<<<< HEAD
 		if (uid_eq(user->uid, uid)) {
-=======
-		if (user->uid == uid) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			atomic_inc(&user->__count);
 			return user;
 		}

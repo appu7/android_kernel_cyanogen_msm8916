@@ -636,19 +636,12 @@ static void context_notify_all_users(struct smq_context_list *me, int cid)
 	struct hlist_node *n;
 	spin_lock(&me->hlock);
 	hlist_for_each_entry_safe(ictx, n, &me->pending, hn) {
-<<<<<<< HEAD
 		if (ictx->fdata->cid == cid)
 			complete(&ictx->work);
 	}
 	hlist_for_each_entry_safe(ictx, n, &me->interrupted, hn) {
 		if (ictx->fdata->cid == cid)
 			complete(&ictx->work);
-=======
-		complete(&ictx->work);
-	}
-	hlist_for_each_entry_safe(ictx, n, &me->interrupted, hn) {
-		complete(&ictx->work);
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	}
 	spin_unlock(&me->hlock);
 
@@ -664,7 +657,6 @@ static void context_list_ctor(struct smq_context_list *me)
 static void context_list_dtor(struct fastrpc_apps *me,
 				struct smq_context_list *clst)
 {
-<<<<<<< HEAD
 	struct smq_invoke_ctx *ictx = 0, *ctxfree;
 	struct hlist_node *n;
 	do {
@@ -691,18 +683,6 @@ static void context_list_dtor(struct fastrpc_apps *me,
 		if (ctxfree)
 			context_free(ctxfree, 0);
 	} while (ctxfree);
-=======
-	struct smq_invoke_ctx *ictx = 0;
-	struct hlist_node *n;
-	spin_lock(&clst->hlock);
-	hlist_for_each_entry_safe(ictx, n, &clst->interrupted, hn) {
-		context_free(ictx, 0);
-	}
-	hlist_for_each_entry_safe(ictx, n, &clst->pending, hn) {
-		context_free(ictx, 0);
-	}
-	spin_unlock(&clst->hlock);
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 }
 
 static int get_page_list(uint32_t kernel, struct smq_invoke_ctx *ctx)
@@ -1497,13 +1477,7 @@ static int fastrpc_internal_munmap(struct fastrpc_apps *me,
 	int err = 0;
 	struct fastrpc_mmap *map = 0, *mapfree = 0;
 	struct hlist_node *n;
-<<<<<<< HEAD
 
-=======
-	VERIFY(err, 0 == (err = fastrpc_munmap_on_dsp(me, munmap)));
-	if (err)
-		goto bail;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	spin_lock(&fdata->hlock);
 	hlist_for_each_entry_safe(map, n, &fdata->hlst, hn) {
 		if (map->vaddrout == munmap->vaddrout &&
@@ -1682,7 +1656,6 @@ static int fastrpc_device_release(struct inode *inode, struct file *file)
 	struct fastrpc_mmap *map = 0;
 	int cid = MINOR(inode->i_rdev);
 
-<<<<<<< HEAD
 	if (!fdata)
 		return 0;
 
@@ -1697,18 +1670,6 @@ static int fastrpc_device_release(struct inode *inode, struct file *file)
 				ctxfree = ictx;
 				break;
 			}
-=======
-	(void)fastrpc_release_current_dsp_process();
-	cleanup_current_dev();
-	if (fdata) {
-		struct fastrpc_mmap *map = 0;
-		struct hlist_node *n; 
-		file->private_data = 0;
-		hlist_for_each_entry_safe(map, n, &fdata->hlst, hn) {
-			hlist_del(&map->hn);
-			free_map(map);
-			kfree(map);
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		}
 		spin_unlock(&clst->hlock);
 		if (ctxfree)

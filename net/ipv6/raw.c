@@ -71,11 +71,7 @@ static struct sock *__raw_v6_lookup(struct net *net, struct sock *sk,
 		unsigned short num, const struct in6_addr *loc_addr,
 		const struct in6_addr *rmt_addr, int dif)
 {
-<<<<<<< HEAD
 	bool is_multicast = ipv6_addr_is_multicast(loc_addr);
-=======
-	int is_multicast = ipv6_addr_is_multicast(loc_addr);
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	sk_for_each_from(sk)
 		if (inet_sk(sk)->inet_num == num) {

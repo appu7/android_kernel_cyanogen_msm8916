@@ -70,18 +70,12 @@ static struct bt_sock_list hci_sk_list = {
 void hci_send_to_sock(struct hci_dev *hdev, struct sk_buff *skb)
 {
 	struct sock *sk;
-<<<<<<< HEAD
 	struct sk_buff *skb_copy = NULL;
-=======
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	BT_DBG("hdev %p len %d", hdev, skb->len);
 
 	read_lock(&hci_sk_list.lock);
-<<<<<<< HEAD
 
-=======
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	sk_for_each(sk, &hci_sk_list.head) {
 		struct hci_filter *flt;
 		struct sk_buff *nskb;
@@ -1091,46 +1085,6 @@ static int hci_sock_create(struct net *net, struct socket *sock, int protocol,
 	return 0;
 }
 
-<<<<<<< HEAD
-=======
-static int hci_sock_dev_event(struct notifier_block *this, unsigned long event, void *ptr)
-{
-	struct hci_dev *hdev = (struct hci_dev *) ptr;
-	struct hci_ev_si_device ev;
-
-	BT_DBG("hdev %s event %ld", hdev->name, event);
-
-	/* Send event to sockets */
-	ev.event  = event;
-	ev.dev_id = hdev->id;
-	hci_si_event(NULL, HCI_EV_SI_DEVICE, sizeof(ev), &ev);
-
-	if (event == HCI_DEV_UNREG) {
-		struct sock *sk;
-
-		/* Detach sockets from device */
-		read_lock(&hci_sk_list.lock);
-		sk_for_each(sk, &hci_sk_list.head) {
-			local_bh_disable();
-			bh_lock_sock_nested(sk);
-			if (hci_pi(sk)->hdev == hdev) {
-				hci_pi(sk)->hdev = NULL;
-				sk->sk_err = EPIPE;
-				sk->sk_state = BT_OPEN;
-				sk->sk_state_change(sk);
-
-				hci_dev_put(hdev);
-			}
-			bh_unlock_sock(sk);
-			local_bh_enable();
-		}
-		read_unlock(&hci_sk_list.lock);
-	}
-
-	return NOTIFY_DONE;
-}
-
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 static const struct net_proto_family hci_sock_family_ops = {
 	.family	= PF_BLUETOOTH,
 	.owner	= THIS_MODULE,

@@ -826,11 +826,7 @@ ftrace_find_profiled_func(struct ftrace_profile_stat *stat, unsigned long ip)
 	if (hlist_empty(hhd))
 		return NULL;
 
-<<<<<<< HEAD
 	hlist_for_each_entry_rcu_notrace(rec, hhd, node) {
-=======
-	hlist_for_each_entry_rcu(rec, hhd, node) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (rec->ip == ip)
 			return rec;
 	}
@@ -1216,11 +1212,7 @@ ftrace_lookup_ip(struct ftrace_hash *hash, unsigned long ip)
 
 	hhd = &hash->buckets[key];
 
-<<<<<<< HEAD
 	hlist_for_each_entry_rcu_notrace(entry, hhd, hlist) {
-=======
-	hlist_for_each_entry_rcu(entry, hhd, hlist) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (entry->ip == ip)
 			return entry;
 	}
@@ -1437,13 +1429,6 @@ ftrace_hash_move(struct ftrace_ops *ops, int enable,
 	for (i = 0; i < size; i++) {
 		hhd = &src->buckets[i];
 		hlist_for_each_entry_safe(entry, tn, hhd, hlist) {
-<<<<<<< HEAD
-=======
-			if (bits > 0)
-				key = hash_long(entry->ip, bits);
-			else
-				key = 0;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			remove_hash_entry(src, entry);
 			__add_hash_entry(new_hash, entry);
 		}
@@ -3093,11 +3078,7 @@ static void function_trace_probe_call(unsigned long ip, unsigned long parent_ip,
 	 * on the hash. rcu_read_lock is too dangerous here.
 	 */
 	preempt_disable_notrace();
-<<<<<<< HEAD
 	hlist_for_each_entry_rcu_notrace(entry, hhd, node) {
-=======
-	hlist_for_each_entry_rcu(entry, hhd, node) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (entry->ip == ip)
 			entry->ops->func(ip, parent_ip, &entry->data);
 	}
@@ -3274,13 +3255,10 @@ __unregister_ftrace_function_probe(char *glob, struct ftrace_probe_ops *ops,
 {
 	struct ftrace_func_entry *rec_entry;
 	struct ftrace_func_probe *entry;
-<<<<<<< HEAD
 	struct ftrace_func_probe *p;
 	struct ftrace_hash **orig_hash = &trace_probe_ops.filter_hash;
 	struct list_head free_list;
 	struct ftrace_hash *hash;
-=======
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	struct hlist_node *tmp;
 	char str[KSYM_SYMBOL_LEN];
 	int type = MATCH_FULL;

@@ -340,12 +340,7 @@ static struct mm_slot *get_mm_slot(struct mm_struct *mm)
 {
 	struct mm_slot *slot;
 
-<<<<<<< HEAD
 	hash_for_each_possible(mm_slots_hash, slot, link, (unsigned long)mm)
-=======
-	hash_for_each_possible(mm_slots_hash, slot,
-			link, (unsigned long)mm)
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (slot->mm == mm)
 			return slot;
 

@@ -449,14 +449,10 @@ static int sctp_remaddr_seq_show(struct seq_file *seq, void *v)
 	head = &sctp_assoc_hashtable[hash];
 	sctp_local_bh_disable();
 	read_lock(&head->lock);
-<<<<<<< HEAD
 	rcu_read_lock();
 	sctp_for_each_hentry(epb, &head->chain) {
 		if (!net_eq(sock_net(epb->sk), seq_file_net(seq)))
 			continue;
-=======
-	sctp_for_each_hentry(epb, &head->chain) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		assoc = sctp_assoc(epb);
 		list_for_each_entry_rcu(tsp, &assoc->peer.transport_addr_list,
 					transports) {

@@ -374,12 +374,7 @@ nfsd_cache_search(struct svc_rqst *rqstp, __wsum csum)
 int
 nfsd_cache_lookup(struct svc_rqst *rqstp)
 {
-<<<<<<< HEAD
 	struct svc_cacherep	*rp, *found;
-=======
-	struct hlist_head 	*rh;
-	struct svc_cacherep	*rp;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	__be32			xid = rqstp->rq_xid;
 	u32			proto =  rqstp->rq_prot,
 				vers = rqstp->rq_vers,
@@ -397,7 +392,6 @@ nfsd_cache_lookup(struct svc_rqst *rqstp)
 
 	csum = nfsd_cache_csum(rqstp);
 
-<<<<<<< HEAD
 	/*
 	 * Since the common case is a cache miss followed by an insert,
 	 * preallocate an entry.
@@ -407,18 +401,6 @@ nfsd_cache_lookup(struct svc_rqst *rqstp)
 	if (likely(rp)) {
 		++num_drc_entries;
 		drc_mem_usage += sizeof(*rp);
-=======
-	rh = &cache_hash[request_hash(xid)];
-	hlist_for_each_entry(rp, rh, c_hash) {
-		if (rp->c_state != RC_UNUSED &&
-		    xid == rp->c_xid && proc == rp->c_proc &&
-		    proto == rp->c_prot && vers == rp->c_vers &&
-		    time_before(jiffies, rp->c_timestamp + 120*HZ) &&
-		    memcmp((char*)&rqstp->rq_addr, (char*)&rp->c_addr, sizeof(rp->c_addr))==0) {
-			nfsdstats.rchits++;
-			goto found_entry;
-		}
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	}
 
 	/* go ahead and prune the cache */

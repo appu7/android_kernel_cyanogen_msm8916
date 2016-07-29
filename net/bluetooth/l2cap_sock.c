@@ -45,17 +45,7 @@ static struct sock *l2cap_sock_alloc(struct net *net, struct socket *sock,
 
 bool l2cap_is_socket(struct socket *sock)
 {
-<<<<<<< HEAD
 	return sock && sock->ops == &l2cap_sock_ops;
-=======
-	struct sock *sk;
-	sk_for_each(sk, &l2cap_sk_list.head)
-		if (l2cap_pi(sk)->sport == psm && !bacmp(&bt_sk(sk)->src, src))
-			goto found;
-	sk = NULL;
-found:
-	return sk;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 }
 EXPORT_SYMBOL(l2cap_is_socket);
 

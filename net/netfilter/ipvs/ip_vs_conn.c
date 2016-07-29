@@ -264,15 +264,9 @@ __ip_vs_conn_in_get(const struct ip_vs_conn_param *p)
 
 	rcu_read_lock();
 
-<<<<<<< HEAD
 	hlist_for_each_entry_rcu(cp, &ip_vs_conn_tab[hash], c_list) {
 		if (p->cport == cp->cport && p->vport == cp->vport &&
 		    cp->af == p->af &&
-=======
-	hlist_for_each_entry(cp, &ip_vs_conn_tab[hash], c_list) {
-		if (cp->af == p->af &&
-		    p->cport == cp->cport && p->vport == cp->vport &&
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		    ip_vs_addr_equal(p->af, p->caddr, &cp->caddr) &&
 		    ip_vs_addr_equal(p->af, p->vaddr, &cp->vaddr) &&
 		    ((!p->cport) ^ (!(cp->flags & IP_VS_CONN_F_NO_CPORT))) &&
@@ -355,7 +349,6 @@ struct ip_vs_conn *ip_vs_ct_in_get(const struct ip_vs_conn_param *p)
 
 	rcu_read_lock();
 
-<<<<<<< HEAD
 	hlist_for_each_entry_rcu(cp, &ip_vs_conn_tab[hash], c_list) {
 		if (unlikely(p->pe_data && p->pe->ct_match)) {
 			if (!ip_vs_conn_net_eq(cp, p->net))
@@ -364,14 +357,6 @@ struct ip_vs_conn *ip_vs_ct_in_get(const struct ip_vs_conn_param *p)
 				if (__ip_vs_conn_get(cp))
 					goto out;
 			}
-=======
-	hlist_for_each_entry(cp, &ip_vs_conn_tab[hash], c_list) {
-		if (!ip_vs_conn_net_eq(cp, p->net))
-			continue;
-		if (p->pe_data && p->pe->ct_match) {
-			if (p->pe == cp->pe && p->pe->ct_match(p, cp))
-				goto out;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			continue;
 		}
 
@@ -419,15 +404,9 @@ struct ip_vs_conn *ip_vs_conn_out_get(const struct ip_vs_conn_param *p)
 
 	rcu_read_lock();
 
-<<<<<<< HEAD
 	hlist_for_each_entry_rcu(cp, &ip_vs_conn_tab[hash], c_list) {
 		if (p->vport == cp->cport && p->cport == cp->dport &&
 		    cp->af == p->af &&
-=======
-	hlist_for_each_entry(cp, &ip_vs_conn_tab[hash], c_list) {
-		if (cp->af == p->af &&
-		    p->vport == cp->cport && p->cport == cp->dport &&
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		    ip_vs_addr_equal(p->af, p->vaddr, &cp->caddr) &&
 		    ip_vs_addr_equal(p->af, p->caddr, &cp->daddr) &&
 		    p->protocol == cp->protocol &&
@@ -986,15 +965,10 @@ static void *ip_vs_conn_array(struct seq_file *seq, loff_t pos)
 	struct ip_vs_iter_state *iter = seq->private;
 
 	for (idx = 0; idx < ip_vs_conn_tab_size; idx++) {
-<<<<<<< HEAD
 		hlist_for_each_entry_rcu(cp, &ip_vs_conn_tab[idx], c_list) {
 			/* __ip_vs_conn_get() is not needed by
 			 * ip_vs_conn_seq_show and ip_vs_conn_sync_seq_show
 			 */
-=======
-		ct_read_lock_bh(idx);
-		hlist_for_each_entry(cp, &ip_vs_conn_tab[idx], c_list) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			if (pos-- == 0) {
 				iter->l = &ip_vs_conn_tab[idx];
 				return cp;
@@ -1021,6 +995,7 @@ static void *ip_vs_conn_seq_next(struct seq_file *seq, void *v, loff_t *pos)
 {
 	struct ip_vs_conn *cp = v;
 	struct ip_vs_iter_state *iter = seq->private;
+	struct hlist_node *e;
 	struct hlist_head *l = iter->l;
 	int idx;
 
@@ -1029,23 +1004,13 @@ static void *ip_vs_conn_seq_next(struct seq_file *seq, void *v, loff_t *pos)
 		return ip_vs_conn_array(seq, 0);
 
 	/* more on same hash chain? */
-<<<<<<< HEAD
 	e = rcu_dereference(hlist_next_rcu(&cp->c_list));
 	if (e)
 		return hlist_entry(e, struct ip_vs_conn, c_list);
-=======
-	if (cp->c_list.next)
-		return hlist_entry(cp->c_list.next, struct ip_vs_conn, c_list);
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	idx = l - ip_vs_conn_tab;
 	while (++idx < ip_vs_conn_tab_size) {
-<<<<<<< HEAD
 		hlist_for_each_entry_rcu(cp, &ip_vs_conn_tab[idx], c_list) {
-=======
-		ct_read_lock_bh(idx);
-		hlist_for_each_entry(cp, &ip_vs_conn_tab[idx], c_list) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			iter->l = &ip_vs_conn_tab[idx];
 			return cp;
 		}
@@ -1244,22 +1209,14 @@ void ip_vs_random_dropentry(struct net *net)
 	 * Randomly scan 1/32 of the whole table every second
 	 */
 	for (idx = 0; idx < (ip_vs_conn_tab_size>>5); idx++) {
-<<<<<<< HEAD
 		unsigned int hash = net_random() & ip_vs_conn_tab_mask;
-=======
-		unsigned hash = net_random() & ip_vs_conn_tab_mask;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 		/*
 		 *  Lock is actually needed in this loop.
 		 */
 		rcu_read_lock();
 
-<<<<<<< HEAD
 		hlist_for_each_entry_rcu(cp, &ip_vs_conn_tab[hash], c_list) {
-=======
-		hlist_for_each_entry(cp, &ip_vs_conn_tab[hash], c_list) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			if (cp->flags & IP_VS_CONN_F_TEMPLATE)
 				/* connection template */
 				continue;
@@ -1315,11 +1272,7 @@ flush_again:
 		 */
 		rcu_read_lock();
 
-<<<<<<< HEAD
 		hlist_for_each_entry_rcu(cp, &ip_vs_conn_tab[idx], c_list) {
-=======
-		hlist_for_each_entry(cp, &ip_vs_conn_tab[idx], c_list) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			if (!ip_vs_conn_net_eq(cp, net))
 				continue;
 			IP_VS_DBG(4, "del connection\n");

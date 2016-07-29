@@ -813,7 +813,6 @@ static void remove_node_from_stable_tree(struct stable_node *stable_node,
 	struct node_vma *node_vma;
 	struct rmap_item *rmap_item;
 <<<<<<< HEAD
-<<<<<<< HEAD
 	struct hlist_node *n;
 
 	if (!hlist_empty(&stable_node->hlist)) {
@@ -822,20 +821,13 @@ static void remove_node_from_stable_tree(struct stable_node *stable_node,
 			hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
 =======
 	struct hlist_node *hlist, *rmap_hlist, *n;
-=======
-	struct hlist_node *n;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	if (!hlist_empty(&stable_node->hlist)) {
-		hlist_for_each_entry_safe(node_vma, n,
+		hlist_for_each_entry_safe(node_vma, hlist, n,
 					  &stable_node->hlist, hlist) {
-<<<<<<< HEAD
 			hlist_for_each_entry(rmap_item, rmap_hlist,
 					     &node_vma->rmap_hlist, hlist) {
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
-			hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 				uksm_pages_sharing--;
 
 				uksm_drop_anon_vma(rmap_item);
@@ -2548,15 +2540,11 @@ static void stable_tree_append(struct rmap_item *rmap_item,
 			       struct stable_node *stable_node, int logdedup)
 {
 <<<<<<< HEAD
-<<<<<<< HEAD
 	struct node_vma *node_vma = NULL, *new_node_vma, *node_vma_cont = NULL;
 =======
 	struct node_vma *node_vma = NULL, *new_node_vma;
 	struct hlist_node *hlist = NULL, *cont_p = NULL;
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
-	struct node_vma *node_vma = NULL, *new_node_vma, *node_vma_cont = NULL;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	unsigned long key = (unsigned long)rmap_item->slot;
 	unsigned long factor = rmap_item->slot->rung->step;
 
@@ -2571,14 +2559,10 @@ static void stable_tree_append(struct rmap_item *rmap_item,
 	}
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
 =======
 	hlist_for_each_entry(node_vma, hlist, &stable_node->hlist, hlist) {
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
-	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (node_vma->key >= key)
 			break;
 
@@ -2593,7 +2577,6 @@ static void stable_tree_append(struct rmap_item *rmap_item,
 	if (node_vma) {
 		if (node_vma->key == key) {
 <<<<<<< HEAD
-<<<<<<< HEAD
 			node_vma_cont = hlist_entry_safe(node_vma->hlist.next, struct node_vma, hlist);
 			goto node_vma_ok;
 		} else if (node_vma->key > key) {
@@ -2604,12 +2587,6 @@ static void stable_tree_append(struct rmap_item *rmap_item,
 		} else if (node_vma->key > key) {
 			cont_p = hlist;
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
-			node_vma_cont = hlist_entry_safe(node_vma->hlist.next, struct node_vma, hlist);
-			goto node_vma_ok;
-		} else if (node_vma->key > key) {
-			node_vma_cont = node_vma;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		}
 	}
 
@@ -2640,7 +2617,6 @@ node_vma_ok: /* ok, ready to add to the list */
 	if (logdedup) {
 		rmap_item->slot->pages_merged++;
 <<<<<<< HEAD
-<<<<<<< HEAD
 		if (node_vma_cont) {
 			node_vma = node_vma_cont;
 			hlist_for_each_entry_continue(node_vma, hlist) {
@@ -2649,11 +2625,6 @@ node_vma_ok: /* ok, ready to add to the list */
 			hlist_for_each_entry_continue(node_vma,
 						      cont_p, hlist) {
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
-		if (node_vma_cont) {
-			node_vma = node_vma_cont;
-			hlist_for_each_entry_continue(node_vma, hlist) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 				node_vma->slot->pages_bemerged += factor;
 				if (list_empty(&node_vma->slot->dedup_list))
 					list_add(&node_vma->slot->dedup_list,
@@ -4709,12 +4680,9 @@ int page_referenced_ksm(struct page *page, struct mem_cgroup *memcg,
 	struct node_vma *node_vma;
 	struct rmap_item *rmap_item;
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
 	struct hlist_node *hlist, *rmap_hlist;
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	unsigned int mapcount = page_mapcount(page);
 	int referenced = 0;
 	int search_new_forks = 0;
@@ -4730,7 +4698,6 @@ int page_referenced_ksm(struct page *page, struct mem_cgroup *memcg,
 
 again:
 <<<<<<< HEAD
-<<<<<<< HEAD
 	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
 		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
 =======
@@ -4742,10 +4709,6 @@ again:
 =======
 				     &node_vma->rmap_hlist, hlist) {
 >>>>>>> 2cce6f5...  Tune UKSM to work with Android Devices
-=======
-	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
-		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			struct anon_vma *anon_vma = rmap_item->anon_vma;
 			struct anon_vma_chain *vmac;
 			struct vm_area_struct *vma;
@@ -4804,11 +4767,8 @@ int try_to_unmap_ksm(struct page *page, enum ttu_flags flags,
 {
 	struct stable_node *stable_node;
 	struct node_vma *node_vma;
-<<<<<<< HEAD
 	struct hlist_node *hlist, *rmap_hlist;
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	struct rmap_item *rmap_item;
 	int ret = SWAP_AGAIN;
 	int search_new_forks = 0;
@@ -4828,7 +4788,6 @@ int try_to_unmap_ksm(struct page *page, enum ttu_flags flags,
 	}
 again:
 <<<<<<< HEAD
-<<<<<<< HEAD
 	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
 		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
 =======
@@ -4840,10 +4799,6 @@ again:
 =======
 				     &node_vma->rmap_hlist, hlist) {
 >>>>>>> 2cce6f5...  Tune UKSM to work with Android Devices
-=======
-	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
-		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			struct anon_vma *anon_vma = rmap_item->anon_vma;
 			struct anon_vma_chain *vmac;
 			struct vm_area_struct *vma;
@@ -4891,12 +4846,9 @@ int rmap_walk_ksm(struct page *page, int (*rmap_one)(struct page *,
 	struct stable_node *stable_node;
 	struct node_vma *node_vma;
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
 	struct hlist_node *hlist, *rmap_hlist;
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 	struct rmap_item *rmap_item;
 	int ret = SWAP_AGAIN;
 	int search_new_forks = 0;
@@ -4910,7 +4862,6 @@ int rmap_walk_ksm(struct page *page, int (*rmap_one)(struct page *,
 		return ret;
 again:
 <<<<<<< HEAD
-<<<<<<< HEAD
 	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
 		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
 =======
@@ -4922,10 +4873,6 @@ again:
 =======
 				     &node_vma->rmap_hlist, hlist) {
 >>>>>>> 2cce6f5...  Tune UKSM to work with Android Devices
-=======
-	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
-		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			struct anon_vma *anon_vma = rmap_item->anon_vma;
 			struct anon_vma_chain *vmac;
 			struct vm_area_struct *vma;
