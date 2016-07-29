@@ -8,13 +8,10 @@ KBUILD_CFLAGS = $(subst -pg,,$(ORIG_CFLAGS))
 endif
 
 lib-y := ctype.o string.o vsprintf.o cmdline.o \
-<<<<<<< HEAD
 	 rbtree.o radix-tree.o dump_stack.o timerqueue.o\
 	 idr.o int_sqrt.o extable.o \
-=======
 	 rbtree.o radix-tree.o sradix-tree.o dump_stack.o timerqueue.o\
 	 idr.o int_sqrt.o extable.o prio_tree.o \
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 	 sha1.o md5.o irq_regs.o reciprocal_div.o argv_split.o \
 	 flex_proportions.o prio_heap.o ratelimit.o show_mem.o \
 	 is_single_threaded.o plist.o decompress.o kobject_uevent.o \

@@ -742,8 +742,8 @@ const char * const vmstat_text[] = {
 #endif
 	"nr_anon_transparent_hugepages",
 	"nr_free_cma",
-<<<<<<< HEAD
 	"nr_swapcache",
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -799,6 +799,11 @@ const char * const vmstat_text[] = {
 #endif
 >>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 >>>>>>> 16e501a... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
+=======
+#ifdef CONFIG_UKSM
+	"nr_uksm_zero_pages",
+#endif
+>>>>>>> f7506fa... Fixed mismerges and enable UKSM
 	"nr_dirty_threshold",
 	"nr_dirty_background_threshold",
 
