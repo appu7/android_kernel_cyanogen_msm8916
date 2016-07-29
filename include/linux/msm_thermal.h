@@ -31,7 +31,7 @@
 #define CPUFREQ_MAX_NO_MITIGATION     UINT_MAX
 #define CPUFREQ_MIN_NO_MITIGATION     0
 #define HOTPLUG_NO_MITIGATION(_mask)  cpumask_clear(_mask)
-
+extern uint32_t cpus_offlined;
 struct msm_thermal_data {
 	struct platform_device *pdev;
 	uint32_t sensor_id;
