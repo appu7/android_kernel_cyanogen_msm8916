@@ -117,15 +117,9 @@ int ecryptfs_find_daemon_by_euid(struct ecryptfs_daemon **daemon)
 	int rc;
 
 	hlist_for_each_entry(*daemon,
-<<<<<<< HEAD
 			    &ecryptfs_daemon_hash[ecryptfs_current_euid_hash()],
 			    euid_chain) {
 		if (uid_eq((*daemon)->file->f_cred->euid, current_euid())) {
-=======
-			     &ecryptfs_daemon_hash[ecryptfs_uid_hash(euid)],
-			     euid_chain) {
-		if ((*daemon)->euid == euid && (*daemon)->user_ns == user_ns) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			rc = 0;
 			goto out;
 		}

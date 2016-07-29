@@ -143,13 +143,6 @@ struct net_device *__ip_dev_find(struct net *net, __be32 addr, bool devref)
 
 	rcu_read_lock();
 	hlist_for_each_entry_rcu(ifa, &inet_addr_lst[hash], hash) {
-<<<<<<< HEAD
-=======
-		struct net_device *dev = ifa->ifa_dev->dev;
-
-		if (!net_eq(dev_net(dev), net))
-			continue;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (ifa->ifa_local == addr) {
 			struct net_device *dev = ifa->ifa_dev->dev;
 
@@ -1549,11 +1542,8 @@ static int inet_dump_ifaddr(struct sk_buff *skb, struct netlink_callback *cb)
 		idx = 0;
 		head = &net->dev_index_head[h];
 		rcu_read_lock();
-<<<<<<< HEAD
 		cb->seq = atomic_read(&net->ipv4.dev_addr_genid) ^
 			  net->dev_base_seq;
-=======
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		hlist_for_each_entry_rcu(dev, head, index_hlist) {
 			if (idx < s_idx)
 				goto cont;

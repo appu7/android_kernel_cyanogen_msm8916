@@ -626,7 +626,6 @@ static inline void sk_add_bind_node(struct sock *sk,
 	hlist_for_each_entry_safe(__sk, tmp, list, sk_node)
 #define sk_for_each_bound(__sk, list) \
 	hlist_for_each_entry(__sk, list, sk_bind_node)
-<<<<<<< HEAD
 
 static inline struct user_namespace *sk_user_ns(struct sock *sk)
 {
@@ -636,8 +635,6 @@ static inline struct user_namespace *sk_user_ns(struct sock *sk)
 	 */
 	return sk->sk_socket->file->f_cred->user_ns;
 }
-=======
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 /* Sock flags */
 enum sock_flags {

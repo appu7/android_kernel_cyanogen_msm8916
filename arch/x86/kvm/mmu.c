@@ -1648,7 +1648,6 @@ static int kvm_mmu_prepare_zap_page(struct kvm *kvm, struct kvm_mmu_page *sp,
 static void kvm_mmu_commit_zap_page(struct kvm *kvm,
 				    struct list_head *invalid_list);
 
-<<<<<<< HEAD
 #define for_each_gfn_sp(_kvm, _sp, _gfn)				\
 	hlist_for_each_entry(_sp,					\
 	  &(_kvm)->arch.mmu_page_hash[kvm_page_table_hashfn(_gfn)], hash_link) \
@@ -1657,18 +1656,6 @@ static void kvm_mmu_commit_zap_page(struct kvm *kvm,
 #define for_each_gfn_indirect_valid_sp(_kvm, _sp, _gfn)			\
 	for_each_gfn_sp(_kvm, _sp, _gfn)				\
 		if ((_sp)->role.direct || (_sp)->role.invalid) {} else
-=======
-#define for_each_gfn_sp(kvm, sp, gfn)					\
-  hlist_for_each_entry(sp,						\
-   &(kvm)->arch.mmu_page_hash[kvm_page_table_hashfn(gfn)], hash_link)	\
-	if ((sp)->gfn != (gfn)) {} else
-
-#define for_each_gfn_indirect_valid_sp(kvm, sp, gfn)			\
-  hlist_for_each_entry(sp,						\
-   &(kvm)->arch.mmu_page_hash[kvm_page_table_hashfn(gfn)], hash_link)	\
-		if ((sp)->gfn != (gfn) || (sp)->role.direct ||		\
-			(sp)->role.invalid) {} else
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 /* @sp->gfn should be write-protected at the call site */
 static int __kvm_sync_page(struct kvm_vcpu *vcpu, struct kvm_mmu_page *sp,
@@ -3988,17 +3975,8 @@ void kvm_mmu_pte_write(struct kvm_vcpu *vcpu, gpa_t gpa,
 	++vcpu->kvm->stat.mmu_pte_write;
 	kvm_mmu_audit(vcpu, AUDIT_PRE_PTE_WRITE);
 
-<<<<<<< HEAD
 	mask.cr0_wp = mask.cr4_pae = mask.nxe = mask.smep_andnot_wp = 1;
-<<<<<<< HEAD
 	for_each_gfn_indirect_valid_sp(vcpu->kvm, sp, gfn) {
-=======
-	for_each_gfn_indirect_valid_sp(vcpu->kvm, sp, gfn, node) {
-=======
-	mask.cr0_wp = mask.cr4_pae = mask.nxe = 1;
-	for_each_gfn_indirect_valid_sp(vcpu->kvm, sp, gfn) {
->>>>>>> b67bfe0... hlist: drop the node parameter from iterators
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		if (detect_write_misaligned(sp, gpa, bytes) ||
 		      detect_write_flooding(sp)) {
 			zap_page |= !!kvm_mmu_prepare_zap_page(vcpu->kvm, sp,

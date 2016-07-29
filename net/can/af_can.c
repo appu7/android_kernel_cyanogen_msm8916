@@ -555,15 +555,8 @@ void can_rx_unregister(struct net_device *dev, canid_t can_id, canid_t mask,
 	 */
 
 	if (!r) {
-<<<<<<< HEAD
 		WARN(1, "BUG: receive list entry not found for dev %s, "
 		     "id %03X, mask %03X\n", DNAME(dev), can_id, mask);
-=======
-		printk(KERN_ERR "BUG: receive list entry not found for "
-		       "dev %s, id %03X, mask %03X\n",
-		       DNAME(dev), can_id, mask);
-		r = NULL;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		goto out;
 	}
 
@@ -605,11 +598,7 @@ static int can_rcv_filter(struct dev_rcv_lists *d, struct sk_buff *skb)
 		return 0;
 
 	if (can_id & CAN_ERR_FLAG) {
-<<<<<<< HEAD
 		/* check for error message frame entries only */
-=======
-		/* check for error frame entries only */
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 		hlist_for_each_entry_rcu(r, &d->rx[RX_ERR], list) {
 			if (can_id & r->mask) {
 				deliver(skb, r);

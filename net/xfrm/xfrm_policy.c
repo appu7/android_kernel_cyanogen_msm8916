@@ -628,10 +628,6 @@ int xfrm_policy_insert(int dir, struct xfrm_policy *policy, int excl)
 	struct xfrm_policy *delpol;
 	struct hlist_head *chain;
 	struct hlist_node *newpos;
-<<<<<<< HEAD
-=======
-	u32 mark = policy->mark.v & policy->mark.m;
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 
 	write_lock_bh(&xfrm_policy_lock);
 	chain = policy_hash_bysel(net, &policy->selector, policy->family, dir);

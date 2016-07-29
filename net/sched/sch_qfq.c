@@ -1455,28 +1455,10 @@ static unsigned int qfq_drop(struct Qdisc *sch)
 	for (i = 0; i <= QFQ_MAX_INDEX; i++) {
 		grp = &q->groups[i];
 		for (j = 0; j < QFQ_MAX_SLOTS; j++) {
-<<<<<<< HEAD
 			len = qfq_drop_from_slot(q, &grp->slots[j]);
 			if (len > 0) {
 				sch->q.qlen--;
 				return len;
-=======
-			struct qfq_class *cl;
-
-			hlist_for_each_entry(cl, &grp->slots[j], next) {
-
-				if (!cl->qdisc->ops->drop)
-					continue;
-
-				len = cl->qdisc->ops->drop(cl->qdisc);
-				if (len > 0) {
-					sch->q.qlen--;
-					if (!cl->qdisc->q.qlen)
-						qfq_deactivate_class(q, cl);
-
-					return len;
-				}
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			}
 		}
 
@@ -1525,29 +1507,13 @@ static void qfq_reset_qdisc(struct Qdisc *sch)
 {
 	struct qfq_sched *q = qdisc_priv(sch);
 	struct qfq_class *cl;
-<<<<<<< HEAD
 	unsigned int i;
 
 	for (i = 0; i < q->clhash.hashsize; i++) {
 		hlist_for_each_entry(cl, &q->clhash.hash[i], common.hnode) {
 			if (cl->qdisc->q.qlen > 0)
-=======
-	struct hlist_node *tmp;
-	unsigned int i, j;
-
-	for (i = 0; i <= QFQ_MAX_INDEX; i++) {
-		grp = &q->groups[i];
-		for (j = 0; j < QFQ_MAX_SLOTS; j++) {
-			hlist_for_each_entry_safe(cl, tmp,
-						  &grp->slots[j], next) {
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 				qfq_deactivate_class(q, cl);
 
-<<<<<<< HEAD
-=======
-	for (i = 0; i < q->clhash.hashsize; i++) {
-		hlist_for_each_entry(cl, &q->clhash.hash[i], common.hnode)
->>>>>>> 4cba2bd... hlist: drop the node parameter from iterators
 			qdisc_reset(cl->qdisc);
 		}
 	}
