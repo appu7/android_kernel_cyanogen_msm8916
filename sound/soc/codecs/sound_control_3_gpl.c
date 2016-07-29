@@ -64,6 +64,12 @@ static unsigned int *cache_select(unsigned int reg)
                 case MSM8X16_WCD_A_CDC_RX3_VOL_CTL_B2_CTL:
 			out = &cached_regs[6];
 			break;
+                case MSM8X16_WCD_A_CDC_TX1_VOL_CTL_GAIN:
+			out = &cached_regs[11];
+			break;
+                case MSM8X16_WCD_A_CDC_TX2_VOL_CTL_GAIN:
+			out = &cached_regs[12];
+			break;
         }
 	return out;
 }
@@ -106,6 +112,11 @@ int snd_hax_reg_access(unsigned int reg)
 			if (snd_ctrl_locked > 0)
 				ret = 0;
 			break;
+		case MSM8X16_WCD_A_CDC_TX1_VOL_CTL_GAIN:
+		case MSM8X16_WCD_A_CDC_TX2_VOL_CTL_GAIN:
+			if (snd_ctrl_locked > 0)
+				ret = 0;
+			break;
 		default:
 			break;
 	}
@@ -126,6 +137,51 @@ static bool calc_checksum(unsigned int a, unsigned int b, unsigned int c)
 	}
 }
 
+static ssize_t cam_mic_gain_show(struct kobject *kobj,
+		struct kobj_attribute *attr, char *buf)
+{
+        return sprintf(buf, "%u\n",
+		msm8x16_wcd_read(fauxsound_codec_ptr,
+			MSM8X16_WCD_A_CDC_TX1_VOL_CTL_GAIN));
+
+}
+
+static ssize_t cam_mic_gain_store(struct kobject *kobj,
+		struct kobj_attribute *attr, const char *buf, size_t count)
+{
+	unsigned int lval, chksum;
+
+	sscanf(buf, "%u %u", &lval, &chksum);
+
+	if (calc_checksum(lval, 0, chksum)) {
+		msm8x16_wcd_write(fauxsound_codec_ptr,
+			MSM8X16_WCD_A_CDC_TX1_VOL_CTL_GAIN, lval);
+	}
+	return count;
+}
+
+static ssize_t mic_gain_show(struct kobject *kobj,
+		struct kobj_attribute *attr, char *buf)
+{
+	return sprintf(buf, "%u\n",
+		msm8x16_wcd_read(fauxsound_codec_ptr,
+			MSM8X16_WCD_A_CDC_TX2_VOL_CTL_GAIN));
+}
+
+static ssize_t mic_gain_store(struct kobject *kobj,
+		struct kobj_attribute *attr, const char *buf, size_t count)
+{
+	unsigned int lval, chksum;
+
+	sscanf(buf, "%u %u", &lval, &chksum);
+
+	if (calc_checksum(lval, 0, chksum)) {
+		msm8x16_wcd_write(fauxsound_codec_ptr,
+			MSM8X16_WCD_A_CDC_TX2_VOL_CTL_GAIN, lval);
+	}
+	return count;
+
+}
 
 static ssize_t speaker_gain_show(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
@@ -295,6 +351,18 @@ static struct kobj_attribute sound_reg_write_attribute =
 		NULL,
 		sound_reg_write_store);
 
+static struct kobj_attribute cam_mic_gain_attribute =
+	__ATTR(gpl_cam_mic_gain,
+		0666,
+		cam_mic_gain_show,
+		cam_mic_gain_store);
+
+static struct kobj_attribute mic_gain_attribute =
+	__ATTR(gpl_mic_gain,
+		0666,
+		mic_gain_show,
+		mic_gain_store);
+
 static struct kobj_attribute speaker_gain_attribute =
 	__ATTR(gpl_speaker_gain,
 		0666,
@@ -328,6 +396,8 @@ static struct kobj_attribute sound_control_version_attribute =
 
 static struct attribute *sound_control_attrs[] =
 	{
+		&cam_mic_gain_attribute.attr,
+		&mic_gain_attribute.attr,
 		&speaker_gain_attribute.attr,
 		&headphone_gain_attribute.attr,
 //		&headphone_pa_gain_attribute.attr,
