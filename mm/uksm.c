@@ -168,11 +168,7 @@ static int is_full_zero(const void *s1, size_t len)
 #else
 static int is_full_zero(const void *s1, size_t len)
 {
-<<<<<<< HEAD
-	unsigned long *src = s1;
-=======
 	const unsigned long *src = s1;
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 	int i;
 
 	len /= sizeof(*src);
@@ -572,11 +568,7 @@ static unsigned long long uksm_sleep_times;
 
 #define UKSM_RUN_STOP	0
 #define UKSM_RUN_MERGE	1
-<<<<<<< HEAD
-static unsigned int uksm_run = 1;
-=======
 static unsigned int uksm_run = 0;
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 
 static DECLARE_WAIT_QUEUE_HEAD(uksm_thread_wait);
 static DEFINE_MUTEX(uksm_thread_mutex);
@@ -812,22 +804,12 @@ static void remove_node_from_stable_tree(struct stable_node *stable_node,
 {
 	struct node_vma *node_vma;
 	struct rmap_item *rmap_item;
-<<<<<<< HEAD
 	struct hlist_node *n;
 
 	if (!hlist_empty(&stable_node->hlist)) {
 		hlist_for_each_entry_safe(node_vma, n,
 					  &stable_node->hlist, hlist) {
 			hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
-=======
-	struct hlist_node *hlist, *rmap_hlist, *n;
-
-	if (!hlist_empty(&stable_node->hlist)) {
-		hlist_for_each_entry_safe(node_vma, hlist, n,
-					  &stable_node->hlist, hlist) {
-			hlist_for_each_entry(rmap_item, rmap_hlist,
-					     &node_vma->rmap_hlist, hlist) {
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 				uksm_pages_sharing--;
 
 				uksm_drop_anon_vma(rmap_item);
@@ -1628,11 +1610,7 @@ static inline int check_collision(struct rmap_item *rmap_item,
 static struct page *page_trans_compound_anon(struct page *page)
 {
 	if (PageTransCompound(page)) {
-<<<<<<< HEAD
-		struct page *head = compound_trans_head(page);
-=======
 		struct page *head = compound_head(page);
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 		/*
 		 * head may actually be splitted and freed from under
 		 * us but it's ok here.
@@ -2539,12 +2517,7 @@ static void hold_anon_vma(struct rmap_item *rmap_item,
 static void stable_tree_append(struct rmap_item *rmap_item,
 			       struct stable_node *stable_node, int logdedup)
 {
-<<<<<<< HEAD
 	struct node_vma *node_vma = NULL, *new_node_vma, *node_vma_cont = NULL;
-=======
-	struct node_vma *node_vma = NULL, *new_node_vma;
-	struct hlist_node *hlist = NULL, *cont_p = NULL;
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 	unsigned long key = (unsigned long)rmap_item->slot;
 	unsigned long factor = rmap_item->slot->rung->step;
 
@@ -2558,11 +2531,7 @@ static void stable_tree_append(struct rmap_item *rmap_item,
 		uksm_pages_sharing++;
 	}
 
-<<<<<<< HEAD
 	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
-=======
-	hlist_for_each_entry(node_vma, hlist, &stable_node->hlist, hlist) {
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 		if (node_vma->key >= key)
 			break;
 
@@ -2576,17 +2545,10 @@ static void stable_tree_append(struct rmap_item *rmap_item,
 
 	if (node_vma) {
 		if (node_vma->key == key) {
-<<<<<<< HEAD
 			node_vma_cont = hlist_entry_safe(node_vma->hlist.next, struct node_vma, hlist);
 			goto node_vma_ok;
 		} else if (node_vma->key > key) {
 			node_vma_cont = node_vma;
-=======
-			cont_p = hlist->next;
-			goto node_vma_ok;
-		} else if (node_vma->key > key) {
-			cont_p = hlist;
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 		}
 	}
 
@@ -2616,15 +2578,9 @@ node_vma_ok: /* ok, ready to add to the list */
 	hold_anon_vma(rmap_item, rmap_item->slot->vma->anon_vma);
 	if (logdedup) {
 		rmap_item->slot->pages_merged++;
-<<<<<<< HEAD
 		if (node_vma_cont) {
 			node_vma = node_vma_cont;
 			hlist_for_each_entry_continue(node_vma, hlist) {
-=======
-		if (cont_p) {
-			hlist_for_each_entry_continue(node_vma,
-						      cont_p, hlist) {
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 				node_vma->slot->pages_bemerged += factor;
 				if (list_empty(&node_vma->slot->dedup_list))
 					list_add(&node_vma->slot->dedup_list,
@@ -2720,11 +2676,7 @@ out:
  * to the next pass of ksmd - consider, for example, how ksmd might be
  * in cmp_and_merge_page on one of the rmap_items we would be removing.
  */
-<<<<<<< HEAD
-int unmerge_uksm_pages(struct vm_area_struct *vma,
-=======
 static inline int unmerge_uksm_pages(struct vm_area_struct *vma,
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 		      unsigned long start, unsigned long end)
 {
 	unsigned long addr;
@@ -4679,10 +4631,6 @@ int page_referenced_ksm(struct page *page, struct mem_cgroup *memcg,
 	struct stable_node *stable_node;
 	struct node_vma *node_vma;
 	struct rmap_item *rmap_item;
-<<<<<<< HEAD
-=======
-	struct hlist_node *hlist, *rmap_hlist;
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 	unsigned int mapcount = page_mapcount(page);
 	int referenced = 0;
 	int search_new_forks = 0;
@@ -4697,18 +4645,8 @@ int page_referenced_ksm(struct page *page, struct mem_cgroup *memcg,
 
 
 again:
-<<<<<<< HEAD
 	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
 		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
-=======
-	hlist_for_each_entry(node_vma, hlist, &stable_node->hlist, hlist) {
-		hlist_for_each_entry(rmap_item, rmap_hlist,
-<<<<<<< HEAD
-				&node_vma->rmap_hlist, hlist) {
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
-				     &node_vma->rmap_hlist, hlist) {
->>>>>>> 2cce6f5...  Tune UKSM to work with Android Devices
 			struct anon_vma *anon_vma = rmap_item->anon_vma;
 			struct anon_vma_chain *vmac;
 			struct vm_area_struct *vma;
@@ -4756,19 +4694,11 @@ out:
 	return referenced;
 }
 
-<<<<<<< HEAD
-int try_to_unmap_ksm(struct page *page, enum ttu_flags flags)
-{
-	struct stable_node *stable_node;
-	struct node_vma *node_vma;
-=======
 int try_to_unmap_ksm(struct page *page, enum ttu_flags flags,
 			struct vm_area_struct *target_vma)
 {
 	struct stable_node *stable_node;
 	struct node_vma *node_vma;
-	struct hlist_node *hlist, *rmap_hlist;
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 	struct rmap_item *rmap_item;
 	int ret = SWAP_AGAIN;
 	int search_new_forks = 0;
@@ -4787,18 +4717,8 @@ int try_to_unmap_ksm(struct page *page, enum ttu_flags flags,
 		goto out;
 	}
 again:
-<<<<<<< HEAD
 	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
 		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
-=======
-	hlist_for_each_entry(node_vma, hlist, &stable_node->hlist, hlist) {
-		hlist_for_each_entry(rmap_item, rmap_hlist,
-<<<<<<< HEAD
-					&node_vma->rmap_hlist, hlist) {
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
-				     &node_vma->rmap_hlist, hlist) {
->>>>>>> 2cce6f5...  Tune UKSM to work with Android Devices
 			struct anon_vma *anon_vma = rmap_item->anon_vma;
 			struct anon_vma_chain *vmac;
 			struct vm_area_struct *vma;
@@ -4845,10 +4765,6 @@ int rmap_walk_ksm(struct page *page, int (*rmap_one)(struct page *,
 {
 	struct stable_node *stable_node;
 	struct node_vma *node_vma;
-<<<<<<< HEAD
-=======
-	struct hlist_node *hlist, *rmap_hlist;
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 	struct rmap_item *rmap_item;
 	int ret = SWAP_AGAIN;
 	int search_new_forks = 0;
@@ -4861,18 +4777,8 @@ int rmap_walk_ksm(struct page *page, int (*rmap_one)(struct page *,
 	if (!stable_node)
 		return ret;
 again:
-<<<<<<< HEAD
 	hlist_for_each_entry(node_vma, &stable_node->hlist, hlist) {
 		hlist_for_each_entry(rmap_item, &node_vma->rmap_hlist, hlist) {
-=======
-	hlist_for_each_entry(node_vma, hlist, &stable_node->hlist, hlist) {
-		hlist_for_each_entry(rmap_item, rmap_hlist,
-<<<<<<< HEAD
-					&node_vma->rmap_hlist, hlist) {
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
-=======
-				     &node_vma->rmap_hlist, hlist) {
->>>>>>> 2cce6f5...  Tune UKSM to work with Android Devices
 			struct anon_vma *anon_vma = rmap_item->anon_vma;
 			struct anon_vma_chain *vmac;
 			struct vm_area_struct *vma;

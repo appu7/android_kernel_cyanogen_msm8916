@@ -157,13 +157,10 @@ enum zone_stat_item {
 #endif
 	NR_ANON_TRANSPARENT_HUGEPAGES,
 	NR_FREE_CMA_PAGES,
-<<<<<<< HEAD
 	NR_SWAPCACHE,
-=======
 #ifdef CONFIG_UKSM
 	NR_UKSM_ZERO_PAGES,
 #endif
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 	NR_VM_ZONE_STAT_ITEMS };
 
 /*

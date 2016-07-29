@@ -43,11 +43,8 @@ obj-$(CONFIG_SPARSEMEM)	+= sparse.o
 obj-$(CONFIG_SPARSEMEM_VMEMMAP) += sparse-vmemmap.o
 obj-$(CONFIG_SLOB) += slob.o
 obj-$(CONFIG_MMU_NOTIFIER) += mmu_notifier.o
-<<<<<<< HEAD
-=======
 obj-$(CONFIG_KSM_LEGACY) += ksm.o
 obj-$(CONFIG_UKSM) += uksm.o
->>>>>>> 6cef6da... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 obj-$(CONFIG_PAGE_POISONING) += debug-pagealloc.o
 obj-$(CONFIG_SLAB) += slab.o
 obj-$(CONFIG_SLUB) += slub.o
