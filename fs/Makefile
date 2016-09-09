@@ -1,3 +1,5 @@
+CFLAGS_compat_ioctl.o := -Wno-shift-overflow \
+
 #
 # Makefile for the Linux filesystems.
 #

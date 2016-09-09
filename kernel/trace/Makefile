@@ -1,3 +1,4 @@
+CFLAGS_trace_output.o := -Wno-misleading-indentation \
 
 # Do not instrument the tracer itself:
 
