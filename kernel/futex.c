@@ -64,6 +64,8 @@
 #include <linux/freezer.h>
 #include <linux/hugetlb.h>
 #include <linux/bootmem.h>
+#include <linux/hugetlb.h>
+
 
 #include <asm/futex.h>
 
@@ -588,6 +590,8 @@ again:
 		key->shared.inode = inode;
 		key->shared.pgoff = basepage_index(page);
 		rcu_read_unlock();
+		key->shared.inode = page_head->mapping->host;
+		key->shared.pgoff = basepage_index(page);
 	}
 
 out:
