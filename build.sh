@@ -4,9 +4,9 @@ export SUBARCH=arm64
 export USE_CCACHE=1
 export KBUILD_BUILD_USER=Ajith
 export KBUILD_BUILD_HOST=Xzotic
-AK_VER="Despair.M.CFS.R1.Shamu saber"
-echo "$AK_VER"
-export LOCALVERSION=~`echo $AK_VER`
+#AK_VER="Despair.M.CFS.R1.Shamu saber"
+#echo "$AK_VER"
+#export LOCALVERSION=~`echo $AK_VER`
 #make menuconfig
 make kali_defconfig
 make -j5
