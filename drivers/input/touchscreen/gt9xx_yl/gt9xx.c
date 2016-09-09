@@ -179,12 +179,16 @@ enum support_gesture_e {
 	TW_SUPPORT_W_SLIDE_WAKEUP = 0x40,
 	TW_SUPPORT_C_SLIDE_WAKEUP = 0x80,
 	TW_SUPPORT_M_SLIDE_WAKEUP = 0x100,
+	TW_SUPPORT_Z_SLIDE_WAKEUP = 0x120,
+	TW_SUPPORT_V_SLIDE_WAKEUP = 0x140,
+	TW_SUPPORT_S_SLIDE_WAKEUP = 0x160,
 	TW_SUPPORT_DOUBLE_CLICK_WAKEUP = 0x200,
 
 	TW_SUPPORT_GESTURE_IN_ALL = (TW_SUPPORT_UP_SLIDE_WAKEUP | TW_SUPPORT_DOWN_SLIDE_WAKEUP |
 								TW_SUPPORT_LEFT_SLIDE_WAKEUP | TW_SUPPORT_RIGHT_SLIDE_WAKEUP | TW_SUPPORT_E_SLIDE_WAKEUP |
 								TW_SUPPORT_O_SLIDE_WAKEUP |TW_SUPPORT_W_SLIDE_WAKEUP |TW_SUPPORT_C_SLIDE_WAKEUP |
-								TW_SUPPORT_M_SLIDE_WAKEUP | TW_SUPPORT_DOUBLE_CLICK_WAKEUP)
+								TW_SUPPORT_M_SLIDE_WAKEUP | TW_SUPPORT_S_SLIDE_WAKEUP | TW_SUPPORT_V_SLIDE_WAKEUP | TW_SUPPORT_Z_SLIDE_WAKEUP |
+								 TW_SUPPORT_DOUBLE_CLICK_WAKEUP ) 
 };
 
 u32 support_gesture = TW_SUPPORT_DOUBLE_CLICK_WAKEUP |
@@ -192,7 +196,13 @@ u32 support_gesture = TW_SUPPORT_DOUBLE_CLICK_WAKEUP |
 		TW_SUPPORT_LEFT_SLIDE_WAKEUP |
 		TW_SUPPORT_RIGHT_SLIDE_WAKEUP |
 		TW_SUPPORT_O_SLIDE_WAKEUP |
-		TW_SUPPORT_C_SLIDE_WAKEUP;
+		TW_SUPPORT_C_SLIDE_WAKEUP |
+		TW_SUPPORT_E_SLIDE_WAKEUP |
+		TW_SUPPORT_M_SLIDE_WAKEUP |
+		TW_SUPPORT_S_SLIDE_WAKEUP |
+		TW_SUPPORT_V_SLIDE_WAKEUP |
+		TW_SUPPORT_Z_SLIDE_WAKEUP |
+		TW_SUPPORT_W_SLIDE_WAKEUP;
 char wakeup_slide[32];
 
 #endif
@@ -687,7 +697,8 @@ static void goodix_ts_work_func(struct work_struct *work)
                 GTP_INFO("Slide(0x65) To Light up the screen!");
                 doze_status = DOZE_WAKEUP;
                 sprintf(wakeup_slide,"e");
-                envp = e_wakeup;	//added by yewenliang for test
+                envp = e_wakeup;
+				gesture_key = KEY_GESTURE_SLIDE_E;//added by yewenliang for test
             }
             //corrected by Shoaib Anwar aka Shoaib05 ;)
             else if ((doze_buf[2] == 0x6D) && (support_gesture & TW_SUPPORT_C_SLIDE_WAKEUP))
@@ -695,7 +706,8 @@ static void goodix_ts_work_func(struct work_struct *work)
                 GTP_INFO("Slide(0x6D) To Light up the screen!");
                 doze_status = DOZE_WAKEUP;
                 sprintf(wakeup_slide,"c");
-                envp = m_wakeup;	//added by yewenliang for test
+                envp = m_wakeup;
+				gesture_key = KEY_GESTURE_SLIDE_M;//added by yewenliang for test
             }
             else if ((doze_buf[2] == 0x6F) && (support_gesture & TW_SUPPORT_O_SLIDE_WAKEUP))
             {
@@ -710,7 +722,8 @@ static void goodix_ts_work_func(struct work_struct *work)
                 GTP_INFO("Slide(0x77) To Light up the screen!");
                 doze_status = DOZE_WAKEUP;
                 sprintf(wakeup_slide,"w");
-                envp = w_wakeup;	//added by yewenliang for test
+                envp = w_wakeup;
+				gesture_key = KEY_GESTURE_SLIDE_W;//added by yewenliang for test
             }
             else
             {
@@ -1607,6 +1620,9 @@ static s8 gtp_request_input_dev(struct goodix_ts_data *ts)
     set_bit(KEY_GESTURE_SLIDE_RIGHT, ts->input_dev->keybit);
     set_bit(KEY_GESTURE_SLIDE_C, ts->input_dev->keybit);
     set_bit(KEY_GESTURE_SLIDE_O, ts->input_dev->keybit);
+	set_bit(KEY_GESTURE_SLIDE_E, ts->input_dev->keybit);
+	set_bit(KEY_GESTURE_SLIDE_M, ts->input_dev->keybit);
+	set_bit(KEY_GESTURE_SLIDE_W, ts->input_dev->keybit);
 #endif 
 #if GTP_CHANGE_X2Y
     GTP_SWAP(ts->abs_x_max, ts->abs_y_max);
@@ -2152,6 +2168,36 @@ int goodix_gesture_ctrl(const char*  gesture_buf)
 			} else if(!strncmp(gesture+2, "false", 5)) {
 				GTP_DEBUG("%s: disable c click wakeup func.\n", __func__);
 				support_gesture &= ~TW_SUPPORT_C_SLIDE_WAKEUP;
+			}
+			continue;
+		}
+		if (!strncmp(gesture, "z=",2)) {
+			if(!strncmp(gesture+2, "true", 4)) {
+				GTP_DEBUG("%s: enable z click wakeup func.\n", __func__);
+				support_gesture |= TW_SUPPORT_Z_SLIDE_WAKEUP;
+			} else if(!strncmp(gesture+2, "false", 5)) {
+				GTP_DEBUG("%s: disable z click wakeup func.\n", __func__);
+				support_gesture &= ~TW_SUPPORT_Z_SLIDE_WAKEUP;
+			}
+			continue;
+		}
+		if (!strncmp(gesture, "v=",2)) {
+			if(!strncmp(gesture+2, "true", 4)) {
+				GTP_DEBUG("%s: enable v click wakeup func.\n", __func__);
+				support_gesture |= TW_SUPPORT_V_SLIDE_WAKEUP;
+			} else if(!strncmp(gesture+2, "false", 5)) {
+				GTP_DEBUG("%s: disable v click wakeup func.\n", __func__);
+				support_gesture &= ~TW_SUPPORT_V_SLIDE_WAKEUP;
+			}
+			continue;
+		}
+		if (!strncmp(gesture, "s=",2)) {
+			if(!strncmp(gesture+2, "true", 4)) {
+				GTP_DEBUG("%s: enable s click wakeup func.\n", __func__);
+				support_gesture |= TW_SUPPORT_S_SLIDE_WAKEUP;
+			} else if(!strncmp(gesture+2, "false", 5)) {
+				GTP_DEBUG("%s: disable s click wakeup func.\n", __func__);
+				support_gesture &= ~TW_SUPPORT_S_SLIDE_WAKEUP;
 			}
 			continue;
 		}

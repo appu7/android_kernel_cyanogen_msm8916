@@ -1,5 +1,6 @@
 CFLAGS_schBeaconGen.o := -Wno-discarded-array-qualifiers \
 
+
 MODNAME := wlan
 WLAN_ROOT := drivers/staging/prima
 
@@ -621,7 +622,7 @@ CDEFINES += -DEXISTS_MSM_SMSM
 endif
 
 # Fix build for GCC 4.7
-EXTRA_CFLAGS += -Wno-maybe-uninitialized -Wno-unused-function
+EXTRA_CFLAGS += -Wno-maybe-uninitialized -Wno-unused-function 
 
 KBUILD_CPPFLAGS += $(CDEFINES)
 
