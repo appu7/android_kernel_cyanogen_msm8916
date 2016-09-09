@@ -1,4 +1,4 @@
-CFLAGS_msm_thermal.o := -Wincompatible-pointer-types \
+
 
 #
 # Makefile for sensor chip drivers.

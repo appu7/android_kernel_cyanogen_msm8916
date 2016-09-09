@@ -8,6 +8,11 @@
 # published by the Free Software Foundation.
 #
 
+CFLAGS_aes-glue-ce.o := -Wno-unused-const-variable=\
+CFLAGS_ghash-ce-glue.o := -Wno-unused-const-variable= \
+CFLAGS_sha1-ce-glue.o := -Wno-unused-const-variable= \
+CFLAGS_sha2-ce-glue.o := -Wno-unused-const-variable= \
+
 obj-$(CONFIG_CRYPTO_SHA1_ARM64_CE) += sha1-ce.o
 sha1-ce-y := sha1-ce-glue.o sha1-ce-core.o
 
