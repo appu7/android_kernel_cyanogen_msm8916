@@ -906,6 +906,24 @@ static int arizona_runtime_suspend(struct device *dev)
 		}
 	}
 
+<<<<<<< HEAD
+=======
+=======
+	if (arizona->external_dcvdd) {
+		ret = regmap_update_bits(arizona->regmap,
+					 ARIZONA_ISOLATION_CONTROL,
+					 ARIZONA_ISOLATE_DCVDD1,
+					 ARIZONA_ISOLATE_DCVDD1);
+		if (ret != 0) {
+			dev_err(arizona->dev, "Failed to isolate DCVDD: %d\n",
+				ret);
+			return ret;
+		}
+	}
+
+	regulator_disable(arizona->dcvdd);
+>>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
+>>>>>>> parent of 2bfa81d... mfd: arizona: Move regulator disable to after marking cache only
 	regcache_cache_only(arizona->regmap, true);
 	regcache_mark_dirty(arizona->regmap);
 	if (arizona->regmap_32bit)
