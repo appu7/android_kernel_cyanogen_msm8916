@@ -1453,6 +1453,7 @@ static struct mfd_cell wm8997_devs[] = {
 	{ .name = "arizona-pwm" },
 	{ .name = "wm8997-codec" },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 #ifdef CONFIG_OF
@@ -1523,6 +1524,8 @@ static struct mfd_cell early_devs[] = {
 	{ .name = "arizona-ldo1" },
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 >>>>>>> parent of 118b367... messedup
+=======
+>>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
 };
 
 static struct mfd_cell vegas_devs[] = {

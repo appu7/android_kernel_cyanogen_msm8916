@@ -37,14 +37,18 @@ Required properties:
     second cell is used to specify optional parameters (currently unused).
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> parent of 7cd12f3... mfd: arizona: Add device tree helper functions
+=======
+>>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
   - AVDD-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply (wm5102, wm5110),
     DBVDD4-supply (wm8285), CPVDD-supply, SPKVDDL-supply (wm5102, wm5110),
     SPKVDDR-supply (wm5102, wm5110), SPKVDD-supply (wm8997, cs47l24) : Power
     supplies for the device, as covered in
     Documentation/devicetree/bindings/regulator/regulator.txt
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -53,6 +57,8 @@ Required properties:
     in Documentation/devicetree/bindings/regulator/regulator.txt
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 >>>>>>> parent of 7cd12f3... mfd: arizona: Add device tree helper functions
+=======
+>>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
 
 Optional properties:
 
@@ -162,6 +168,7 @@ Optional subnodes:
   - micvdd : Initial data for the MICVDD regulator, as covered in
     Documentation/devicetree/bindings/regulator/regulator.txt
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 
@@ -171,6 +178,8 @@ Optional subnodes:
     the chip default will be used.  If present exactly five values must
     be specified.
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+=======
+>>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
 
 <<<<<<< HEAD
   - wlf,max-channels-clocked : The maximum number of channels to be clocked on
@@ -195,9 +204,12 @@ codec: wm5102@1a {
 	#gpio-cells = <2>;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> parent of 6adf6b2... mfd: arizona: Add simple microphone detection device tree bindings
+=======
+>>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
 	wlf,micd-detect-debounce = <10>;
 	wlf,micd-bias-start-time = <0x1>;
 	wlf,micd-rate = <0x1>;
@@ -244,6 +256,7 @@ codec: wm5102@1a {
 
 	wlf,max-channels-clocked = <2 0 0>;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 	wlf,gpio-defaults = <
@@ -262,4 +275,6 @@ codec: wm5102@1a {
 >>>>>>> parent of 118b367... messedup
 =======
 >>>>>>> parent of 696f5f5... mfd: arizona: Add device tree binding for max_channels_clocked
+=======
+>>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
 };
