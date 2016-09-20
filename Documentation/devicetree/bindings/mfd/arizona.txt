@@ -5,6 +5,7 @@ of analogue I/O.
 
 Required properties:
 
+<<<<<<< HEAD
   - compatible : One of the following chip-specific strings:
         "wlf,wm5102"
         "wlf,wm5110"
@@ -19,6 +20,11 @@ Required properties:
         "cirrus,cs47l24"
         "cirrus,cs47l85"
 
+=======
+  - compatible : one of the following chip-specific strings:
+	"wlf,wm5102"
+	"wlf,wm5110"
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
   - reg : I2C slave address when connected using I2C, chip select number when
     using SPI.
 
@@ -38,16 +44,20 @@ Required properties:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> parent of 7cd12f3... mfd: arizona: Add device tree helper functions
 =======
 >>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
+=======
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
   - AVDD-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply (wm5102, wm5110),
     DBVDD4-supply (wm8285), CPVDD-supply, SPKVDDL-supply (wm5102, wm5110),
     SPKVDDR-supply (wm5102, wm5110), SPKVDD-supply (wm8997, cs47l24) : Power
     supplies for the device, as covered in
     Documentation/devicetree/bindings/regulator/regulator.txt
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -59,11 +69,22 @@ Required properties:
 >>>>>>> parent of 7cd12f3... mfd: arizona: Add device tree helper functions
 =======
 >>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
+=======
+=======
+  - AVDD1-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply, CPVDD-supply,
+=======
+  - AVDD-supply, DBVDD1-supply, DBVDD2-supply, DBVDD3-supply, CPVDD-supply,
+>>>>>>> 5ae2f3d... mfd: arizona: Add device tree helper functions
+    SPKVDDL-supply, SPKVDDR-supply : power supplies for the device, as covered
+    in Documentation/devicetree/bindings/regulator/regulator.txt
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 
 Optional properties:
 
   - wlf,reset : GPIO specifier for the GPIO controlling /RESET
   - wlf,ldoena : GPIO specifier for the GPIO controlling LDOENA
+<<<<<<< HEAD
   - wlf,clk32k-src : set input source for codec 32kHz clock.
       0 = default, 1 = MCLK1, 2 = MCLK2, 3 = None
 
@@ -169,24 +190,66 @@ Optional subnodes:
     Documentation/devicetree/bindings/regulator/regulator.txt
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 
+=======
+=======
+
+  - wlf,micd-detect-debounce : Additional software microphone detection
+    debounce specified in milliseconds
+  - wlf,micd-pol-gpio : GPIO specifier for the GPIO controlling the headset
+    polarity if one exists
+  - wlf,micd-bias-start-time : Time allowed for MICBIAS to startup prior to
+    performing microphone detection, specified as per the MICD_BIAS_STARTTIME
+    bits in the register MIC_DETECT_1
+  - wlf,micd-rate : Delay between successive microphone detection measurements,
+    specified as per the MICD_RATE bits in the register MIC_DETECT_1
+  - wlf,micd-dbtime : Microphone detection hardware debounce level, specified
+    as per the MICD_DBTIME bits in the register MIC_DETECT_1
+  - wlf,micd-timeout : Timeout for microphone detection, specified in
+    milliseconds
+  - wlf,micd-force-micbias : Force MICBIAS continuously on during microphone
+    detection
+  - wlf,micd-ranges : Microphone detection level and key configuration, this
+    field can be of variable length but should always be a multiple of 2 cells
+    long, each two cell group represents one button configuration
+    The first cell is the maximum impedance for this button in ohms
+    The second cell the key that should be reported to the input layer
+  - wlf,micd-configs : Headset polarity configurations, the field can be of
+    variable length but should always be a multiple of 3 cells long, each two
+    cell group represents one polarity configration
+    The first cell is the accessory detection source as per the ACCDET_SRC bits
+    in the ACCESSORY_DETECT_MODE_1 register
+    The second cell represents the MICBIAS to be used as per the MICD_BIAS_SRC
+    bits in the MIC_DETECT_1 register
+    The third cell represents the value of the micd-pol-gpio pin, a non-zero
+    value indicates this should be on
+
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
   - wlf,gpio-defaults : A list of GPIO configuration register values. If
     absent, no configuration of these registers is performed. If any
     entry has a value that is out of range for a 16 bit register then
     the chip default will be used.  If present exactly five values must
     be specified.
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
 
 <<<<<<< HEAD
+=======
+
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
   - wlf,max-channels-clocked : The maximum number of channels to be clocked on
     each AIF, useful for I2S systems with multiple data lines being mastered.
     If specified three cells must supplied one for each AIF, specify zero for
     AIFs that should be handled normally.
+<<<<<<< HEAD
 >>>>>>> parent of 118b367... messedup
+=======
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 
 =======
 >>>>>>> parent of 696f5f5... mfd: arizona: Add device tree binding for max_channels_clocked
@@ -196,7 +259,10 @@ codec: wm5102@1a {
 	compatible = "wlf,wm5102";
 	reg = <0x1a>;
 	interrupts = <347>;
+<<<<<<< HEAD
 	interrupt-controller;
+=======
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 	#interrupt-cells = <2>;
         interrupt-parent = <&gic>;
 
@@ -207,9 +273,13 @@ codec: wm5102@1a {
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 6adf6b2... mfd: arizona: Add simple microphone detection device tree bindings
 =======
 >>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
+=======
+>>>>>>> 6d2143f... mfd: arizona: Add simple microphone detection device tree bindings
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	wlf,micd-detect-debounce = <10>;
 	wlf,micd-bias-start-time = <0x1>;
 	wlf,micd-rate = <0x1>;
@@ -220,9 +290,13 @@ codec: wm5102@1a {
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of 118b367... messedup
 =======
 >>>>>>> parent of 6adf6b2... mfd: arizona: Add simple microphone detection device tree bindings
+=======
+>>>>>>> 62346a7... mfd: arizona: Add micdet ranges and polarity device tree bindings
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	wlf,micd-ranges = <
 		11 0x100
 		28 0x101
@@ -235,6 +309,7 @@ codec: wm5102@1a {
 		0x1 1 0
 		0x0 2 1
 	>;
+<<<<<<< HEAD
 	wlf,fixed-hpdet-imp = <8>;
 
 	wlf,micbias2 = <2600 0 1 1 0>;
@@ -257,6 +332,7 @@ codec: wm5102@1a {
 	wlf,max-channels-clocked = <2 0 0>;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 	wlf,gpio-defaults = <
@@ -269,12 +345,32 @@ codec: wm5102@1a {
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 <<<<<<< HEAD
 =======
+=======
+=======
+=======
+>>>>>>> 62346a7... mfd: arizona: Add micdet ranges and polarity device tree bindings
+
+>>>>>>> 6d2143f... mfd: arizona: Add simple microphone detection device tree bindings
+	wlf,gpio-defaults = <
+		0x00000000 /* AIF1TXLRCLK */
+		0xffffffff
+		0xffffffff
+		0xffffffff
+		0xffffffff
+	>;
+<<<<<<< HEAD
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
+=======
 
 	wlf,max-channels-clocked = <2 0 0>;
 >>>>>>> 96fba83... mfd: arizona: Add device tree binding for max_channels_clocked
+<<<<<<< HEAD
 >>>>>>> parent of 118b367... messedup
 =======
 >>>>>>> parent of 696f5f5... mfd: arizona: Add device tree binding for max_channels_clocked
 =======
 >>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
+=======
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 };

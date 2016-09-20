@@ -757,6 +757,7 @@ static const struct reg_default florida_reg_default[] = {
 	{ 0x000002A2, 0x0000 },    /* R674   - Micd clamp control */
 	{ 0x000002A3, 0x1102 },    /* R675   - Mic Detect 1 */
 	{ 0x000002A4, 0x009F },    /* R676   - Mic Detect 2 */
+	{ 0x000002A5, 0x0000 },    /* R677   - Mic Detect 3 */
 	{ 0x000002A6, 0x3737 },    /* R678   - Mic Detect Level 1 */
 	{ 0x000002A7, 0x372C },    /* R679   - Mic Detect Level 2 */
 	{ 0x000002A8, 0x1422 },    /* R680   - Mic Detect Level 3 */
@@ -846,6 +847,7 @@ static const struct reg_default florida_reg_default[] = {
 	{ 0x00000440, 0x8FFF },    /* R1088  - DRE Enable */
 	{ 0x00000450, 0x0000 },    /* R1104  - DAC AEC Control 1 */
 	{ 0x00000458, 0x0000 },    /* R1112  - Noise Gate Control */
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
 	{ 0x00000460, 0x0C40 },
 	{ 0x00000461, 0x8000 },
 	{ 0x00000462, 0x0C41 },
@@ -878,6 +880,10 @@ static const struct reg_default florida_reg_default[] = {
 	{ 0x0000047D, 0x0001 },
 	{ 0x0000047E, 0x07FF },
 	{ 0x00000483, 0x0826 },
+=======
+	{ 0x00000480, 0x0040 },    /* R1152  - Class W ANC Threshold 1 */
+	{ 0x00000481, 0x0040 },    /* R1153  - Class W ANC Threshold 2 */
+>>>>>>> a7570be... mfd: wm5110: Update noise gate default to match the patch file:drivers/mfd/wm5110-tables.c
 	{ 0x00000490, 0x0069 },    /* R1168  - PDM SPK1 CTRL 1 */
 	{ 0x00000491, 0x0000 },    /* R1169  - PDM SPK1 CTRL 2 */
 	{ 0x00000492, 0x0069 },    /* R1170  - PDM SPK2 CTRL 1 */
@@ -2017,7 +2023,10 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_MIC_DETECT_1:
 	case ARIZONA_MIC_DETECT_2:
 	case ARIZONA_MIC_DETECT_3:
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
 	case ARIZONA_MIC_DETECT_4:
+=======
+>>>>>>> cac6b14... mfd: wm5110: Add mic detect level registers:drivers/mfd/wm5110-tables.c
 	case ARIZONA_MIC_DETECT_LEVEL_1:
 	case ARIZONA_MIC_DETECT_LEVEL_2:
 	case ARIZONA_MIC_DETECT_LEVEL_3:
@@ -2936,11 +2945,16 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP1_STATUS_3:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD:drivers/mfd/florida-tables.c
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	case ARIZONA_DSP1_STATUS_4:
 	case ARIZONA_DSP1_WDMA_BUFFER_1:
 	case ARIZONA_DSP1_WDMA_BUFFER_2:
@@ -2962,10 +2976,13 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP1_RDMA_CONFIG_1:
 	case ARIZONA_DSP1_RDMA_OFFSET_1:
 	case ARIZONA_DSP1_EXTERNAL_START_SELECT_1:
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
 	case ARIZONA_DSP1_SCRATCH_0:
 	case ARIZONA_DSP1_SCRATCH_1:
 	case ARIZONA_DSP1_SCRATCH_2:
 	case ARIZONA_DSP1_SCRATCH_3:
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -2974,6 +2991,13 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable:drivers/mfd/wm5110-tables.c
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	case ARIZONA_DSP2_CONTROL_1:
 	case ARIZONA_DSP2_CLOCKING_1:
 	case ARIZONA_DSP2_STATUS_1:
@@ -2981,11 +3005,16 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP2_STATUS_3:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD:drivers/mfd/florida-tables.c
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	case ARIZONA_DSP2_STATUS_4:
 	case ARIZONA_DSP2_WDMA_BUFFER_1:
 	case ARIZONA_DSP2_WDMA_BUFFER_2:
@@ -3007,10 +3036,13 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP2_RDMA_CONFIG_1:
 	case ARIZONA_DSP2_RDMA_OFFSET_1:
 	case ARIZONA_DSP2_EXTERNAL_START_SELECT_1:
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
 	case ARIZONA_DSP2_SCRATCH_0:
 	case ARIZONA_DSP2_SCRATCH_1:
 	case ARIZONA_DSP2_SCRATCH_2:
 	case ARIZONA_DSP2_SCRATCH_3:
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -3019,6 +3051,13 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable:drivers/mfd/wm5110-tables.c
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	case ARIZONA_DSP3_CONTROL_1:
 	case ARIZONA_DSP3_CLOCKING_1:
 	case ARIZONA_DSP3_STATUS_1:
@@ -3026,11 +3065,16 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP3_STATUS_3:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD:drivers/mfd/florida-tables.c
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	case ARIZONA_DSP3_STATUS_4:
 	case ARIZONA_DSP3_WDMA_BUFFER_1:
 	case ARIZONA_DSP3_WDMA_BUFFER_2:
@@ -3052,10 +3096,13 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP3_RDMA_CONFIG_1:
 	case ARIZONA_DSP3_RDMA_OFFSET_1:
 	case ARIZONA_DSP3_EXTERNAL_START_SELECT_1:
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
 	case ARIZONA_DSP3_SCRATCH_0:
 	case ARIZONA_DSP3_SCRATCH_1:
 	case ARIZONA_DSP3_SCRATCH_2:
 	case ARIZONA_DSP3_SCRATCH_3:
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -3064,6 +3111,13 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable:drivers/mfd/wm5110-tables.c
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	case ARIZONA_DSP4_CONTROL_1:
 	case ARIZONA_DSP4_CLOCKING_1:
 	case ARIZONA_DSP4_STATUS_1:
@@ -3071,11 +3125,16 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP4_STATUS_3:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD:drivers/mfd/florida-tables.c
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	case ARIZONA_DSP4_STATUS_4:
 	case ARIZONA_DSP4_WDMA_BUFFER_1:
 	case ARIZONA_DSP4_WDMA_BUFFER_2:
@@ -3097,12 +3156,16 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP4_RDMA_CONFIG_1:
 	case ARIZONA_DSP4_RDMA_OFFSET_1:
 	case ARIZONA_DSP4_EXTERNAL_START_SELECT_1:
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
 	case ARIZONA_DSP4_SCRATCH_0:
 	case ARIZONA_DSP4_SCRATCH_1:
 	case ARIZONA_DSP4_SCRATCH_2:
 	case ARIZONA_DSP4_SCRATCH_3:
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
 	case 0x460 ... 0x47E:
 	case 0x483:
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -3111,6 +3174,12 @@ static bool florida_readable_register(struct device *dev, unsigned int reg)
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable:drivers/mfd/wm5110-tables.c
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 		return true;
 	default:
 		return florida_is_adsp_memory(dev, reg);
@@ -3179,7 +3248,10 @@ static bool florida_volatile_register(struct device *dev, unsigned int reg)
 	case ARIZONA_AOD_WKUP_AND_TRIG:
 	case ARIZONA_AOD_IRQ1:
 	case ARIZONA_AOD_IRQ2:
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
 	case ARIZONA_AOD_IRQ_RAW_STATUS:
+=======
+>>>>>>> 4fa74d8... mfd: wm5110: Set FX_CTRL2 to volatile:drivers/mfd/wm5110-tables.c
 	case ARIZONA_FX_CTRL2:
 	case ARIZONA_ASRC_STATUS:
 	case ARIZONA_DSP_STATUS:
@@ -3188,11 +3260,16 @@ static bool florida_volatile_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP1_STATUS_3:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD:drivers/mfd/florida-tables.c
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	case ARIZONA_DSP1_STATUS_4:
 	case ARIZONA_DSP1_WDMA_BUFFER_1:
 	case ARIZONA_DSP1_WDMA_BUFFER_2:
@@ -3214,10 +3291,13 @@ static bool florida_volatile_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP1_RDMA_CONFIG_1:
 	case ARIZONA_DSP1_RDMA_OFFSET_1:
 	case ARIZONA_DSP1_EXTERNAL_START_SELECT_1:
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
 	case ARIZONA_DSP1_SCRATCH_0:
 	case ARIZONA_DSP1_SCRATCH_1:
 	case ARIZONA_DSP1_SCRATCH_2:
 	case ARIZONA_DSP1_SCRATCH_3:
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
 	case ARIZONA_DSP1_CLOCKING_1:
 	case ARIZONA_DSP2_STATUS_1:
 	case ARIZONA_DSP2_STATUS_2:
@@ -3308,6 +3388,7 @@ static bool florida_volatile_register(struct device *dev, unsigned int reg)
 	case ARIZONA_DSP4_CLOCKING_1:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 	case ARIZONA_DSP2_STATUS_1:
@@ -3323,6 +3404,36 @@ static bool florida_volatile_register(struct device *dev, unsigned int reg)
 >>>>>>> parent of de75ca3... mfd: arizona: Update registers for WM5110 DSP
 =======
 >>>>>>> parent of 0584845... mfd: wm5110: Make DSPn_STATUS_3 readable
+=======
+=======
+=======
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
+	case ARIZONA_DSP2_STATUS_1:
+	case ARIZONA_DSP2_STATUS_2:
+	case ARIZONA_DSP2_STATUS_3:
+	case ARIZONA_DSP2_SCRATCH_0:
+	case ARIZONA_DSP2_SCRATCH_1:
+	case ARIZONA_DSP2_SCRATCH_2:
+	case ARIZONA_DSP2_SCRATCH_3:
+	case ARIZONA_DSP3_STATUS_1:
+	case ARIZONA_DSP3_STATUS_2:
+	case ARIZONA_DSP3_STATUS_3:
+	case ARIZONA_DSP3_SCRATCH_0:
+	case ARIZONA_DSP3_SCRATCH_1:
+	case ARIZONA_DSP3_SCRATCH_2:
+	case ARIZONA_DSP3_SCRATCH_3:
+	case ARIZONA_DSP4_STATUS_1:
+	case ARIZONA_DSP4_STATUS_2:
+	case ARIZONA_DSP4_STATUS_3:
+<<<<<<< HEAD:drivers/mfd/florida-tables.c
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable:drivers/mfd/wm5110-tables.c
+=======
+	case ARIZONA_DSP4_SCRATCH_0:
+	case ARIZONA_DSP4_SCRATCH_1:
+	case ARIZONA_DSP4_SCRATCH_2:
+	case ARIZONA_DSP4_SCRATCH_3:
+>>>>>>> 6a3f36a... mfd: arizona: Update registers for WM5110 DSP:drivers/mfd/wm5110-tables.c
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 		return true;
 	default:
 		return florida_is_adsp_memory(dev, reg);

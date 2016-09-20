@@ -17,7 +17,10 @@
 #include <linux/interrupt.h>
 #include <linux/mfd/core.h>
 #include <linux/module.h>
+<<<<<<< HEAD
 #include <linux/notifier.h>
+=======
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 #include <linux/of.h>
 #include <linux/of_device.h>
 #include <linux/of_gpio.h>
@@ -796,6 +799,7 @@ static int arizona_runtime_resume(struct device *dev)
 			goto err;
 		}
 
+<<<<<<< HEAD
 		mutex_lock(&arizona->reg_setting_lock);
 		regmap_write(arizona->regmap, 0x80, 0x3);
 		ret = regcache_sync_region(arizona->regmap, CLEARWATER_CP_MODE,
@@ -806,6 +810,17 @@ static int arizona_runtime_resume(struct device *dev)
 		if (ret != 0) {
 			dev_err(arizona->dev, "Failed to restore keyed cache\n");
 			goto err;
+=======
+		if (arizona->external_dcvdd) {
+			ret = regmap_update_bits(arizona->regmap,
+						 ARIZONA_ISOLATION_CONTROL,
+						 ARIZONA_ISOLATE_DCVDD1, 0);
+			if (ret != 0) {
+				dev_err(arizona->dev,
+					"Failed to connect DCVDD: %d\n", ret);
+				goto err;
+			}
+>>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
 		}
 		break;
 	}
@@ -845,6 +860,7 @@ static int arizona_runtime_suspend(struct device *dev)
 
 	dev_dbg(arizona->dev, "Entering AoD mode\n");
 
+<<<<<<< HEAD
 	switch(arizona->type) {
 	case WM5102:
 	case WM8997:
@@ -908,7 +924,10 @@ static int arizona_runtime_suspend(struct device *dev)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 =======
 	if (arizona->external_dcvdd) {
 		ret = regmap_update_bits(arizona->regmap,
@@ -922,15 +941,25 @@ static int arizona_runtime_suspend(struct device *dev)
 		}
 	}
 
+<<<<<<< HEAD
 	regulator_disable(arizona->dcvdd);
 >>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
 >>>>>>> parent of 2bfa81d... mfd: arizona: Move regulator disable to after marking cache only
 =======
 >>>>>>> parent of 456813c... mfd: arizona: Support use of external DCVDD
+=======
+<<<<<<< HEAD
+	regulator_disable(arizona->dcvdd);
+>>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	regcache_cache_only(arizona->regmap, true);
 	regcache_mark_dirty(arizona->regmap);
 	if (arizona->regmap_32bit)
 		regcache_mark_dirty(arizona->regmap_32bit);
+=======
+	regcache_cache_only(arizona->regmap, true);
+	regcache_mark_dirty(arizona->regmap);
+>>>>>>> 390cf6d... mfd: arizona: Move regulator disable to after marking cache only
 	regulator_disable(arizona->dcvdd);
 
 	return 0;
@@ -1445,6 +1474,7 @@ static struct mfd_cell largo_devs[] = {
 	{ .name = "largo-codec" },
 };
 
+<<<<<<< HEAD
 static struct mfd_cell wm8997_devs[] = {
 	{ .name = "arizona-micsupp" },
 	{ .name = "arizona-extcon" },
@@ -1454,7 +1484,10 @@ static struct mfd_cell wm8997_devs[] = {
 	{ .name = "wm8997-codec" },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 =======
 #ifdef CONFIG_OF
 int arizona_of_get_type(struct device *dev)
@@ -1468,6 +1501,7 @@ int arizona_of_get_type(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(arizona_of_get_type);
 
+<<<<<<< HEAD
 static int arizona_of_get_core_pdata(struct arizona *arizona)
 {
 	int ret, i;
@@ -1504,6 +1538,244 @@ static int arizona_of_get_core_pdata(struct arizona *arizona)
 			ret);
 	}
 
+=======
+static int arizona_of_get_named_gpio(struct arizona *arizona,
+				     const char *prop, bool mandatory,
+				     int *gpio)
+{
+	int ret;
+
+	ret = of_get_named_gpio(arizona->dev->of_node, prop, 0);
+	*gpio = ret;
+	if (ret >= 0)
+		return ret;
+
+	*gpio = 0;
+
+	if (mandatory)
+		dev_err(arizona->dev,
+			"Mandatory DT gpio %s missing/malformed: %d\n",
+			prop, ret);
+
+	return ret;
+}
+
+static int arizona_of_read_u32_array(struct arizona *arizona,
+				     const char *prop, bool mandatory,
+				     u32 *data, size_t num)
+{
+	int ret;
+
+	ret = of_property_read_u32_array(arizona->dev->of_node, prop,
+					 data, num);
+
+	if (ret >= 0)
+		return 0;
+
+	switch (ret) {
+	case -EINVAL:
+		if (mandatory)
+			dev_err(arizona->dev,
+				"Mandatory DT property %s is missing\n",
+				prop);
+		break;
+	default:
+		dev_err(arizona->dev,
+			"DT property %s is malformed: %d\n",
+			prop, ret);
+	}
+
+	return ret;
+}
+
+static int arizona_of_read_u32(struct arizona *arizona,
+			       const char* prop, bool mandatory,
+			       u32 *data)
+{
+	return arizona_of_read_u32_array(arizona, prop, mandatory, data, 1);
+}
+
+static int arizona_of_get_gpio_defaults(struct arizona *arizona,
+					const char *prop)
+{
+	struct arizona_pdata *pdata = &arizona->pdata;
+	int i, ret;
+
+	ret = arizona_of_read_u32_array(arizona, prop, false,
+					pdata->gpio_defaults,
+					ARRAY_SIZE(pdata->gpio_defaults));
+	if (ret < 0)
+		return ret;
+
+	/*
+	 * All values are literal except out of range values
+	 * which are chip default, translate into platform
+	 * data which uses 0 as chip default and out of range
+	 * as zero.
+	 */
+	for (i = 0; i < ARRAY_SIZE(pdata->gpio_defaults); i++) {
+		if (pdata->gpio_defaults[i] > 0xffff)
+			pdata->gpio_defaults[i] = 0;
+		if (pdata->gpio_defaults[i] == 0)
+			pdata->gpio_defaults[i] = 0x10000;
+	}
+
+	return ret;
+}
+
+static int arizona_of_get_u32_num_groups(struct arizona *arizona,
+					const char *prop,
+					int group_size)
+{
+	int len_prop;
+	int num_groups;
+
+	if (!of_get_property(arizona->dev->of_node, prop, &len_prop))
+		return -EINVAL;
+
+	num_groups =  len_prop / (group_size * sizeof(u32));
+
+	if (num_groups * group_size * sizeof(u32) != len_prop) {
+		dev_err(arizona->dev,
+			"DT property %s is malformed: %d\n",
+			prop, -EOVERFLOW);
+		return -EOVERFLOW;
+	}
+
+	return num_groups;
+}
+
+static int arizona_of_get_micd_ranges(struct arizona *arizona,
+				      const char *prop)
+{
+	int nranges;
+	int i, j;
+	int ret = 0;
+	u32 value;
+	struct arizona_micd_range *micd_ranges;
+
+	nranges = arizona_of_get_u32_num_groups(arizona, prop, 2);
+	if (nranges < 0)
+		return nranges;
+
+	micd_ranges = devm_kzalloc(arizona->dev,
+				   nranges * sizeof(struct arizona_micd_range),
+				   GFP_KERNEL);
+
+	for (i = 0, j = 0; i < nranges; ++i) {
+		ret = of_property_read_u32_index(arizona->dev->of_node,
+						 prop, j++, &value);
+		if (ret < 0)
+			goto error;
+		micd_ranges[i].max = value;
+
+		ret = of_property_read_u32_index(arizona->dev->of_node,
+						 prop, j++, &value);
+		if (ret < 0)
+			goto error;
+		micd_ranges[i].key = value;
+	}
+
+	arizona->pdata.micd_ranges = micd_ranges;
+	arizona->pdata.num_micd_ranges = nranges;
+
+	return ret;
+
+error:
+	devm_kfree(arizona->dev, micd_ranges);
+	dev_err(arizona->dev, "DT property %s is malformed: %d\n", prop, ret);
+	return ret;
+}
+
+static int arizona_of_get_micd_configs(struct arizona *arizona,
+				       const char *prop)
+{
+	int nconfigs;
+	int i, j;
+	int ret = 0;
+	u32 value;
+	struct arizona_micd_config *micd_configs;
+
+	nconfigs = arizona_of_get_u32_num_groups(arizona, prop, 3);
+	if (nconfigs < 0)
+		return nconfigs;
+
+	micd_configs = devm_kzalloc(arizona->dev,
+				    nconfigs *
+				    sizeof(struct arizona_micd_config),
+				    GFP_KERNEL);
+
+	for (i = 0, j = 0; i < nconfigs; ++i) {
+		ret = of_property_read_u32_index(arizona->dev->of_node,
+						 prop, j++, &value);
+		if (ret < 0)
+			goto error;
+		micd_configs[i].src = value;
+
+		ret = of_property_read_u32_index(arizona->dev->of_node,
+						 prop, j++, &value);
+		if (ret < 0)
+			goto error;
+		micd_configs[i].bias = value;
+
+		ret = of_property_read_u32_index(arizona->dev->of_node,
+						 prop, j++, &value);
+		if (ret < 0)
+			goto error;
+		micd_configs[i].gpio = value;
+	}
+
+	arizona->pdata.micd_configs = micd_configs;
+	arizona->pdata.num_micd_configs = nconfigs;
+
+	return ret;
+
+error:
+	devm_kfree(arizona->dev, micd_configs);
+	dev_err(arizona->dev, "DT property %s is malformed: %d\n", prop, ret);
+	return ret;
+}
+
+static int arizona_of_get_core_pdata(struct arizona *arizona)
+{
+	struct arizona_pdata *pdata = &arizona->pdata;
+
+	arizona_of_get_named_gpio(arizona, "wlf,reset", true, &pdata->reset);
+	arizona_of_get_named_gpio(arizona, "wlf,ldoena", true, &pdata->ldoena);
+
+	arizona_of_read_u32(arizona, "wlf,micd-detect-debounce", false,
+			    &pdata->micd_detect_debounce);
+
+	arizona_of_get_named_gpio(arizona, "wlf,micd-pol-gpio", false,
+				  &pdata->micd_pol_gpio);
+
+	arizona_of_read_u32(arizona, "wlf,micd-bias-start-time", false,
+			    &pdata->micd_bias_start_time);
+
+	arizona_of_read_u32(arizona, "wlf,micd-rate", false,
+			    &pdata->micd_rate);
+
+	arizona_of_read_u32(arizona, "wlf,micd-dbtime", false,
+			    &pdata->micd_dbtime);
+
+	arizona_of_read_u32(arizona, "wlf,micd-timeout", false,
+			    &pdata->micd_timeout);
+
+	pdata->micd_force_micbias =
+		of_property_read_bool(arizona->dev->of_node,
+				      "wlf,micd-force-micbias");
+
+	arizona_of_get_micd_ranges(arizona, "wlf,micd-ranges");
+	arizona_of_get_micd_configs(arizona, "wlf,micd-configs");
+
+	arizona_of_get_gpio_defaults(arizona, "wlf,gpio-defaults");
+
+	arizona_of_read_u32_array(arizona, "wlf,max-channels-clocked",
+				  false,
+				  pdata->max_channels_clocked,
+				  ARRAY_SIZE(pdata->max_channels_clocked));
+
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	return 0;
 }
 
@@ -1523,9 +1795,12 @@ static inline int arizona_of_get_core_pdata(struct arizona *arizona)
 static struct mfd_cell early_devs[] = {
 	{ .name = "arizona-ldo1" },
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+<<<<<<< HEAD
 >>>>>>> parent of 118b367... messedup
 =======
 >>>>>>> parent of 633b278... mfd: Add device tree bindings for Arizona class devices
+=======
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 };
 
 static struct mfd_cell vegas_devs[] = {
@@ -1700,6 +1975,8 @@ int arizona_dev_init(struct arizona *arizona)
 	mutex_init(&arizona->reg_setting_lock);
 	mutex_init(&arizona->rate_lock);
 
+	arizona_of_get_core_pdata(arizona);
+
 	if (dev_get_platdata(arizona->dev))
 		memcpy(&arizona->pdata, dev_get_platdata(arizona->dev),
 		       sizeof(arizona->pdata));
@@ -1816,6 +2093,7 @@ int arizona_dev_init(struct arizona *arizona)
 	regcache_cache_only(arizona->regmap, false);
 
 	/* Verify that this is a chip we know about */
+<<<<<<< HEAD
 	ret = regmap_read(arizona->regmap, ARIZONA_SOFTWARE_RESET, &reg);
 	if (ret != 0) {
 		dev_err(dev, "Failed to read ID register: %d\n", ret);
@@ -1869,23 +2147,17 @@ int arizona_dev_init(struct arizona *arizona)
 	}
 
 	/* Read the device ID information & do device specific stuff */
+=======
+>>>>>>> 30b4a3c... mfd: arizona: Read the device identification information after boot
 	ret = regmap_read(arizona->regmap, ARIZONA_SOFTWARE_RESET, &reg);
 	if (ret != 0) {
 		dev_err(dev, "Failed to read ID register: %d\n", ret);
 		goto err_reset;
 	}
 
-	ret = regmap_read(arizona->regmap, ARIZONA_DEVICE_REVISION,
-			  &arizona->rev);
-	if (ret != 0) {
-		dev_err(dev, "Failed to read revision register: %d\n", ret);
-		goto err_reset;
-	}
-	arizona->rev &= ARIZONA_DEVICE_REVISION_MASK;
-
 	switch (reg) {
-#ifdef CONFIG_MFD_WM5102
 	case 0x5102:
+<<<<<<< HEAD
 		type_name = "WM5102";
 		if (arizona->type != WM5102) {
 			dev_err(arizona->dev, "WM5102 registered as %d\n",
@@ -1958,6 +2230,18 @@ int arizona_dev_init(struct arizona *arizona)
 		case WM8998:
 			type_name = "WM8998";
 			break;
+=======
+	case 0x5110:
+		break;
+	default:
+		dev_err(arizona->dev, "Unknown device ID: %x\n", reg);
+		goto err_reset;
+	}
+
+	/* If we have a /RESET GPIO we'll already be reset */
+	if (!arizona->pdata.reset) {
+		regcache_mark_dirty(arizona->regmap);
+>>>>>>> 30b4a3c... mfd: arizona: Read the device identification information after boot
 
 		case WM1814:
 			type_name = "WM1814";
@@ -1989,6 +2273,7 @@ int arizona_dev_init(struct arizona *arizona)
 			arizona->type = WM8285;
 		}
 
+<<<<<<< HEAD
 		apply_patch = clearwater_patch;
 		break;
 #endif
@@ -1997,6 +2282,17 @@ int arizona_dev_init(struct arizona *arizona)
 		switch (arizona->type) {
 		case CS47L35:
 			type_name = "CS47L35";
+=======
+	/* Ensure device startup is complete */
+	switch (arizona->type) {
+	case WM5102:
+		ret = regmap_read(arizona->regmap, 0x19, &val);
+		if (ret != 0)
+			dev_err(dev,
+				"Failed to check write sequencer state: %d\n",
+				ret);
+		else if (val & 0x01)
+>>>>>>> 30b4a3c... mfd: arizona: Read the device identification information after boot
 			break;
 
 		default:
@@ -2013,6 +2309,53 @@ default:
 		goto err_reset;
 	}
 
+<<<<<<< HEAD
+=======
+	/* Read the device ID information & do device specific stuff */
+	ret = regmap_read(arizona->regmap, ARIZONA_SOFTWARE_RESET, &reg);
+	if (ret != 0) {
+		dev_err(dev, "Failed to read ID register: %d\n", ret);
+		goto err_reset;
+	}
+
+	ret = regmap_read(arizona->regmap, ARIZONA_DEVICE_REVISION,
+			  &arizona->rev);
+	if (ret != 0) {
+		dev_err(dev, "Failed to read revision register: %d\n", ret);
+		goto err_reset;
+	}
+	arizona->rev &= ARIZONA_DEVICE_REVISION_MASK;
+
+	switch (reg) {
+#ifdef CONFIG_MFD_WM5102
+	case 0x5102:
+		type_name = "WM5102";
+		if (arizona->type != WM5102) {
+			dev_err(arizona->dev, "WM5102 registered as %d\n",
+				arizona->type);
+			arizona->type = WM5102;
+		}
+		apply_patch = wm5102_patch;
+		arizona->rev &= 0x7;
+		break;
+#endif
+#ifdef CONFIG_MFD_WM5110
+	case 0x5110:
+		type_name = "WM5110";
+		if (arizona->type != WM5110) {
+			dev_err(arizona->dev, "WM5110 registered as %d\n",
+				arizona->type);
+			arizona->type = WM5110;
+		}
+		apply_patch = wm5110_patch;
+		break;
+#endif
+	default:
+		dev_err(arizona->dev, "Unknown device ID %x\n", reg);
+		goto err_reset;
+	}
+
+>>>>>>> 30b4a3c... mfd: arizona: Read the device identification information after boot
 	dev_info(dev, "%s revision %c\n", type_name, arizona->rev + 'A');
 
 	if (apply_patch) {
@@ -2076,6 +2419,21 @@ default:
 		break;
 	}
 
+<<<<<<< HEAD
+=======
+	/*
+	 * LDO1 can only be used to supply DCVDD so if it has no
+	 * consumers then DCVDD is supplied externally.
+	 */
+	if (arizona->pdata.ldo1 &&
+	    arizona->pdata.ldo1->num_consumer_supplies == 0)
+		arizona->external_dcvdd = true;
+
+	pm_runtime_set_autosuspend_delay(arizona->dev, 100);
+	pm_runtime_use_autosuspend(arizona->dev);
+	pm_runtime_enable(arizona->dev);
+
+>>>>>>> c626f8c... mfd: arizona: Support use of external DCVDD
 	/* Chip default */
 	if (!arizona->pdata.clk32k_src)
 		arizona->pdata.clk32k_src = ARIZONA_32KZ_MCLK2;

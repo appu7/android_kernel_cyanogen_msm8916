@@ -66,6 +66,7 @@
 #define ARIZONA_CLK_98MHZ  5
 #define ARIZONA_CLK_147MHZ 6
 
+<<<<<<< HEAD
 #define CLEARWATER_DSP_CLK_9MHZ   0
 #define CLEARWATER_DSP_CLK_18MHZ  1
 #define CLEARWATER_DSP_CLK_36MHZ  2
@@ -74,6 +75,10 @@
 
 #define ARIZONA_MAX_DAI  11
 #define ARIZONA_MAX_ADSP 7
+=======
+#define ARIZONA_MAX_DAI  6
+#define ARIZONA_MAX_ADSP 4
+>>>>>>> 8efaa81... ASoC: arizona: Provide simple DAI ops for autoconfiguring interfaces
 
 struct arizona;
 struct wm_adsp;
@@ -301,6 +306,7 @@ extern const struct soc_enum arizona_lhpf3_mode;
 extern const struct soc_enum arizona_lhpf4_mode;
 
 extern const struct soc_enum arizona_ng_hold;
+<<<<<<< HEAD
 extern const struct soc_enum arizona_in_hpf_cut_enum;
 extern const struct soc_enum arizona_in_dmic_osr[];
 extern const struct soc_enum clearwater_in_dmic_osr[];
@@ -316,6 +322,9 @@ extern int arizona_ip_mode_put(struct snd_kcontrol *kcontrol,
 
 extern int arizona_put_anc_input(struct snd_kcontrol *kcontrol,
 			  struct snd_ctl_elem_value *ucontrol);
+=======
+extern const struct soc_enum arizona_in_dmic_osr[];
+>>>>>>> 6753a15... ASoC: wm5110: Correct input OSR bits for wm5110
 
 extern int arizona_in_ev(struct snd_soc_dapm_widget *w,
 			 struct snd_kcontrol *kcontrol,
@@ -399,12 +408,15 @@ extern int arizona_set_fll(struct arizona_fll *fll, int source,
 
 extern int arizona_init_spk(struct snd_soc_codec *codec);
 extern int arizona_init_gpio(struct snd_soc_codec *codec);
+<<<<<<< HEAD
 extern int arizona_init_mono(struct snd_soc_codec *codec);
 extern int arizona_init_input(struct snd_soc_codec *codec);
 
 extern int arizona_adsp_power_ev(struct snd_soc_dapm_widget *w,
 				 struct snd_kcontrol *kcontrol,
 				 int event);
+=======
+>>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
 
 extern int arizona_init_dai(struct arizona_priv *priv, int dai);
 

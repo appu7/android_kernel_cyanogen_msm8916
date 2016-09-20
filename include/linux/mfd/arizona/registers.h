@@ -290,11 +290,16 @@
 #define ARIZONA_DAC_VOLUME_LIMIT_6R              0x43E
 #define ARIZONA_NOISE_GATE_SELECT_6R             0x43F
 #define ARIZONA_DRE_ENABLE                       0x440
+<<<<<<< HEAD
 #define ARIZONA_DRE_CONTROL_1                    0x441
 #define ARIZONA_DRE_CONTROL_2                    0x442
 #define ARIZONA_DRE_CONTROL_3                    0x443
 #define CLEARWATER_EDRE_ENABLE                   0x448
 #define CLEARWATER_EDRE_MANUAL                   0x44A
+=======
+#define ARIZONA_DRE_CONTROL_2                    0x442
+#define ARIZONA_DRE_CONTROL_3                    0x443
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
 #define ARIZONA_DAC_AEC_CONTROL_1                0x450
 #define ARIZONA_DAC_AEC_CONTROL_2                0x451
 #define ARIZONA_NOISE_GATE_CONTROL               0x458
@@ -1327,6 +1332,7 @@
 #define ARIZONA_DSP2_STATUS_1                    0x1204
 #define ARIZONA_DSP2_STATUS_2                    0x1205
 #define ARIZONA_DSP2_STATUS_3                    0x1206
+<<<<<<< HEAD
 #define ARIZONA_DSP2_STATUS_4                    0x1207
 #define ARIZONA_DSP2_WDMA_BUFFER_1               0x1210
 #define ARIZONA_DSP2_WDMA_BUFFER_2               0x1211
@@ -1348,6 +1354,8 @@
 #define ARIZONA_DSP2_RDMA_CONFIG_1               0x1234
 #define ARIZONA_DSP2_RDMA_OFFSET_1               0x1235
 #define ARIZONA_DSP2_EXTERNAL_START_SELECT_1     0x1238
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable
 #define ARIZONA_DSP2_SCRATCH_0                   0x1240
 #define ARIZONA_DSP2_SCRATCH_1                   0x1241
 #define ARIZONA_DSP2_SCRATCH_2                   0x1242
@@ -1359,6 +1367,7 @@
 #define ARIZONA_DSP3_STATUS_1                    0x1304
 #define ARIZONA_DSP3_STATUS_2                    0x1305
 #define ARIZONA_DSP3_STATUS_3                    0x1306
+<<<<<<< HEAD
 #define ARIZONA_DSP3_STATUS_4                    0x1307
 #define ARIZONA_DSP3_WDMA_BUFFER_1               0x1310
 #define ARIZONA_DSP3_WDMA_BUFFER_2               0x1311
@@ -1380,6 +1389,8 @@
 #define ARIZONA_DSP3_RDMA_CONFIG_1               0x1334
 #define ARIZONA_DSP3_RDMA_OFFSET_1               0x1335
 #define ARIZONA_DSP3_EXTERNAL_START_SELECT_1     0x1338
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable
 #define ARIZONA_DSP3_SCRATCH_0                   0x1340
 #define ARIZONA_DSP3_SCRATCH_1                   0x1341
 #define ARIZONA_DSP3_SCRATCH_2                   0x1342
@@ -1449,6 +1460,7 @@
 #define ARIZONA_DSP4_STATUS_1                    0x1404
 #define ARIZONA_DSP4_STATUS_2                    0x1405
 #define ARIZONA_DSP4_STATUS_3                    0x1406
+<<<<<<< HEAD
 #define ARIZONA_DSP4_STATUS_4                    0x1407
 #define ARIZONA_DSP4_WDMA_BUFFER_1               0x1410
 #define ARIZONA_DSP4_WDMA_BUFFER_2               0x1411
@@ -1470,6 +1482,8 @@
 #define ARIZONA_DSP4_RDMA_CONFIG_1               0x1434
 #define ARIZONA_DSP4_RDMA_OFFSET_1               0x1435
 #define ARIZONA_DSP4_EXTERNAL_START_SELECT_1     0x1438
+=======
+>>>>>>> 7997936... mfd: wm5110: Make DSPn_STATUS_3 readable
 #define ARIZONA_DSP4_SCRATCH_0                   0x1440
 #define ARIZONA_DSP4_SCRATCH_1                   0x1441
 #define ARIZONA_DSP4_SCRATCH_2                   0x1442
@@ -5057,10 +5071,13 @@
 /*
  * R1088 (0x440) - DRE Enable
  */
+<<<<<<< HEAD
 #define ARIZONA_DRE3R_ENA                        0x0020  /* DRE3L_ENA */
 #define ARIZONA_DRE3R_ENA_MASK                   0x0020  /* DRE3L_ENA */
 #define ARIZONA_DRE3R_ENA_SHIFT                       5  /* DRE3L_ENA */
 #define ARIZONA_DRE3R_ENA_WIDTH                       1  /* DRE3L_ENA */
+=======
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
 #define ARIZONA_DRE3L_ENA                        0x0010  /* DRE3L_ENA */
 #define ARIZONA_DRE3L_ENA_MASK                   0x0010  /* DRE3L_ENA */
 #define ARIZONA_DRE3L_ENA_SHIFT                       4  /* DRE3L_ENA */
@@ -5083,6 +5100,7 @@
 #define ARIZONA_DRE1L_ENA_WIDTH                       1  /* DRE1L_ENA */
 
 /*
+<<<<<<< HEAD
  * R1088 (0x440) - DRE Enable (Vegas)
  */
 #define VEGAS_DRE3L_ENA                          0x0020  /* DRE3L_ENA */
@@ -5118,14 +5136,19 @@
 #define ARIZONA_DRE_ENV_TC_FAST_WIDTH                 4  /* DRE_ENV_TC_FAST - [11:8] */
 
 /*
+=======
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
  * R1090 (0x442) - DRE Control 2
  */
 #define ARIZONA_DRE_T_LOW_MASK                   0x3F00  /* DRE_T_LOW - [13:8] */
 #define ARIZONA_DRE_T_LOW_SHIFT                       8  /* DRE_T_LOW - [13:8] */
 #define ARIZONA_DRE_T_LOW_WIDTH                       6  /* DRE_T_LOW - [13:8] */
+<<<<<<< HEAD
 #define ARIZONA_DRE_ALOG_VOL_DELAY_MASK          0x000F  /* DRE_ALOG_VOL_DELAY - [3:0] */
 #define ARIZONA_DRE_ALOG_VOL_DELAY_SHIFT              0  /* DRE_ALOG_VOL_DELAY - [3:0] */
 #define ARIZONA_DRE_ALOG_VOL_DELAY_WIDTH              4  /* DRE_ALOG_VOL_DELAY - [3:0] */
+=======
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
 
 /*
  * R1091 (0x443) - DRE Control 3
@@ -5137,6 +5160,7 @@
 #define ARIZONA_DRE_LOW_LEVEL_ABS_SHIFT               0  /* LOW_LEVEL_ABS - [3:0] */
 #define ARIZONA_DRE_LOW_LEVEL_ABS_WIDTH               4  /* LOW_LEVEL_ABS - [3:0] */
 
+<<<<<<< HEAD
 /* R486 (0x448) - EDRE_Enable
  */
 #define CLEARWATER_EDRE_OUT4L_THR3_ENA           0x0800  /* EDRE_OUT4L_THR3_ENA */
@@ -5188,6 +5212,8 @@
 #define CLEARWATER_EDRE_OUT1R_THR1_ENA_SHIFT          0  /* EDRE_OUT1R_THR1_ENA */
 #define CLEARWATER_EDRE_OUT1R_THR1_ENA_WIDTH          1  /* EDRE_OUT1R_THR1_ENA */
 
+=======
+>>>>>>> e91b9e6... mfd: wm5102: Expose DRE control registers
 /*
  * R1104 (0x450) - DAC AEC Control 1
  */

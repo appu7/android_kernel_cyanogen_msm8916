@@ -21,6 +21,7 @@
 #include <sound/tlv.h>
 
 #include <linux/mfd/arizona/core.h>
+#include <linux/mfd/arizona/gpio.h>
 #include <linux/mfd/arizona/registers.h>
 
 #include "arizona.h"
@@ -591,6 +592,7 @@ int arizona_init_spk(struct snd_soc_codec *codec)
 }
 EXPORT_SYMBOL_GPL(arizona_init_spk);
 
+<<<<<<< HEAD
 int arizona_mux_put(struct snd_kcontrol *kcontrol,
 		    struct snd_ctl_elem_value *ucontrol)
 {
@@ -684,22 +686,35 @@ static const struct snd_soc_dapm_route arizona_mono_routes[] = {
 };
 
 int arizona_init_mono(struct snd_soc_codec *codec)
+=======
+int arizona_init_gpio(struct snd_soc_codec *codec)
+>>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
 {
 	struct arizona_priv *priv = snd_soc_codec_get_drvdata(codec);
 	struct arizona *arizona = priv->arizona;
 	int i;
 
+<<<<<<< HEAD
 	for (i = 0; i < ARIZONA_MAX_OUTPUT; ++i) {
 		if (arizona->pdata.out_mono[i])
 			snd_soc_dapm_add_routes(&codec->dapm,
 						&arizona_mono_routes[i], 1);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 =======
 	switch (arizona->type) {
 	case WM5110:
 		snd_soc_dapm_disable_pin(&codec->dapm, "DRC2 Signal Activity");
+<<<<<<< HEAD
+=======
+		break;
+	default:
+		break;
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	}
 
 	snd_soc_dapm_disable_pin(&codec->dapm, "DRC1 Signal Activity");
@@ -718,13 +733,17 @@ int arizona_init_mono(struct snd_soc_codec *codec)
 			break;
 		}
 >>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
+<<<<<<< HEAD
 >>>>>>> parent of ef1bf05... ASoC: arizona: Add default case to silence build warning
 =======
 >>>>>>> parent of c820628... ASoC: arizona: Add signal activity output for DRC
+=======
+>>>>>>> 118b367fb57a10b75eeb63a806e89b1958e31341
 	}
 
 	return 0;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(arizona_init_mono);
 
 static const char * const arizona_dmic_refs[] = {
@@ -742,6 +761,18 @@ static const char * const marley_dmic_refs[] = {
 };
 
 static const char * const arizona_dmic_inputs[] = {
+=======
+EXPORT_SYMBOL_GPL(arizona_init_gpio);
+
+const char *arizona_mixer_texts[ARIZONA_NUM_MIXER_INPUTS] = {
+	"None",
+	"Tone Generator 1",
+	"Tone Generator 2",
+	"Haptics",
+	"AEC",
+	"Mic Mute Mixer",
+	"Noise Generator",
+>>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
 	"IN1L",
 	"IN1R",
 	"IN2L",
@@ -1657,6 +1688,7 @@ const SOC_ENUM_SINGLE_DECL(arizona_ng_hold,
 			   arizona_ng_hold_text);
 EXPORT_SYMBOL_GPL(arizona_ng_hold);
 
+<<<<<<< HEAD
 static const char * const arizona_in_hpf_cut_text[] = {
 	"2.5Hz", "5Hz", "10Hz", "20Hz", "40Hz"
 };
@@ -1669,6 +1701,10 @@ EXPORT_SYMBOL_GPL(arizona_in_hpf_cut_enum);
 
 static const char * const arizona_in_dmic_osr_text[] = {
 	"1.536MHz", "3.072MHz", "6.144MHz", "768kHz",
+=======
+static const char * const arizona_in_dmic_osr_text[] = {
+	"1.536MHz", "3.072MHz", "6.144MHz",
+>>>>>>> 6753a15... ASoC: wm5110: Correct input OSR bits for wm5110
 };
 
 const struct soc_enum arizona_in_dmic_osr[] = {
@@ -1687,6 +1723,7 @@ const struct soc_enum arizona_in_dmic_osr[] = {
 };
 EXPORT_SYMBOL_GPL(arizona_in_dmic_osr);
 
+<<<<<<< HEAD
 static const char * const clearwater_in_dmic_osr_text[CLEARWATER_OSR_ENUM_SIZE] = {
 	"384kHz", "768kHz", "1.536MHz", "3.072MHz", "6.144MHz",
 };
@@ -1917,6 +1954,8 @@ exit:
 }
 EXPORT_SYMBOL_GPL(arizona_ip_mode_put);
 
+=======
+>>>>>>> 6753a15... ASoC: wm5110: Correct input OSR bits for wm5110
 static void arizona_in_set_vu(struct snd_soc_codec *codec, int ena)
 {
 	struct arizona_priv *priv = snd_soc_codec_get_drvdata(codec);
@@ -3907,6 +3946,7 @@ static int arizona_is_enabled_fll(struct arizona_fll *fll)
 static int arizona_wait_for_fll(struct arizona_fll *fll, bool requested)
 {
 	struct arizona *arizona = fll->arizona;
+<<<<<<< HEAD
 	unsigned int reg, mask;
 	unsigned int val = 0;
 	bool status;
@@ -3966,6 +4006,10 @@ static int arizona_enable_fll(struct arizona_fll *fll)
 		regmap_update_bits(fll->arizona->regmap, fll->base + 1,
 				   ARIZONA_FLL1_FREERUN, ARIZONA_FLL1_FREERUN);
 	}
+=======
+	int ret;
+	bool use_sync = false;
+>>>>>>> a5f268d... ASoC: arizona: Improve handling of setting REFCLK to 0
 
 	/*
 	 * If we have both REFCLK and SYNCCLK then enable both,
@@ -3973,14 +4017,24 @@ static int arizona_enable_fll(struct arizona_fll *fll)
 	 */
 	if (fll->ref_src >= 0 && fll->ref_freq &&
 	    fll->ref_src != fll->sync_src) {
+<<<<<<< HEAD
 		arizona_calc_fll(fll, &cfg, fll->ref_freq, false);
+=======
+		regmap_update_bits(arizona->regmap, fll->base + 5,
+				   ARIZONA_FLL1_OUTDIV_MASK,
+				   ref->outdiv << ARIZONA_FLL1_OUTDIV_SHIFT);
+>>>>>>> a5f268d... ASoC: arizona: Improve handling of setting REFCLK to 0
 
 		fll_change = arizona_apply_fll(arizona, fll->base, &cfg, fll->ref_src,
 				  false);
 		if (fll->sync_src >= 0) {
+<<<<<<< HEAD
 			arizona_calc_fll(fll, &cfg, fll->sync_freq, true);
 
 			fll_change |= arizona_apply_fll(arizona, fll->base + 0x10, &cfg,
+=======
+			arizona_apply_fll(arizona, fll->base + 0x10, sync,
+>>>>>>> a5f268d... ASoC: arizona: Improve handling of setting REFCLK to 0
 					  fll->sync_src, true);
 			use_sync = true;
 		}
@@ -4063,10 +4117,26 @@ int arizona_set_fll_refclk(struct arizona_fll *fll, int source,
 	if (fll->ref_src == source && fll->ref_freq == Fref)
 		return 0;
 
+<<<<<<< HEAD
 	if (fll->fout && Fref > 0) {
 		ret = arizona_validate_fll(fll, Fref, fll->fvco);
 		if (ret != 0)
 			return ret;
+=======
+	if (fll->fout) {
+		if (Fref > 0) {
+			ret = arizona_calc_fll(fll, &ref, Fref, fll->fout);
+			if (ret != 0)
+				return ret;
+		}
+
+		if (fll->sync_src >= 0) {
+			ret = arizona_calc_fll(fll, &sync, fll->sync_freq,
+					       fll->fout);
+			if (ret != 0)
+				return ret;
+		}
+>>>>>>> a5f268d... ASoC: arizona: Improve handling of setting REFCLK to 0
 	}
 
 	fll->ref_src = source;

@@ -261,6 +261,7 @@ static void arizona_extcon_set_mode(struct arizona_extcon_info *info, int mode)
 
 static const char *arizona_extcon_get_micbias(struct arizona_extcon_info *info)
 {
+<<<<<<< HEAD
 	struct arizona *arizona = info->arizona;
 
 	switch (arizona->type) {
@@ -275,6 +276,15 @@ static const char *arizona_extcon_get_micbias(struct arizona_extcon_info *info)
 		default:
 			return "MICVDD";
 		}
+=======
+	switch (info->micd_modes[0].bias) {
+	case 1:
+		return "MICBIAS1";
+	case 2:
+		return "MICBIAS2";
+	case 3:
+		return "MICBIAS3";
+>>>>>>> d61f8d1... extcon: arizona: Don't require micbias to be shifted in pdata
 	default:
 		switch (info->micd_modes[0].bias) {
 		case 1:
@@ -483,8 +493,12 @@ static int arizona_hpdet_read(struct arizona_extcon_info *info)
 			   >> ARIZONA_HP_IMPEDANCE_RANGE_SHIFT;
 
 		if (range < ARRAY_SIZE(arizona_hpdet_b_ranges) - 1 &&
+<<<<<<< HEAD
 		    (val < arizona_hpdet_b_ranges[range].threshold ||
 		     val >= ARIZONA_HPDET_B_RANGE_MAX)) {
+=======
+		    (val < 100 || val >= 0x3fb)) {
+>>>>>>> eee2789... extcon: arizona: Correct typo in headphone detect range transitions
 			range++;
 			dev_dbg(arizona->dev, "Moving to HPDET range %d\n",
 				range);
@@ -497,8 +511,12 @@ static int arizona_hpdet_read(struct arizona_extcon_info *info)
 		}
 
 		/* If we go out of range report top of range */
+<<<<<<< HEAD
 		if (val < arizona_hpdet_b_ranges[range].threshold ||
 		    val >= ARIZONA_HPDET_B_RANGE_MAX) {
+=======
+		if (val < 100 || val >= 0x3fb) {
+>>>>>>> eee2789... extcon: arizona: Correct typo in headphone detect range transitions
 			dev_dbg(arizona->dev, "Measurement out of range\n");
 			return ARIZONA_HPDET_MAX;
 		}
@@ -1241,6 +1259,7 @@ static irqreturn_t arizona_jackdet(int irq, void *data)
 		info->micd_timeout = DEFAULT_MICD_TIMEOUT;
 
 out:
+<<<<<<< HEAD
 	switch (arizona->type) {
 	case WM5102:
 	case WM5110:
@@ -1258,6 +1277,14 @@ out:
 	default:
 		break;
 	}
+=======
+	/* Clear trig_sts to make sure DCVDD is not forced up */
+	regmap_write(arizona->regmap, ARIZONA_AOD_WKUP_AND_TRIG,
+		     ARIZONA_MICD_CLAMP_FALL_TRIG_STS |
+		     ARIZONA_MICD_CLAMP_RISE_TRIG_STS |
+		     ARIZONA_JD1_FALL_TRIG_STS |
+		     ARIZONA_JD1_RISE_TRIG_STS);
+>>>>>>> 5f11de9... extcon: arizona: Clear trig_sts bits on all paths
 
 	mutex_unlock(&info->lock);
 
