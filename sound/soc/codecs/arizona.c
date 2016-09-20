@@ -693,6 +693,31 @@ int arizona_init_mono(struct snd_soc_codec *codec)
 		if (arizona->pdata.out_mono[i])
 			snd_soc_dapm_add_routes(&codec->dapm,
 						&arizona_mono_routes[i], 1);
+<<<<<<< HEAD
+=======
+=======
+	switch (arizona->type) {
+	case WM5110:
+		snd_soc_dapm_disable_pin(&codec->dapm, "DRC2 Signal Activity");
+	}
+
+	snd_soc_dapm_disable_pin(&codec->dapm, "DRC1 Signal Activity");
+
+	for (i = 0; i < ARRAY_SIZE(arizona->pdata.gpio_defaults); i++) {
+		switch (arizona->pdata.gpio_defaults[i] & ARIZONA_GPN_FN_MASK) {
+		case ARIZONA_GP_FN_DRC1_SIGNAL_DETECT:
+			snd_soc_dapm_enable_pin(&codec->dapm,
+						"DRC1 Signal Activity");
+			break;
+		case ARIZONA_GP_FN_DRC2_SIGNAL_DETECT:
+			snd_soc_dapm_enable_pin(&codec->dapm,
+						"DRC2 Signal Activity");
+			break;
+		default:
+			break;
+		}
+>>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
+>>>>>>> parent of ef1bf05... ASoC: arizona: Add default case to silence build warning
 	}
 
 	return 0;
