@@ -1431,6 +1431,161 @@ static struct mfd_cell wm8997_devs[] = {
 	{ .name = "arizona-haptics" },
 	{ .name = "arizona-pwm" },
 	{ .name = "wm8997-codec" },
+<<<<<<< HEAD
+=======
+=======
+#ifdef CONFIG_OF
+int arizona_of_get_type(struct device *dev)
+{
+	const struct of_device_id *id = of_match_device(arizona_of_match, dev);
+
+	if (id)
+		return (int)id->data;
+	else
+		return 0;
+}
+EXPORT_SYMBOL_GPL(arizona_of_get_type);
+
+static int arizona_of_get_named_gpio(struct arizona *arizona,
+				     const char *prop, bool mandatory,
+				     int *gpio)
+{
+	int ret;
+
+	ret = of_get_named_gpio(arizona->dev->of_node, prop, 0);
+	*gpio = ret;
+	if (ret >= 0)
+		return ret;
+
+	*gpio = 0;
+
+	if (mandatory)
+		dev_err(arizona->dev,
+			"Mandatory DT gpio %s missing/malformed: %d\n",
+			prop, ret);
+
+	return ret;
+}
+
+static int arizona_of_read_u32_array(struct arizona *arizona,
+				     const char *prop, bool mandatory,
+				     u32 *data, size_t num)
+{
+	int ret;
+
+	ret = of_property_read_u32_array(arizona->dev->of_node, prop,
+					 data, num);
+
+	if (ret >= 0)
+		return 0;
+
+	switch (ret) {
+	case -EINVAL:
+		if (mandatory)
+			dev_err(arizona->dev,
+				"Mandatory DT property %s is missing\n",
+				prop);
+		break;
+	default:
+		dev_err(arizona->dev,
+			"DT property %s is malformed: %d\n",
+			prop, ret);
+	}
+
+	return ret;
+}
+
+static int arizona_of_read_u32(struct arizona *arizona,
+			       const char* prop, bool mandatory,
+			       u32 *data)
+{
+	return arizona_of_read_u32_array(arizona, prop, mandatory, data, 1);
+}
+
+static int arizona_of_get_gpio_defaults(struct arizona *arizona,
+					const char *prop)
+{
+	struct arizona_pdata *pdata = &arizona->pdata;
+	int i, ret;
+
+	ret = arizona_of_read_u32_array(arizona, prop, false,
+					pdata->gpio_defaults,
+					ARRAY_SIZE(pdata->gpio_defaults));
+	if (ret < 0)
+		return ret;
+
+	/*
+	 * All values are literal except out of range values
+	 * which are chip default, translate into platform
+	 * data which uses 0 as chip default and out of range
+	 * as zero.
+	 */
+	for (i = 0; i < ARRAY_SIZE(pdata->gpio_defaults); i++) {
+		if (pdata->gpio_defaults[i] > 0xffff)
+			pdata->gpio_defaults[i] = 0;
+		if (pdata->gpio_defaults[i] == 0)
+			pdata->gpio_defaults[i] = 0x10000;
+	}
+
+	return ret;
+}
+
+static int arizona_of_get_core_pdata(struct arizona *arizona)
+{
+	struct arizona_pdata *pdata = &arizona->pdata;
+
+	arizona_of_get_named_gpio(arizona, "wlf,reset", true, &pdata->reset);
+	arizona_of_get_named_gpio(arizona, "wlf,ldoena", true, &pdata->ldoena);
+
+	arizona_of_read_u32(arizona, "wlf,micd-detect-debounce", false,
+			    &pdata->micd_detect_debounce);
+
+	arizona_of_get_named_gpio(arizona, "wlf,micd-pol-gpio", false,
+				  &pdata->micd_pol_gpio);
+
+	arizona_of_read_u32(arizona, "wlf,micd-bias-start-time", false,
+			    &pdata->micd_bias_start_time);
+
+	arizona_of_read_u32(arizona, "wlf,micd-rate", false,
+			    &pdata->micd_rate);
+
+	arizona_of_read_u32(arizona, "wlf,micd-dbtime", false,
+			    &pdata->micd_dbtime);
+
+	arizona_of_read_u32(arizona, "wlf,micd-timeout", false,
+			    &pdata->micd_timeout);
+
+	pdata->micd_force_micbias =
+		of_property_read_bool(arizona->dev->of_node,
+				      "wlf,micd-force-micbias");
+
+	arizona_of_get_gpio_defaults(arizona, "wlf,gpio-defaults");
+
+	arizona_of_read_u32_array(arizona, "wlf,max-channels-clocked",
+				  false,
+				  pdata->max_channels_clocked,
+				  ARRAY_SIZE(pdata->max_channels_clocked));
+
+	return 0;
+}
+
+const struct of_device_id arizona_of_match[] = {
+	{ .compatible = "wlf,wm5102", .data = (void *)WM5102 },
+	{ .compatible = "wlf,wm5110", .data = (void *)WM5110 },
+	{},
+};
+EXPORT_SYMBOL_GPL(arizona_of_match);
+#else
+static inline int arizona_of_get_core_pdata(struct arizona *arizona)
+{
+	return 0;
+}
+#endif
+
+static struct mfd_cell early_devs[] = {
+	{ .name = "arizona-ldo1" },
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+>>>>>>> parent of 118b367... messedup
 };
 
 static struct mfd_cell vegas_devs[] = {

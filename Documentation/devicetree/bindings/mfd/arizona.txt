@@ -149,6 +149,38 @@ Optional subnodes:
     Documentation/devicetree/bindings/regulator/regulator.txt
   - micvdd : Initial data for the MICVDD regulator, as covered in
     Documentation/devicetree/bindings/regulator/regulator.txt
+<<<<<<< HEAD
+=======
+=======
+
+  - wlf,micd-detect-debounce : Additional software microphone detection
+    debounce specified in milliseconds
+  - wlf,micd-pol-gpio : GPIO specifier for the GPIO controlling the headset
+    polarity if one exists
+  - wlf,micd-bias-start-time : Time allowed for MICBIAS to startup prior to
+    performing microphone detection, specified as per the MICD_BIAS_STARTTIME
+    bits in the register MIC_DETECT_1
+  - wlf,micd-rate : Delay between successive microphone detection measurements,
+    specified as per the MICD_RATE bits in the register MIC_DETECT_1
+  - wlf,micd-dbtime : Microphone detection hardware debounce level, specified
+    as per the MICD_DBTIME bits in the register MIC_DETECT_1
+  - wlf,micd-timeout : Timeout for microphone detection, specified in
+    milliseconds
+  - wlf,micd-force-micbias : Force MICBIAS continuously on during microphone
+    detection
+
+  - wlf,gpio-defaults : A list of GPIO configuration register values. If
+    absent, no configuration of these registers is performed. If any
+    entry has a value that is out of range for a 16 bit register then
+    the chip default will be used.  If present exactly five values must
+    be specified.
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+
+  - wlf,max-channels-clocked : The maximum number of channels to be clocked on
+    each AIF, useful for I2S systems with multiple data lines being mastered.
+    If specified three cells must supplied one for each AIF, specify zero for
+    AIFs that should be handled normally.
+>>>>>>> parent of 118b367... messedup
 
 Example:
 
@@ -169,6 +201,10 @@ codec: wm5102@1a {
 	wlf,micd-dbtime = <0x1>;
 	wlf,micd-timeout = <10>;
 	wlf,micd-force-micbias;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> parent of 118b367... messedup
 	wlf,micd-ranges = <
 		11 0x100
 		28 0x101
@@ -201,4 +237,24 @@ codec: wm5102@1a {
 	>;
 
 	wlf,max-channels-clocked = <2 0 0>;
+<<<<<<< HEAD
+=======
+=======
+=======
+
+>>>>>>> 6d2143f... mfd: arizona: Add simple microphone detection device tree bindings
+	wlf,gpio-defaults = <
+		0x00000000 /* AIF1TXLRCLK */
+		0xffffffff
+		0xffffffff
+		0xffffffff
+		0xffffffff
+	>;
+<<<<<<< HEAD
+>>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+=======
+
+	wlf,max-channels-clocked = <2 0 0>;
+>>>>>>> 96fba83... mfd: arizona: Add device tree binding for max_channels_clocked
+>>>>>>> parent of 118b367... messedup
 };
