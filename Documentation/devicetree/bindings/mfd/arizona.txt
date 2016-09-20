@@ -160,12 +160,15 @@ Optional subnodes:
     be specified.
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
 
+<<<<<<< HEAD
   - wlf,max-channels-clocked : The maximum number of channels to be clocked on
     each AIF, useful for I2S systems with multiple data lines being mastered.
     If specified three cells must supplied one for each AIF, specify zero for
     AIFs that should be handled normally.
 >>>>>>> parent of 118b367... messedup
 
+=======
+>>>>>>> parent of 696f5f5... mfd: arizona: Add device tree binding for max_channels_clocked
 Example:
 
 codec: wm5102@1a {
@@ -238,11 +241,13 @@ codec: wm5102@1a {
 		0xffffffff
 		0xffffffff
 	>;
-<<<<<<< HEAD
 >>>>>>> 25012d0... mfd: Add device tree bindings for Arizona class devices
+<<<<<<< HEAD
 =======
 
 	wlf,max-channels-clocked = <2 0 0>;
 >>>>>>> 96fba83... mfd: arizona: Add device tree binding for max_channels_clocked
 >>>>>>> parent of 118b367... messedup
+=======
+>>>>>>> parent of 696f5f5... mfd: arizona: Add device tree binding for max_channels_clocked
 };
