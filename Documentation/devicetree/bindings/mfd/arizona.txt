@@ -153,22 +153,6 @@ Optional subnodes:
 =======
 =======
 
-  - wlf,micd-detect-debounce : Additional software microphone detection
-    debounce specified in milliseconds
-  - wlf,micd-pol-gpio : GPIO specifier for the GPIO controlling the headset
-    polarity if one exists
-  - wlf,micd-bias-start-time : Time allowed for MICBIAS to startup prior to
-    performing microphone detection, specified as per the MICD_BIAS_STARTTIME
-    bits in the register MIC_DETECT_1
-  - wlf,micd-rate : Delay between successive microphone detection measurements,
-    specified as per the MICD_RATE bits in the register MIC_DETECT_1
-  - wlf,micd-dbtime : Microphone detection hardware debounce level, specified
-    as per the MICD_DBTIME bits in the register MIC_DETECT_1
-  - wlf,micd-timeout : Timeout for microphone detection, specified in
-    milliseconds
-  - wlf,micd-force-micbias : Force MICBIAS continuously on during microphone
-    detection
-
   - wlf,gpio-defaults : A list of GPIO configuration register values. If
     absent, no configuration of these registers is performed. If any
     entry has a value that is out of range for a 16 bit register then
@@ -195,6 +179,10 @@ codec: wm5102@1a {
 	gpio-controller;
 	#gpio-cells = <2>;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> parent of 6adf6b2... mfd: arizona: Add simple microphone detection device tree bindings
 	wlf,micd-detect-debounce = <10>;
 	wlf,micd-bias-start-time = <0x1>;
 	wlf,micd-rate = <0x1>;
@@ -202,9 +190,12 @@ codec: wm5102@1a {
 	wlf,micd-timeout = <10>;
 	wlf,micd-force-micbias;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> parent of 118b367... messedup
+=======
+>>>>>>> parent of 6adf6b2... mfd: arizona: Add simple microphone detection device tree bindings
 	wlf,micd-ranges = <
 		11 0x100
 		28 0x101
@@ -240,9 +231,6 @@ codec: wm5102@1a {
 <<<<<<< HEAD
 =======
 =======
-=======
-
->>>>>>> 6d2143f... mfd: arizona: Add simple microphone detection device tree bindings
 	wlf,gpio-defaults = <
 		0x00000000 /* AIF1TXLRCLK */
 		0xffffffff
