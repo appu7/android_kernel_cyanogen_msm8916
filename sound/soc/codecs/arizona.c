@@ -694,6 +694,7 @@ int arizona_init_mono(struct snd_soc_codec *codec)
 			snd_soc_dapm_add_routes(&codec->dapm,
 						&arizona_mono_routes[i], 1);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 	switch (arizona->type) {
@@ -718,6 +719,8 @@ int arizona_init_mono(struct snd_soc_codec *codec)
 		}
 >>>>>>> f8a3d06... ASoC: arizona: Add signal activity output for DRC
 >>>>>>> parent of ef1bf05... ASoC: arizona: Add default case to silence build warning
+=======
+>>>>>>> parent of c820628... ASoC: arizona: Add signal activity output for DRC
 	}
 
 	return 0;
