@@ -472,6 +472,7 @@ static inline void wm_adsp_debugfs_save_binname(struct wm_adsp *dsp,
 #endif
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 struct wm_coeff {
@@ -497,6 +498,8 @@ struct wm_coeff_ctl {
 
 >>>>>>> 864d8f62... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 >>>>>>> parent of a82569a... ASoC: wm_adsp: Ensure set controls are synced on each boot
+=======
+>>>>>>> parent of b372390... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 static int wm_adsp_fw_get(struct snd_kcontrol *kcontrol,
 			  struct snd_ctl_elem_value *ucontrol)
 {
@@ -728,6 +731,7 @@ static unsigned int wm_adsp_region_to_reg(struct wm_adsp_region const *mem,
 
 static void wm_adsp2_show_fw_status(struct wm_adsp *dsp)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 static int wm_coeff_info(struct snd_kcontrol *kcontrol,
@@ -908,6 +912,8 @@ err_kcontrol:
 static int wm_adsp_load(struct wm_adsp *dsp)
 >>>>>>> 864d8f62... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 >>>>>>> parent of a82569a... ASoC: wm_adsp: Ensure set controls are synced on each boot
+=======
+>>>>>>> parent of b372390... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 {
 	u16 scratch[4];
 	int ret;
@@ -1194,6 +1200,7 @@ static int wm_adsp_create_ctl_blk(struct wm_adsp *dsp,
 				  const char *subname, unsigned int subname_len,
 				  unsigned int flags, int block)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 static int wm_coeff_init_control_caches(struct wm_coeff *wm_coeff)
@@ -1348,6 +1355,8 @@ err_name:
 static int wm_adsp_setup_algs(struct wm_adsp *dsp, struct snd_soc_codec *codec)
 >>>>>>> 864d8f62... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 >>>>>>> parent of a82569a... ASoC: wm_adsp: Ensure set controls are synced on each boot
+=======
+>>>>>>> parent of b372390... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 {
 	struct wm_coeff_ctl *ctl;
 	struct wmfw_ctl_work *ctl_work;
@@ -3529,14 +3538,18 @@ static int wm_adsp_ack_buffer_interrupt(struct wm_adsp *dsp)
 	int ret;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> parent of a82569a... ASoC: wm_adsp: Ensure set controls are synced on each boot
+=======
+>>>>>>> parent of b372390... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 	ret = wm_adsp_host_buffer_read(dsp,
 				       HOST_BUFFER_FIELD(irq_count),
 				       &irq_ack);
 	if (ret < 0)
 		return ret;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -3557,6 +3570,8 @@ static int wm_adsp_ack_buffer_interrupt(struct wm_adsp *dsp)
 		break;
 >>>>>>> 864d8f62... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 >>>>>>> parent of a82569a... ASoC: wm_adsp: Ensure set controls are synced on each boot
+=======
+>>>>>>> parent of b372390... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 
 	if (!dsp->buffer_drain_pending)
 		irq_ack |= 1;		/* enable further IRQs */
@@ -3712,9 +3727,9 @@ static ssize_t wm_adsp_debugfs_running_read(struct file *file,
 	struct wm_adsp *dsp = file->private_data;
 	char temp[2];
 
-<<<<<<< HEAD
 	temp[0] = dsp->running ? 'Y' : 'N';
 	temp[1] = '\n';
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 	temp[0] = dsp->running ? 'Y' : 'N';
@@ -3738,6 +3753,8 @@ static ssize_t wm_adsp_debugfs_running_read(struct file *file,
 			goto err;
 >>>>>>> 864d8f62... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 >>>>>>> parent of a82569a... ASoC: wm_adsp: Ensure set controls are synced on each boot
+=======
+>>>>>>> parent of b372390... ASoC: wm_adsp: Expose coefficient blocks as ALSA binary controls
 
 	return simple_read_from_buffer(user_buf, count, ppos, temp, 2);
 }
