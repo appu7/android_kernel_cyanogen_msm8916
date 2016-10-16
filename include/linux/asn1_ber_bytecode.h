@@ -62,18 +62,10 @@ enum asn1_opcode {
 #define ASN1_OP__MATCHES_TAG ASN1_OP_COND_MATCH_ANY_ACT_OR_SKIP
 
 	/* These are here to help fill up space */
-<<<<<<< HEAD
 	ASN1_OP_COND_FAIL		= 0x1c,
 	ASN1_OP_COMPLETE		= 0x1d,
 	ASN1_OP_ACT			= 0x1e,
 	ASN1_OP_MAYBE_ACT		= 0x1f,
-=======
-	ASN1_OP_COND_FAIL		= 0x1b,
-	ASN1_OP_COMPLETE		= 0x1c,
-	ASN1_OP_ACT			= 0x1d,
-	ASN1_OP_MAYBE_ACT		= 0x1e,
-	ASN1_OP_RETURN			= 0x1f,
->>>>>>> cm-13.0
 
 	/* The following eight have bit 0 -> SET, 1 -> OF, 2 -> ACT */
 	ASN1_OP_END_SEQ			= 0x20,
