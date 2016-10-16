@@ -489,7 +489,6 @@ struct input_keymap_entry {
 #define KEY_GESTURE_SLIDE_V		259
 #define KEY_GESTURE_SLIDE_S		260
 
-
 /* Code 255 is reserved for special needs of AT keyboard driver */
 
 #define BTN_MISC		0x100
