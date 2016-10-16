@@ -55,55 +55,8 @@
 #include <linux/pipe_fs_i.h>
 #include <linux/oom.h>
 #include <linux/compat.h>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
->>>>>>> b5652f1... Revert "messedup"
-#include <linux/resource.h>
-#include <linux/ksm.h>
-<<<<<<< HEAD
->>>>>>> 8db42f7... mm: Add UKSM support
-=======
->>>>>>> 2b25bc5... mm: Add UKSM support
->>>>>>> 20137b9... UKMS support
->>>>>>> 7273b5d... UKMS support
-
-<<<<<<< HEAD
-=======
-#include <linux/resource.h>
-#include <linux/ksm.h>
->>>>>>> 7ca5863... messedup
-=======
->>>>>>> cd263b3da3fed084fb0d06d8ee8a6fa6072553be
-=======
-=======
-#include <linux/resource.h>
-#include <linux/ksm.h>
->>>>>>> 8db42f7... mm: Add UKSM support
-
->>>>>>> parent of 7ca5863... messedup
->>>>>>> b5652f1... Revert "messedup"
-=======
-
->>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+
-=======
-#include <linux/ksm.h>
->>>>>>> 2141daa... messed up
-=======
-
->>>>>>> 59cd64a... Revert "messed up"
-=======
 #include <linux/ksm.h>
 
->>>>>>> 16e501a... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 #include <asm/uaccess.h>
 #include <asm/mmu_context.h>
 #include <asm/tlb.h>

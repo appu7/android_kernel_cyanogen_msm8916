@@ -2766,37 +2766,12 @@ void exit_mmap(struct mm_struct *mm)
 		vma = remove_vma(vma);
 	}
 	vm_unacct_memory(nr_accounted);
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	mm->mmap = NULL;
-	mm->mm_rb = RB_ROOT;
-	vmacache_invalidate(mm);
-	up_write(&mm->mmap_sem);
-
-<<<<<<< HEAD
->>>>>>> 7273b5d... UKMS support
-=======
->>>>>>> 183ba9d... Fixed compilation warnings for GCC 5+
-=======
-	mm->mmap = NULL;
-	mm->mm_rb = RB_ROOT;
-	mm->mmap_cache = NULL;
-	up_write(&mm->mmap_sem);	
->>>>>>> 2141daa... messed up
-=======
-
->>>>>>> 59cd64a... Revert "messed up"
-=======
 	mm->mmap = NULL;
 	mm->mm_rb = RB_ROOT;
 	mm->mmap_cache = NULL;
 	up_write(&mm->mmap_sem);
 
->>>>>>> 16e501a... MM: Merge UKSM 0.1.2.3 from 3.10.y + adapt and fix for my tree.
 	WARN_ON(mm->nr_ptes > (FIRST_USER_ADDRESS+PMD_SIZE-1)>>PMD_SHIFT);
 }
 
