@@ -6,7 +6,7 @@ export KBUILD_BUILD_USER=Ajith
 export KBUILD_BUILD_HOST=Xzotic
 #make clean && make mrproper
 make menuconfig
-make cyanogenmod_tomato-64_defconfig
+make cyanogenmod_lettuce-64_defconfig
 make -j5
 #
 #AK_VER="Despair.M.CFS.R1.Shamu saber"
