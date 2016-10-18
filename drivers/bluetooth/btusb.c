@@ -23,7 +23,7 @@
 #include <linux/module.h>
 #include <linux/usb.h>
 #include <linux/firmware.h>
-
+//#include "ath3k.h"
 #include <net/bluetooth/bluetooth.h>
 #include <net/bluetooth/hci_core.h>
 
@@ -50,7 +50,10 @@ static struct usb_driver btusb_driver;
 #define BTUSB_ATH3012		0x80
 #define BTUSB_INTEL		0x100
 #define BTUSB_INTEL_BOOT	0x200
-
+	
+int get_rome_version(struct usb_device *udev);
+int rome_download(struct usb_device *udev);
+	
 static struct usb_device_id btusb_table[] = {
 	/* Generic Bluetooth USB device */
 	{ USB_DEVICE_INFO(0xe0, 0x01, 0x01) },
