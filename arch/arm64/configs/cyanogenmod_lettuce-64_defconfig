@@ -754,6 +754,6 @@ CONFIG_KEXEC_HARDBOOT=y
 #Simple gpu algorithm
 CONFIG_SIMPLE_GPU_ALGORITHM=y
 #Kernel samepage merging
-#CONFIG_KSM is not set 
-#CONFIG_UKSM is not set
+CONFIG_KSM is not set 
+CONFIG_UKSM is not set
 # CONFIG_KSM_LEGACY is not set
