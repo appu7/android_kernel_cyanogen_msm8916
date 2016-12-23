@@ -1039,7 +1039,6 @@ static void hub_activate(struct usb_hub *hub, enum hub_activation_type type)
 		goto init3;
 	}
 	kref_get(&hub->kref);
-
 	/* The superspeed hub except for root hub has to use Hub Depth
 	 * value as an offset into the route string to locate the bits
 	 * it uses to determine the downstream port number. So hub driver
@@ -1244,7 +1243,7 @@ static void hub_activate(struct usb_hub *hub, enum hub_activation_type type)
 			PREPARE_DELAYED_WORK(&hub->init_work, hub_init_func3);
 			schedule_delayed_work(&hub->init_work,
 					msecs_to_jiffies(delay));
-			device_unlock(hub->intfdev);
+                        device_unlock(hub->intfdev);
 			return;		/* Continues at init3: below */
 		} else {
 			msleep(delay);

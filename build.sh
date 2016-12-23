@@ -4,7 +4,7 @@ export SUBARCH=arm64
 export USE_CCACHE=1
 export KBUILD_BUILD_USER=Ajith
 export KBUILD_BUILD_HOST=Xzotic
-make clean && make mrproper
+#make clean && make mrproper
 #make menuconfig
 make kali_defconfig
 make -j5
