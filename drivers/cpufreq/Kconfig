@@ -199,6 +199,13 @@ config CPU_FREQ_DEFAULT_GOV_LIONFISH
 	select CPU_FREQ_GOV_LIONFISH
 	help
 		Use the CPUFreq governor 'lionfish' as default. 
+		
+config CPU_FREQ_DEFAULT_GOV_ELECTROACTIVE
+	bool "electroactive"
+	select CPU_FREQ_GOV_ELECTROACTIVE
+	select CPU_FREQ_GOV_PERFORMANCE
+	help
+	  Use the CPUFreq governor 'electroactive' as default. 		
 
 config CPU_FREQ_DEFAULT_GOV_HELLSACTIVE
 	bool "hellsactive"
@@ -334,7 +341,18 @@ config CPU_FREQ_GOV_CONSERVATIVE
 
 	  If in doubt, say N.
 
+config CPU_FREQ_GOV_ELECTROACTIVE
+	tristate "'electroactive' cpufreq policy governor"
+	select CPU_FREQ_TABLE
+	help
+	  'electroactive' - This driver adds a dynamic cpufreq policy governor.
 
+	  To compile this driver as a module, choose M here: the
+	  module will be called cpufreq_electroactive.
+
+	  For details, take a look at linux/Documentation/cpu-freq.
+ 
+	  If in doubt, say N
 
 config CPU_FREQ_GOV_BARRY_ALLEN
 	tristate "'barry_allen' cpufreq policy governor"
